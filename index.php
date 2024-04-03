@@ -1,6 +1,28 @@
 <?php
 
+	date_default_timezone_set('Asia/Kolkata');
+        
+	$today = date('Y-m-d');
+
+	require "php/connection.php";
 	$_SESSION['usertype'] = ""; 
+
+	$query = "select * from doctor";
+	$result= $database->query($query);
+	$doctor = $result->num_rows;
+
+	$query = "select * from patient";
+	$result= $database->query($query);
+	$patient = $result->num_rows;
+	
+	$query = "select * from schedule where sche_date = '$today'";
+	$result= $database->query($query);
+	$schedule = $result->num_rows;
+
+	
+	$query = "select * from specialist";
+	$result= $database->query($query);
+	$spec = $result->num_rows;
 
 ?>
 <!doctype html>
@@ -15,7 +37,7 @@
 		
 		<?php 
 			require "Section/PreLoader.php";
-			require "Section/Header.php";
+			require "Section/navbar.php";
 		?>
 		<!-- Slider Area -->
 		<section class="slider">
@@ -29,8 +51,8 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
-										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">View Doctor</a>
+										<a href="login.php " class="btn">Get Appointment</a>
+										<a href="doctor.php" class="btn primary">View Doctor</a>
 									</div>
 								</div>
 							</div>
@@ -47,8 +69,8 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
-										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">View Doctor</a>
+										<a href="login.php " class="btn">Get Appointment</a>
+										<a href="doctor.php" class="btn primary">View Doctor</a>
 									</div>
 								</div>
 							</div>
@@ -65,8 +87,8 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
-										<a href="#" class="btn">Get Appointment</a>
-										<a href="#" class="btn primary">View Doctor</a>
+										<a href="login.php " class="btn">Get Appointment</a>
+										<a href="doctor.php" class="btn primary">View Doctor</a>
 									</div>
 								</div>
 							</div>
@@ -141,10 +163,10 @@
 					<div class="col-lg-3 col-md-6 col-12">
 						<!-- Start Single Fun -->
 						<div class="single-fun">
-							<i class="icofont icofont-user-alt-3"></i>
+							<i class="icofont icofont-doctor-alt"></i>
 							<div class="content">
-								<span class="counter">557</span>
-								<p>Specialist Doctors</p>
+								<span class="counter"><?php echo $doctor; ?></span>
+								<p>Available Doctors</p>
 							</div>
 						</div>
 						<!-- End Single Fun -->
@@ -154,7 +176,7 @@
 						<div class="single-fun">
 							<i class="icofont-simple-smile"></i>
 							<div class="content">
-								<span class="counter">4379</span>
+								<span class="counter"><?php echo $patient; ?></span>
 								<p>Total Patients</p>
 							</div>
 						</div>
@@ -165,7 +187,7 @@
 						<div class="single-fun">
 							<i class="icofont icofont-table"></i>
 							<div class="content">
-								<span class="counter">32</span>
+								<span class="counter"><?php echo $schedule; ?></span>
 								<p>Today's Total Session</p>
 							</div>
 						</div>
@@ -174,10 +196,10 @@
 					<div class="col-lg-3 col-md-6 col-12">
 						<!-- Start Single Fun -->
 						<div class="single-fun">
-							<i class="icofont icofont-newspaper"></i>
+							<i class="icofont icofont-doctor"></i>
 							<div class="content">
-								<span class="counter">3468</span>
-								<p>Doctor's Article</p>
+								<span class="counter"><?php echo $spec; ?></span>
+								<p>Total Specialist</p>
 							</div>
 						</div>
 						<!-- End Single Fun -->
@@ -218,32 +240,17 @@
 							<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. </p>
 							
 						</div>
-						<!-- End Choose Left -->
 					</div>
 					<div class="col-lg-6 col-12">
-						<!-- Start Choose Rights -->
 						<div class="choose-right">
 							<div class="video-image">
-								<!-- Video Animation -->
-								<!-- <div class="promo-video">
-									<div class="waves-block">
-										<div class="waves wave-1"></div>
-										<div class="waves wave-2"></div>
-										<div class="waves wave-3"></div>
-									</div>
-								</div> -->
-								<!--/ End Video Animation -->
 								<img src=""><i class="fa fa-play"></i></img>
 							</div>
 						</div>
-						<!-- End Choose Rights -->
 					</div>
 				</div>
 			</div>
 		</section>
-		<!--/ End Why choose -->
-		
-		<!-- Start Call to action -->
 		<section class="call-action overlay" data-stellar-background-ratio="0.5">
 			<div class="container">
 				<div class="row">
@@ -260,9 +267,6 @@
 				</div>
 			</div>
 		</section>
-		<!--/ End Call to action -->
-		
-		<!-- Start portfolio -->
 		<section class="portfolio section" >
 			<div class="container">
 				<div class="row">
@@ -313,9 +317,6 @@
 				</div>
 			</div>
 		</section>
-		<!--/ End portfolio -->
-		
-		<!-- Start service -->
 		<section class="services section">
 			<div class="container">
 				<div class="row">
@@ -328,69 +329,50 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-prescription"></i>
 							<h4><a href="service-details.html">General Treatment</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
-						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-tooth"></i>
 							<h4><a href="service-details.html">Teeth Whitening</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
-						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-heart-alt"></i>
 							<h4><a href="service-details.html">Heart Surgery</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
-						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-listening"></i>
 							<h4><a href="service-details.html">Ear Treatment</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
-						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-eye-alt"></i>
 							<h4><a href="service-details.html">Vision Problems</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
-						<!-- End Single Service -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Start Single Service -->
 						<div class="single-service">
 							<i class="icofont icofont-blood"></i>
 							<h4><a href="service-details.html">Blood Transfusion</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
-						<!-- End Single Service -->
 					</div>
 				</div>
 			</div>
 		</section>
-		<!--/ End service -->
-		
-		
-		
-		
-		
-		<!-- Start Blog Area -->
 		<section class="blog section" id="blog">
 			<div class="container">
 				<div class="row">
@@ -404,7 +386,6 @@
 				</div>
 				<div class="row">
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Single Blog -->
 						<div class="single-news">
 							<div class="news-head">
 								<img src="img/blog1.jpg" alt="#">
@@ -417,10 +398,8 @@
 								</div>
 							</div>
 						</div>
-						<!-- End Single Blog -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Single Blog -->
 						<div class="single-news">
 							<div class="news-head">
 								<img src="img/blog2.jpg" alt="#">
@@ -433,10 +412,8 @@
 								</div>
 							</div>
 						</div>
-						<!-- End Single Blog -->
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
-						<!-- Single Blog -->
 						<div class="single-news">
 							<div class="news-head">
 								<img src="img/blog3.jpg" alt="#">
@@ -449,56 +426,13 @@
 								</div>
 							</div>
 						</div>
-						<!-- End Single Blog -->
 					</div>
 				</div>
 			</div>
 		</section>
-		<!-- Footer Area -->
 		<?php 
 			require "Section/Footer.php";
+			require "ImportFile/Javascript.php";
 		?>
-		<!--/ End Footer Area -->
-		
-		<!-- jquery Min JS -->
-        <script src="js/jquery.min.js"></script>
-		<!-- jquery Migrate JS -->
-		<script src="js/jquery-migrate-3.0.0.js"></script>
-		<!-- jquery Ui JS -->
-		<script src="js/jquery-ui.min.js"></script>
-		<!-- Easing JS -->
-        <script src="js/easing.js"></script>
-		<!-- Color JS -->
-		<script src="js/colors.js"></script>
-		<!-- Popper JS -->
-		<script src="js/popper.min.js"></script>
-		<!-- Bootstrap Datepicker JS -->
-		<script src="js/bootstrap-datepicker.js"></script>
-		<!-- Jquery Nav JS -->
-        <script src="js/jquery.nav.js"></script>
-		<!-- Slicknav JS -->
-		<script src="js/slicknav.min.js"></script>
-		<!-- ScrollUp JS -->
-        <script src="js/jquery.scrollUp.min.js"></script>
-		<!-- Niceselect JS -->
-		<script src="js/niceselect.js"></script>
-		<!-- Tilt Jquery JS -->
-		<script src="js/tilt.jquery.min.js"></script>
-		<!-- Owl Carousel JS -->
-        <script src="js/owl-carousel.js"></script>
-		<!-- counterup JS -->
-		<script src="js/jquery.counterup.min.js"></script>
-		<!-- Steller JS -->
-		<script src="js/steller.js"></script>
-		<!-- Wow JS -->
-		<script src="js/wow.min.js"></script>
-		<!-- Magnific Popup JS -->
-		<script src="js/jquery.magnific-popup.min.js"></script>
-		<!-- Counter Up CDN JS -->
-		<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
-		<!-- Bootstrap JS -->
-		<script src="js/bootstrap.min.js"></script>
-		<!-- Main JS -->
-		<script src="js/main.js"></script>
     </body>
 </html>

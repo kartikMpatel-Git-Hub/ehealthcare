@@ -12,7 +12,7 @@
     <body>
 		<?php
 		 	require "Section/PreLoader.php";
-			require "Section/Header.php";
+			require "Section/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
 			<div class="container">
@@ -47,7 +47,7 @@
             ?>
             <div class="col-lg-3 col-md-4 col-12" style="padding:30px;">
                 <div class="single-news">
-                    <a href="">
+                    <a href="doctor.php?action=view&id=<?php echo $spe; ?>">
                         <div class="news-head">
                             <center>
                                 <i class="menu-btn menu-icon-<?php echo $spcil_name;?>" style="font-size:50px; margin-top:10px;"></i>
@@ -66,7 +66,7 @@
             <?php }?>
             <div class="col-lg-3 col-md-4 col-12" style="padding:30px;">
                 <div class="single-news">
-                    <a href="">
+                    <a href="doctor.php">
                         <div class="news-head">
                             <center>
                                 <i class="menu-btn menu-icon-Other" style="font-size:50px; margin-top:10px;"></i>

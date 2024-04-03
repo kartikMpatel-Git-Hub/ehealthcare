@@ -1241,7 +1241,6 @@ body{
 	display: block;
 	padding: 20px;
 	text-align: center;
-	border-radius: 0;
 	border: none;
 	margin: 0;
 	margin-top: -1px;
@@ -4166,6 +4165,10 @@ body{
 	text-decoration:underline;
 	display:inline-block;
 	margin-left:4px;
+}
+.btn-appo :hover{
+	background-color: #005aa3;
+	border-radius: 10px;
 }
 /*=========================
 	End Footer CSS

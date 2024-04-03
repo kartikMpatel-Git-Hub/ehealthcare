@@ -12,7 +12,7 @@
 									<div class="single-content">
 										<h4>Available Specialist</h4>
 										<p>Click TO Check All Specialist list</p>
-										<a href="#">Click Here<i class="fa fa-long-arrow-right"></i></a>
+										<a href="specialist.php">Click Here<i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>

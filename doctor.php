@@ -9,7 +9,7 @@
     <body>
 		<?php
 		 	require "Section/PreLoader.php";
-			require "Section/Header.php";
+			require "Section/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
 			<div class="container">
@@ -27,36 +27,55 @@
 				</div>
 			</div>
 		</div>
-		<!-- End Breadcrumbs -->
 		<?php
 			require "php/connection.php";
-
-			$query = "select * from doctor";
-			$result= $database->query($query);
+			if($_GET){
+				$id=$_GET["id"];
+				$action=$_GET["action"];
+				if($action=='view')
+				{
+					$query = "select * from doctor where spec_id = '$id'";
+					$result= $database->query($query);
+				}
+				else
+				{
+					?>
+						<script>window.location.href='specialist.php';</script>
+					<?php
+				}
+			}
+			else
+			{
+				$query = "select * from doctor";
+				$result= $database->query($query);	
+			}
+			
 		?>
 		<!-- Start Portfolio Details Area -->
 			<section class="blog section">
 				<div class="row" style="width:90%; padding-left:15%;">
 				
 					<?php
-						for ($x=0; $x<$result->num_rows;$x++)
+						if($result->num_rows)
 						{
-							$row=$result->fetch_assoc();
-							$docid=$row["doc_id"];
-							$name=$row["doc_name"];
-							$img=$row['doc_img'];
-							$spe=$row['spec_id'];
-							$spcil_res= $database->query("select spec_type from specialist  where spec_id='$spe'");
-							$spcil_array= $spcil_res->fetch_assoc();
-							$spcil_name=$spcil_array["spec_type"];
-							$address=$row['doc_address'];
+							for ($x=0; $x<$result->num_rows;$x++)
+							{
+								$row=$result->fetch_assoc();
+								$docid=$row["doc_id"];
+								$name=$row["doc_name"];
+								$img=$row['doc_img'];
+								$spe=$row['spec_id'];
+								$spcil_res= $database->query("select spec_type from specialist  where spec_id='$spe'");
+								$spcil_array= $spcil_res->fetch_assoc();
+								$spcil_name=$spcil_array["spec_type"];
+								$address=$row['doc_address'];
 					?>
 					<div class="col-lg-4 col-md-6 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="news-head">
 								<img src="User/Doctor/img/<?php echo $img; ?>" alt="#" height="10%">
 							</div>
-							<a href="">
+							<a href="doctordetail.php?action=view&id=<?php echo $docid; ?>">
 							<div class="news-body">
 								<div class="news-content">
 									<center>
@@ -69,7 +88,17 @@
 						</a>
 						</div>
 					</div>
-					<?php } ?>
+					<?php 
+							}
+						}
+						else
+						{
+							$spcil_res= $database->query("select spec_type from specialist  where spec_id='$id'");
+							$spcil_array= $spcil_res->fetch_assoc();
+							$spcil_name=$spcil_array["spec_type"];
+							echo '<div style="font-size:50px; margin-left:300px;">'.$spcil_name.' Not Available !</div>';
+						} 
+					?>
 				</div>
 			</section>
 		<!-- End Portfolio Details Area -->
