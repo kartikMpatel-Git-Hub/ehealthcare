@@ -28,7 +28,7 @@
 										<span>Doctor's Details</span>	
 										<h4>View All Doctor Details</h4>
 										<p>Click Here TO Check All Doctor Available In System..</p>
-										<a href="#">View Doctor<i class="fa fa-long-arrow-right"></i></a>
+										<a href="doctor.php">View Doctor<i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>

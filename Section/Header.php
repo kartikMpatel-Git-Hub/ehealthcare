@@ -46,7 +46,8 @@
 									<nav class="navigation">
 										<ul class="nav menu">
 											<li><a href="index.php">Home</a></li>
-											<li><a href="portfolio-details.php">Doctos </a></li>
+											<li><a href="specialist.php">Specialist</a></li>
+											<li><a href="doctor.php">Doctos </a></li>
 											<li><a href="#">My Appointment</a></li>
 											<li><a href="article.php">Article </a></li>
 											<li><a href="contact.php">Contact Us</a></li>

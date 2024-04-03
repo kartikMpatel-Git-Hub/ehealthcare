@@ -511,7 +511,7 @@ Preloader Area CSS
 	background-position: center;
 	background-repeat: no-repeat;
 	position: relative;
-	padding: 120px 0px;
+	padding: 50px 0px;
 }
 .breadcrumbs .bread-inner{
 	z-index:22;
@@ -644,12 +644,7 @@ dd {
 	margin: 0 1.5em 1.5em;
 }
 
-img {
-	height: auto;
-	/* Make sure images are scaled correctly. */
-	max-width: 100%;
-	/* Adhere to container width. */
-}
+
 
 figure {
 	margin: 1em 0;

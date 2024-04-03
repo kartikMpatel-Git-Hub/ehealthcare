@@ -9,6 +9,7 @@
         <title>Mediplus - Free Medical and Doctor Directory HTML Template.</title>
 		
 		<!-- Favicon -->
+        <link rel="stylesheet" href="css/main.css">
         <link rel="icon" href="img/favicon.png">
 		
 		<!-- Google Fonts -->
