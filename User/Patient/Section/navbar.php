@@ -49,6 +49,7 @@
 											<li><a href="specialist.php">Specialist</a></li>
 											<li><a href="doctor.php">Doctos </a></li>
 											<li><a href="session.php">Session</a></li>
+											<li><a href="#">My Appointments</a></li>
 											<li><a href="article.php">Article </a></li>
 										</ul>
 									</nav>
@@ -57,7 +58,7 @@
 							</div>
 							<div class="col-lg-2 col-12">
 								<div class="get-quote">
-									<a href="login.php" class="btn">Login / Registration</a>
+									<a href="login.php" class="btn">Book Appointment</a>
 								</div>
 							</div>
 						</div>

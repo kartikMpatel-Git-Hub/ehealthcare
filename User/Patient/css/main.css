@@ -1,0 +1,68 @@
+.button-icon{
+  
+  background-position: 10px 50%;
+  background-repeat: no-repeat;
+  transition: 0.5s;
+  padding: 8px 20px 8px 40px;
+}
+
+.menu-btn{
+  padding:0px 20px 20px 20px;
+  color: #3b3b3b;
+  background-position: 30% 50%;
+  background-repeat: no-repeat;
+  transition: 0.5s;
+  
+}
+
+.menu-icon-user{
+  background-image: url('../img/icon/user.svg');
+}
+
+.menu-icon-Anaesthetics{
+  background-image: url('../img/icon/Anaesthetics.svg');
+}
+
+.menu-icon-Allergology{
+  background-image: url('../img/icon/Allergology.svg');
+}
+
+.menu-icon-Dentist{
+  background-image: url('../img/icon/Dentist.svg');
+}
+
+.menu-icon-Radiologiest{
+  background-image: url('../img/icon/Radiologiest.svg');
+}
+
+.menu-icon-Neurologist{
+  background-image: url('../img/icon/Neurologist.svg');
+}
+
+.menu-icon-Cardiologist{
+  background-image: url('../img/icon/Cardiologist.svg');
+}
+
+.menu-icon-Otologist{
+  background-image: url('../img/icon/Otologist.svg');
+}
+
+.menu-icon-ophthalmologist{
+  background-image: url('../img/icon/ophthalmologist.svg');
+}
+
+.menu-icon-Dermatology{
+  background-image: url('../img/icon/Dermatology.svg');
+}
+
+.menu-icon-Pulmonologist{
+  background-image: url('../img/icon/Pulmonologist.svg');
+}
+
+.menu-icon-Orthopedic{
+  background-image: url('../img/icon/Orthopedic.svg');
+} 
+
+.menu-icon-Other{
+  background-image: url('../img/icon/Other.svg');
+} 

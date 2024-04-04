@@ -48,6 +48,20 @@
                     $_SESSION['Message'] = "Wrong Email Or Password !!";
                 }
             } 
+            elseif($utype == 'P') {
+                $checker = $database->query("select * from patient where patient_email='$email' and patient_password='$password'");
+
+                if ($checker->num_rows == 1) {
+                    $_SESSION['email'] = $email;
+                    $_SESSION['usertype'] = 'P';
+
+                    header('location: User/Patient/index.php');
+
+                } else {
+                    // echo "wrong";
+                    $_SESSION['Message'] = "Wrong Email Or Password !!";
+                }
+            } 
         }
         else {
             $_SESSION['Message'] = "Enter Email And Password First  !!";
