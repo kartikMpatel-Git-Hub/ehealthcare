@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if(isset($_SESSION["email"])){
+    if(($_SESSION["email"])=="" or $_SESSION['usertype']!='P'){
+        header("location: ../../login.php");
+    }else{
+        $useremail=$_SESSION["email"];
+    }
+}else{
+    header("location: ../../login.php");
+}
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
@@ -40,7 +53,7 @@
 				else
 				{
 					?>
-						<script>window.location.href='specialist.php';</script>
+						<script>window.location.href='doctordetail.php?action=view&id=<?php echo $id;?>';</script>
 					<?php
 				}
 			}
@@ -61,11 +74,13 @@
 							for ($x=0; $x<$result->num_rows;$x++)
 							{
 								$row=$result->fetch_assoc();
+								$scheid=$row['sche_id'];
 								$docid=$row["doc_id"];
 								$title=$row["sche_title"];
 								$date=$row['sche_date'];
 								$start=$row['sche_start'];
 								$end=$row['sche_end'];
+								$booking=$row['sche_noappo'];
 
                                 $query= $database->query("select * from doctor where doc_id='$docid'");
 								$doc= $query->fetch_assoc();
@@ -78,13 +93,27 @@
 								$spcil_res= $database->query("select spec_type from specialist  where spec_id='$spe'");
 								$spcil_array= $spcil_res->fetch_assoc();
 								$spcil_name=$spcil_array["spec_type"];
+
+
+								$query="select * from appointment where sche_id = '$scheid'";
+								$empty=$database->query($query);	
+								$totapo=$empty->num_rows;
+								$space = $booking - $totapo;
+
+								$query= $database->query("select * from patient where patient_email='$useremail'");
+								$patient= $query->fetch_assoc();
+								$pid=$patient["patient_id"];
+
+								$query="select * from appointment where sche_id = '$scheid' and patient_id = '$pid'";
+								$empty=$database->query($query);	
+								$status=$empty->num_rows;
                                 
 					?>
 					<div class="col-lg-12 col-md-6 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="row">
-								<img src="User/Doctor/img/<?php echo $img; ?>" alt="#" class="squre col-3" style="padding:20px; margin-left:10px; border-radius:50%;">
-                                <a href="doctor.php" class="col-6" style="padding:30px;">
+								<img src="../Doctor/img/<?php echo $img; ?>" alt="#" class="squre col-3" style="padding:20px 30px; margin:30px 0 0 10px; border-radius:50%;">
+                                <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-6" style="padding:30px;">
                                     <div style="padding-top:30px;">
                                             <div class="detail" style="color:#199fd9;"><b>D</b><?php echo 'r . '.$name; ?></div>
                                             <div class="detail" style="font-weight:bold;"><?php echo $spcil_name; ?></div>
@@ -97,17 +126,42 @@
                                 </a>
                                 
                                 <?php
-                                    if(date('w', strtotime($date)))
-                                    {
-                                        echo 
-                                        '
-                                            <p class="col-2 book" ><a href="login.php" style="color:white; padding:20px 60px;">Book</a></p>
-                                        ';
-                                    }
-                                    else
-                                    {
-                                        echo '<p class="col-2 bookg" ><a href="login.php" style="color:white; background-color:green; padding:20px 60px;">Book Free</a></p>';
-                                    }    
+									if($status > 0)
+									{
+										echo 
+											'
+												<p class="col-2 book" ><a href="#" style="color:white; padding:20px 60px;">View Booking</a></p>
+											';
+										
+									}
+									else
+									{
+										if($space > 0)
+										{
+											if(date('w', strtotime($date)))
+											{
+													echo 
+													'
+														<p class="col-2 book" ><a href="booking.php?action=add&id='.$scheid.'" style="color:white; padding:20px 30px;">Book</a></p>
+													';
+											}
+											else
+											{
+													echo 
+													'
+													<p class="col-2 bookg" ><a href="booking.php?action=add&id='.$scheid.'" style="color:white;padding:20px 60px;">Book Free</a></p>
+													';
+											}   
+										}
+										else
+										{
+											echo 
+											'
+												<p class="col-2 bookr" ><a style="color:white; padding:20px 60px;">Session Full</a></p>
+											';
+										}
+									}
+                                     
                                 ?>
 							</div>
 						</div>
@@ -117,10 +171,10 @@
 						}
 						else
 						{
-							$spcil_res= $database->query("select spec_type from specialist  where spec_id='$id'");
-							$spcil_array= $spcil_res->fetch_assoc();
-							$spcil_name=$spcil_array["spec_type"];
-							echo '<div style="font-size:50px; margin-left:300px;">'.$spcil_name.' Not Available !</div>';
+							$query= $database->query("select * from doctor  where doc_id='$id'");
+							$result= $query->fetch_assoc();
+							$docname=$result["doc_name"];
+							echo '<div style="font-size:50px; margin-left:300px;">'.$docname." 's Session Not Available !</div>";
 						} 
 					?>
 				</div>

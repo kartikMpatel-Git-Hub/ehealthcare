@@ -66,3 +66,11 @@
 .menu-icon-Other{
   background-image: url('../img/icon/Other.svg');
 } 
+
+.menu-icon-like{
+  background-image: url('../img/icon/like.svg');
+} 
+
+.menu-icon-likedone{
+  background-image: url('../img/icon/likedone.svg');
+} 

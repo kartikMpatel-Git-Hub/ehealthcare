@@ -15,17 +15,22 @@
 	date_default_timezone_set('Asia/Kolkata');
         
 	$today = date('Y-m-d');
-
+	$_SESSION['today'] = $today;
 	require "php/connection.php";
-	$_SESSION['usertype'] = ""; 
 
 	$query = "select * from doctor";
 	$result= $database->query($query);
 	$doctor = $result->num_rows;
-
+	
 	$query = "select * from patient";
 	$result= $database->query($query);
 	$patient = $result->num_rows;
+	
+	$query = "select * from patient where patient_email = '$useremail'";
+	$result= $database->query($query);
+	$row=$result->fetch_assoc();
+	$_SESSION['name']=$row['patient_name'];
+	$_SESSION['phoneno']=$row['patient_phoneno'];
 	
 	$query = "select * from schedule where sche_date = '$today'";
 	$result= $database->query($query);
@@ -64,7 +69,7 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
-										<a href="login.php " class="btn">Get Appointment</a>
+										<a href="session.php " class="btn">Get Appointment</a>
 										<a href="doctor.php" class="btn primary">View Doctor</a>
 									</div>
 								</div>
@@ -82,7 +87,7 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
-										<a href="login.php " class="btn">Get Appointment</a>
+										<a href="session.php " class="btn">Get Appointment</a>
 										<a href="doctor.php" class="btn primary">View Doctor</a>
 									</div>
 								</div>
@@ -100,7 +105,7 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
-										<a href="login.php " class="btn">Get Appointment</a>
+										<a href="session.php " class="btn">Get Appointment</a>
 										<a href="doctor.php" class="btn primary">View Doctor</a>
 									</div>
 								</div>

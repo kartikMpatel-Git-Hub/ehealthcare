@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+if(isset($_SESSION["email"])){
+    if(($_SESSION["email"])=="" or $_SESSION['usertype']!='P'){
+        header("location: ../../login.php");
+    }else{
+        $useremail=$_SESSION["email"];
+    }
+}else{
+    header("location: ../../login.php");
+}
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
@@ -73,7 +86,7 @@
 					<div class="col-lg-4 col-md-6 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="news-head">
-								<img src="User/Doctor/img/<?php echo $img; ?>" alt="#" height="10%">
+								<img src="../Doctor/img/<?php echo $img; ?>" alt="#" height="10%">
 							</div>
 							<a href="doctordetail.php?action=view&id=<?php echo $docid; ?>">
 							<div class="news-body">

@@ -42,11 +42,11 @@
 									</div>
 									<div class="single-content">
 										<span>Free Session</span>
-										<h4>On Every Friday</h4>
+										<h4>On Every Sunday</h4>
 										<ul class="time-sidual">
 											<li class="day"> -Next Date- <span>8.00-20.00</span></li>
 										</ul>
-										<a href="#">Click Here to View All Session<i class="fa fa-long-arrow-right"></i></a>
+										<a href="session.php">Click Here to View All Session<i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>

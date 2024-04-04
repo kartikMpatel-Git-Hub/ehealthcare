@@ -1,3 +1,17 @@
+<?php
+session_start();
+
+if(isset($_SESSION["email"])){
+    if(($_SESSION["email"])=="" or $_SESSION['usertype']!='P'){
+        header("location: ../../login.php");
+    }else{
+        $useremail=$_SESSION["email"];
+    }
+}else{
+    header("location: ../../login.php");
+}
+?>
+
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>

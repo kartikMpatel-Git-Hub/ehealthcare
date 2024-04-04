@@ -16,8 +16,8 @@
 						<div class="col-lg-6 col-md-7 col-12">
 							<!-- Top Contact -->
 							<ul class="top-contact">
-								<li><i class="fa fa-phone"></i>+91 99247 00970</li>
-								<li><i class="fa fa-envelope"></i><a href="mailto:support@gmail.com">support@gamil.com</a></li>
+								<li><i class="fa fa-phone"></i>+<?php echo $_SESSION['phoneno'];?></li>
+								<li><i class="fa fa-envelope"></i><a href="mailto:support@gmail.com"><?php echo $_SESSION['email'];?></a></li>
 							</ul>
 							<!-- End Top Contact -->
 						</div>
@@ -58,7 +58,7 @@
 							</div>
 							<div class="col-lg-2 col-12">
 								<div class="get-quote">
-									<a href="login.php" class="btn">Book Appointment</a>
+									<a href="../../login.php" class="btn"><i class="icofont icofont-doctor"></i>  <?php echo $_SESSION['name'];?></a>
 								</div>
 							</div>
 						</div>
