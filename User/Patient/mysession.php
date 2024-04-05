@@ -22,20 +22,20 @@ $today = date('Y-m-d');
     <head>
         <!-- Meta Tags -->
 		<?php
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 		<?php
-		 	// require "Section/PreLoader.php";
-			require "Section/navbar.php";
+		 	require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
 			<div class="container">
 				<div class="bread-inner">
 					<div class="row">
 						<div class="col-12">
-							<h2>Session</h2>
+							<h2>My Appointment</h2>
 							<ul class="bread-list">
 								<li><a href="index.html">Home</a></li>
 								<li><i class="icofont-simple-right"></i></li>
@@ -134,7 +134,7 @@ $today = date('Y-m-d');
                                 <?php
 									echo 
 										'
-											<p class="col-2 bookr" style="margin-bottom:30px;"><a href="booking.php?action=delete&id='.$appoid.'">cancle</a></p>
+											<p class="col-2 bookr" style="margin-bottom:30px;"><a href="php/booking.php?action=delete&id='.$appoid.'">cancle</a></p>
 										';
                                 ?>
 							</div>
@@ -145,7 +145,7 @@ $today = date('Y-m-d');
 						}
 						else
 						{
-							echo '<div style="font-size:50px; margin-left:300px;">Session Not Available !</div>';
+							echo '<div style="font-size:50px; margin-left:300px;">'."You Have No Appointment's !".'</div>';
 						} 
 					?>
 				</div>
@@ -153,8 +153,8 @@ $today = date('Y-m-d');
 		<!-- End Portfolio Details Area -->
 		
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>

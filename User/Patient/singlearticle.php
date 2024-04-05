@@ -15,16 +15,15 @@ if(isset($_SESSION["email"])){
 <html class="no-js" lang="zxx">
 	<head>
         <?php 
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 			?>
     </head>
     <body>
 		
 		<?php 
-			require "Section/PreLoader.php";
-			require "Section/navbar.php";
+			require "Import/PreLoader.php";
+			require "Import/navbar.php";
 			?>
-		<!-- Breadcrumbs -->
 		<div class="breadcrumbs overlay">
 			<div class="container">
 				<div class="bread-inner">
@@ -36,7 +35,6 @@ if(isset($_SESSION["email"])){
 				</div>
 			</div>
 		</div>
-		<!-- End Breadcrumbs -->
 		<?php
 			require "php/connection.php";
 			$query= $database->query("select * from patient  where patient_email='$useremail'");
@@ -83,7 +81,6 @@ if(isset($_SESSION["email"])){
 			$sql="update article set article_view = article_view + 1 where article_id = '$aid'";
        		$result1= $database->query($sql);
 		?>
-		<!-- Single News -->
 		<section class="news-single section">
 			<div class="container">
 				<div class="row">
@@ -91,13 +88,10 @@ if(isset($_SESSION["email"])){
 						<div class="row">
 							<div class="col-12">
 								<div class="single-main">
-									<!-- News Head -->
 									<div class="news-head">
 										<img src="../Doctor/img/Article/<?php echo $img;?>" alt="#">
 									</div>
-									<!-- News Title -->
 									<h1 class="news-title"><?php echo $title;?></h1>
-									<!-- Meta -->
 									<div class="meta">
 										<div class="meta-left">
 											<span class="author"><a href="#"><img src="../Doctor/img/<?php echo $doc_img;?>" alt="#"><?php echo $doc_name;?></a></span>
@@ -108,7 +102,6 @@ if(isset($_SESSION["email"])){
 											<span class="views"><i class="fa fa-eye"></i><?php echo $view; ?> Views</span>
 										</div>
 									</div>
-									<!-- News Text -->
 									<div class="news-text">
 										<p><?php echo $desc;?></p>
 									</div>
@@ -138,19 +131,17 @@ if(isset($_SESSION["email"])){
 													$row1=$result1->fetch_assoc();
 													$name = $row1['patient_name'];
 													$email = $row1['patient_email'];
-
-			
+													$pimg = $row1['patient_img'];
 										?>
 										<div class="comments-body" style="margin-top:30px;">
 											<div class="single-comments">
 												<div class="main">
 													<div class="head">
-														<img src="../img/user.png" alt="#"/>
-														<!-- <i class="fa fa-calendar"></i> -->
+														<img src="../../img/Patient/<?php echo $pimg;?>" alt="#"/>
 													</div>
 													<div class="body">
 														<h4><?php if($useremail == $email){echo "You";} else{ echo $name; }?></h4>
-														<div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i><?php echo $date;?></span><span class="meta"><i class="fa fa-clock-o"></i><?php echo $time;?></span><?php if($pid == $userid) { ?><span class="meta"><a href="comment.php?action=delete&id=<?php echo $cid;?>" class="fa fa-trash" style="background-color:white; color:black;"></a></span><?php } ?></div>
+														<div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i><?php echo $date;?></span><span class="meta"><i class="fa fa-clock-o"></i><?php echo $time;?></span><?php if($pid == $userid) { ?><span class="meta"><a href="php/comment.php?action=delete&id=<?php echo $cid;?>" class="fa fa-trash" style="background-color:white; color:black;"></a></span><?php } ?></div>
 														<p><?php echo $des; ?></p>
 													</div>
 												</div>
@@ -163,12 +154,10 @@ if(isset($_SESSION["email"])){
 										?>
 								</div>
 							</div>
-
 							<div class="col-12">
 								<div class="comments-form">
 									<h2>Leave Comments</h2>
-									<!-- Contact Form -->
-									<form class="form" method="post" action="comment.php?action=add&id=<?php echo $aid;?>">
+									<form class="form" method="post" action="php/comment.php?action=add&id=<?php echo $aid;?>">
 										<div class="row">
 											<div class="col-12">
 												<div class="form-group message">
@@ -187,46 +176,12 @@ if(isset($_SESSION["email"])){
 							</div>
 						</div>
 					</div>
-					<!-- <div class="col-lg-4 col-12">
-						<div class="main-sidebar">
-							<div class="single-widget search">
-								<div class="form">
-									<input type="email" placeholder="Search Here...">
-									<a class="button" href="#"><i class="fa fa-search"></i></a>
-								</div>
-							</div>
-							<div class="single-widget category">
-								<h3 class="title">Other Publisher's Blog</h3>
-								<ul class="categor-list">
-									<li><a href="#">Men's Apparel</a></li>
-								</ul>
-							</div>
-							<div class="single-widget recent-post">
-								<h3 class="title">Recent post</h3>
-								<div class="single-post">
-									<div class="image">
-										<img src="img/blog-sidebar1.jpg" alt="#">
-									</div>
-									<div class="content">
-										<h5><a href="#">We have annnocuced our new product.</a></h5>
-										<ul class="comment">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>Jan 11, 2020</li>
-											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>35</li>
-										</ul>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div> -->
 				</div>
 			</div>
 		</section>
-		<!--/ End Single News -->
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
-		<!--/ End Footer Area -->
-		
     </body>
 </html>

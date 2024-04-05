@@ -1,36 +1,34 @@
 <?php
+		date_default_timezone_set('Asia/Kolkata');
 
-	date_default_timezone_set('Asia/Kolkata');
-        
-	$today = date('Y-m-d');
+		$today = date('Y-m-d');
+		$_SESSION['today'] = $today;
+		require "php/connection.php";
 
-	require "php/connection.php";
-	$_SESSION['usertype'] = ""; 
+		$query = "select * from doctor";
+		$result= $database->query($query);
+		$doctor = $result->num_rows;
 
-	$query = "select * from doctor";
-	$result= $database->query($query);
-	$doctor = $result->num_rows;
+		$query = "select * from patient";
+		$result= $database->query($query);
+		$patient = $result->num_rows;
 
-	$query = "select * from patient";
-	$result= $database->query($query);
-	$patient = $result->num_rows;
-	
-	$query = "select * from schedule where sche_date = '$today'";
-	$result= $database->query($query);
-	$schedule = $result->num_rows;
+		$query = "select * from schedule where sche_date = '$today'";
+		$result= $database->query($query);
+		$schedule = $result->num_rows;
 
-	
-	$query = "select * from specialist";
-	$result= $database->query($query);
-	$spec = $result->num_rows;
 
+		$query = "select * from specialist";
+		$result= $database->query($query);
+		$spec = $result->num_rows;
 ?>
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
        <?php
 			require "ImportFile/Head.php";
-	   ?>
+			?>
+			<link rel="stylesheet" href="style.css">
     </head>
     <body>
 		
@@ -51,7 +49,7 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
-										<a href="login.php " class="btn">Get Appointment</a>
+										<a href="session.php " class="btn">Get Appointment</a>
 										<a href="doctor.php" class="btn primary">View Doctor</a>
 									</div>
 								</div>
@@ -69,7 +67,7 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
-										<a href="login.php " class="btn">Get Appointment</a>
+										<a href="session.php " class="btn">Get Appointment</a>
 										<a href="doctor.php" class="btn primary">View Doctor</a>
 									</div>
 								</div>
@@ -87,7 +85,7 @@
 									<h1>We Provide <span>Medical</span> Services That You Can <span>Trust!</span></h1>
 									<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sed nisl pellentesque, faucibus libero eu, gravida quam. </p>
 									<div class="button">
-										<a href="login.php " class="btn">Get Appointment</a>
+										<a href="session.php " class="btn">Get Appointment</a>
 										<a href="doctor.php" class="btn primary">View Doctor</a>
 									</div>
 								</div>

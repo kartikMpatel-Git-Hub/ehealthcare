@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
@@ -65,6 +66,7 @@
 								$name=$row["doc_name"];
 								$img=$row['doc_img'];
 								$spe=$row['spec_id'];
+								$charge=$row['doc_charge'];
 								$spcil_res= $database->query("select spec_type from specialist  where spec_id='$spe'");
 								$spcil_array= $spcil_res->fetch_assoc();
 								$spcil_name=$spcil_array["spec_type"];
@@ -73,7 +75,7 @@
 					<div class="col-lg-4 col-md-6 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="news-head">
-								<img src="User/Doctor/img/<?php echo $img; ?>" alt="#" height="10%">
+								<img src="img/Doctor/<?php echo $img; ?>" alt="#" height="10%">
 							</div>
 							<a href="doctordetail.php?action=view&id=<?php echo $docid; ?>">
 							<div class="news-body">
@@ -82,6 +84,7 @@
 										<div class="date"><?php echo $name; ?></div>
 										<h2><?php echo $spcil_name; ?></h2>
 										<p class="text"><?php echo $address; ?></p>
+										<p class="text">Charge - <b>₹<?php echo $charge; ?></b></p>
 									</center>
 								</div>
 							</div>

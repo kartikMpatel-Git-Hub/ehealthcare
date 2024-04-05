@@ -22,13 +22,13 @@ $today = date('Y-m-d');
     <head>
         <!-- Meta Tags -->
 		<?php
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 		<?php
-		 	require "Section/PreLoader.php";
-			require "Section/navbar.php";
+		 	require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
 			<div class="container">
@@ -149,7 +149,7 @@ $today = date('Y-m-d');
 											{
 													echo 
 													'
-														<p class="col-2 book" style="margin-bottom:30px;"><a href="booking.php?action=add&id='.$scheid.'" >Book</a></p>
+														<p class="col-2 book" style="margin-bottom:30px;"><a href="php/booking.php?action=add&id='.$scheid.'" >Book</a></p>
 													';
 													//style="color:white; padding:20px 30px;"
 											}
@@ -157,7 +157,7 @@ $today = date('Y-m-d');
 											{
 													echo 
 													'
-													<p class="col-2 bookg" style="margin-bottom:30px;"><a href="booking.php?action=add&id='.$scheid.'">Free</a></p>
+													<p class="col-2 bookg" style="margin-bottom:30px;"><a href="php/booking.php?action=add&id='.$scheid.'">Free</a></p>
 													';
 											}   
 										}
@@ -190,8 +190,8 @@ $today = date('Y-m-d');
 		<!-- End Portfolio Details Area -->
 		
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>

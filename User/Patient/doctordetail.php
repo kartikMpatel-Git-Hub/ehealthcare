@@ -15,14 +15,14 @@ if(isset($_SESSION["email"])){
 <html class="no-js" lang="zxx">
     <head>
 		<?php
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 	
 		<?php
-		 	require "Section/PreLoader.php";
-			require "Section/navbar.php";
+		 	require "Import/PreLoader.php";
+			require "Import/navbar.php";
 
 			require "php/connection.php";
 			if($_GET){
@@ -152,8 +152,8 @@ if(isset($_SESSION["email"])){
 		</section>
 		<!-- End Portfolio Details Area -->
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>

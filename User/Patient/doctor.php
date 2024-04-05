@@ -16,13 +16,13 @@ if(isset($_SESSION["email"])){
     <head>
         <!-- Meta Tags -->
 		<?php
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 		<?php
-		 	require "Section/PreLoader.php";
-			require "Section/navbar.php";
+		 	require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
 			<div class="container">
@@ -119,8 +119,8 @@ if(isset($_SESSION["email"])){
 		<!-- End Portfolio Details Area -->
 		
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>

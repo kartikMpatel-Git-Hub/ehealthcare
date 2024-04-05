@@ -15,14 +15,14 @@ if(isset($_SESSION["email"])){
 <html class="no-js" lang="zxx">
     <head>
         <?php 
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 	
 		<?php 
-			require "Section/PreLoader.php";
-			require "Section/navbar.php";
+			require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs overlay">
@@ -203,8 +203,8 @@ if(isset($_SESSION["email"])){
 		</section>
 		<!--/ End Single News -->
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
 		<!--/ End Footer Area -->
 		

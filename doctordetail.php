@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
@@ -74,7 +75,7 @@
 						<div class="inner-content">
 							
 							<div class="image-slider">
-									<img src="User/Doctor/img/<?php echo $img; ?>" alt="#">
+									<img src="img/Doctor/<?php echo $img; ?>" alt="#">
 							</div>
 							<div class="date">
 								<ul>
@@ -114,7 +115,7 @@
 								</tr>
 								<tr>
 									<td class="col-6" style="padding-left:30%;">Charge For Appointment</td>	
-									<td class="col-6" style="text-align:left; color:black;">: <?php echo $charge; ?></td>	
+									<td class="col-6" style="text-align:left; color:black;">: ₹<?php echo $charge; ?></td>	
 								</tr>
 							</table>
 							</div>

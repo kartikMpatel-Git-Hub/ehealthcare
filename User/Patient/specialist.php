@@ -18,15 +18,14 @@ if(isset($_SESSION["email"])){
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     
     <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
-        <!-- Meta Tags -->
 		<?php
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 		<?php
-		 	require "Section/PreLoader.php";
-			require "Section/navbar.php";
+		 	require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
 			<div class="container">
@@ -98,8 +97,8 @@ if(isset($_SESSION["email"])){
             </div>
         </div>
         <?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>
