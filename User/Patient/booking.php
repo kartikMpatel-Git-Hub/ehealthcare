@@ -28,13 +28,18 @@ if($_GET){
         $sql="insert into appointment (patient_id,appo_no,sche_id,appo_date) values($pid,$appono,$id,'$date')";
         $database->query($sql);
     }
+    elseif($action == 'delete')
+    {
+        $sql="delete from appointment where appo_id = '$id'";
+        $database->query($sql);
+    }
     else
     {
         ?>
-            <script>window.location.href='specialist.php';</script>
+            <script>window.location.href='session.php';</script>
         <?php
     }
-    header("location: index.php");
+    header("location: mysession.php");
 }
 
 ?>

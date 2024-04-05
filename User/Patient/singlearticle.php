@@ -8,22 +8,22 @@ if(isset($_SESSION["email"])){
         $useremail=$_SESSION["email"];
     }
 }else{
-    header("location: ../../login.php");
+	header("location: ../../login.php");
 }
 ?>
 <!doctype html>
 <html class="no-js" lang="zxx">
-    <head>
+	<head>
         <?php 
 			require "ImportFile/Head.php";
-		?>
+			?>
     </head>
     <body>
-	
+		
 		<?php 
 			require "Section/PreLoader.php";
 			require "Section/navbar.php";
-		?>
+			?>
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs overlay">
 			<div class="container">
@@ -39,6 +39,9 @@ if(isset($_SESSION["email"])){
 		<!-- End Breadcrumbs -->
 		<?php
 			require "php/connection.php";
+			$query= $database->query("select * from patient  where patient_email='$useremail'");
+			$ans= $query->fetch_assoc();
+			$userid=$ans["patient_id"];
 			if($_GET){
 				$id=$_GET["id"];
 				$action=$_GET["action"];
@@ -84,7 +87,7 @@ if(isset($_SESSION["email"])){
 		<section class="news-single section">
 			<div class="container">
 				<div class="row">
-					<div class="col-lg-8 col-12">
+					<div class="col-lg-12 col-12">
 						<div class="row">
 							<div class="col-12">
 								<div class="single-main">
@@ -125,6 +128,7 @@ if(isset($_SESSION["email"])){
 												for ($x=0; $x<$result->num_rows;$x++)
 												{
 													$row=$result->fetch_assoc();
+													$cid=$row['cmt_id'];
 													$pid = $row['patient_id'];
 													$date = $row['cmt_date'];
 													$time = $row['cmt_time'];
@@ -133,6 +137,7 @@ if(isset($_SESSION["email"])){
 													$result1= $database->query($query1);
 													$row1=$result1->fetch_assoc();
 													$name = $row1['patient_name'];
+													$email = $row1['patient_email'];
 
 			
 										?>
@@ -144,8 +149,8 @@ if(isset($_SESSION["email"])){
 														<!-- <i class="fa fa-calendar"></i> -->
 													</div>
 													<div class="body">
-														<h4><?php echo $name;?></h4>
-														<div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i><?php echo $date;?></span><span class="meta"><i class="fa fa-clock-o"></i><?php echo $time;?></span></div>
+														<h4><?php if($useremail == $email){echo "You";} else{ echo $name; }?></h4>
+														<div class="comment-meta"><span class="meta"><i class="fa fa-calendar"></i><?php echo $date;?></span><span class="meta"><i class="fa fa-clock-o"></i><?php echo $time;?></span><?php if($pid == $userid) { ?><span class="meta"><a href="comment.php?action=delete&id=<?php echo $cid;?>" class="fa fa-trash" style="background-color:white; color:black;"></a></span><?php } ?></div>
 														<p><?php echo $des; ?></p>
 													</div>
 												</div>
@@ -163,7 +168,7 @@ if(isset($_SESSION["email"])){
 								<div class="comments-form">
 									<h2>Leave Comments</h2>
 									<!-- Contact Form -->
-									<form class="form" method="post" action="comment.php?&id=<?php echo $aid;?>">
+									<form class="form" method="post" action="comment.php?action=add&id=<?php echo $aid;?>">
 										<div class="row">
 											<div class="col-12">
 												<div class="form-group message">
@@ -182,7 +187,7 @@ if(isset($_SESSION["email"])){
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 col-12">
+					<!-- <div class="col-lg-4 col-12">
 						<div class="main-sidebar">
 							<div class="single-widget search">
 								<div class="form">
@@ -212,7 +217,7 @@ if(isset($_SESSION["email"])){
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 				</div>
 			</div>
 		</section>

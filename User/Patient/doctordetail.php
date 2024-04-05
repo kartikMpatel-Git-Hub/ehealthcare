@@ -127,7 +127,7 @@ if(isset($_SESSION["email"])){
 								</tr>
 								<tr>
 									<td class="col-6" style="padding-left:30%;">Charge For Appointment</td>	
-									<td class="col-6" style="text-align:left; color:black;">: <?php echo $charge; ?></td>	
+									<td class="col-6" style="text-align:left; color:black;">: ₹<?php echo $charge; ?></td>	
 								</tr>
 							</table>
 							</div>

@@ -16,9 +16,9 @@
         date_default_timezone_set('Asia/Kolkata');
 
         include("../../php/connection.php");
-        $title=$_POST["title"];
+        $title=addslashes($_POST["title"]);
         $docid=$_POST["docid"];
-        $description=$_POST["desc"];
+        $description=addslashes($_POST["desc"]);
         $img = $_FILES['img']['name'];
         $date=date('Y-m-d');
         

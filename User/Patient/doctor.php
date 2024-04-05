@@ -78,6 +78,7 @@ if(isset($_SESSION["email"])){
 								$name=$row["doc_name"];
 								$img=$row['doc_img'];
 								$spe=$row['spec_id'];
+								$charge=$row['doc_charge'];
 								$spcil_res= $database->query("select spec_type from specialist  where spec_id='$spe'");
 								$spcil_array= $spcil_res->fetch_assoc();
 								$spcil_name=$spcil_array["spec_type"];
@@ -95,6 +96,7 @@ if(isset($_SESSION["email"])){
 										<div class="date"><?php echo $name; ?></div>
 										<h2><?php echo $spcil_name; ?></h2>
 										<p class="text"><?php echo $address; ?></p>
+										<p class="text">Charge - <b>₹<?php echo $charge; ?></b></p>
 									</center>
 								</div>
 							</div>

@@ -49,7 +49,7 @@
 											<li><a href="specialist.php">Specialist</a></li>
 											<li><a href="doctor.php">Doctos </a></li>
 											<li><a href="session.php">Session</a></li>
-											<li><a href="#">My Appointments</a></li>
+											<li><a href="mysession.php">My Appointments</a></li>
 											<li><a href="article.php">Article </a></li>
 										</ul>
 									</nav>

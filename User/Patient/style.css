@@ -2009,7 +2009,7 @@ body{
 .blog .single-news img{
 	width:100%;
 	margin:0;
-	padding:0;
+	padding:50px;
 	-webkit-transition:all 0.4s ease;
 	-moz-transition:all 0.4s ease;
 	transition:all 0.4s ease;
@@ -4173,15 +4173,16 @@ body{
 	transition: 0.5s ease;
 }
 img.squre{
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  /* padding: 30px; */
+  /* height: 300px; */
 }
 .book{
 	word-wrap:break-word; 
 	text-align:center;
-	padding:20px 10px;
-	margin: 150px 0;
-	color:lightblue;
+	padding:20px 10px; 
+	margin: auto;
+	color:white;
 	background-color: #1A76D1;;
 	border-radius: 10px;
 }
@@ -4190,34 +4191,49 @@ img.squre{
 	transition: 0.5s ease;
 	background-color: #004a93;
 }
-.bookg{
-	border-radius: 10px;
+.bookv{
 	word-wrap:break-word; 
 	text-align:center;
-	padding:20px 15px;
-	margin: 150px 0;
-	color:lightblue;
+	padding:20px 10px; 
+	margin: auto;
+	color:white;
+	background-color: gray;
+	border-radius: 10px;
+}
+:hover.bookv{
+	border-radius: 10px;
+	transition: 0.5s ease;
+	background-color: rgb(66, 66, 66);
+}
+.bookg{
+	word-wrap:break-word; 
+	text-align:center;
+	padding:20px 10px;
+	margin: auto;
+	color:white;
 	background-color: green;
+	border-radius: 10px;
 }
 :hover.bookg{
 	border-radius: 10px;
 	transition: 0.5s ease;
-	word-wrap:break-word; 
-	text-align:center;
-	padding:20px 15px;
-	margin: 150px 0;
-	color:lightblue;
 	background-color: rgb(0, 68, 0);
 }
 .bookr{
 
-	border-radius: 10px;
 	word-wrap:break-word; 
 	text-align:center;
-	padding:20px 15px;
-	margin: 150px 0;
-	color:lightblue;
+	padding:20px 10px;
+	margin: auto;
+	color:white;
 	background-color: rgb(224, 64, 64);
+	border-radius: 10px;
+}
+
+:hover.bookr{
+	border-radius: 10px;
+	transition: 0.5s ease;
+	background-color: rgb(93, 0, 0);
 }
 .detail{
 	margin-top:15px;

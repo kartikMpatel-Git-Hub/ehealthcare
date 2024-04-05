@@ -27,7 +27,7 @@ $today = date('Y-m-d');
     </head>
     <body>
 		<?php
-		 	require "Section/PreLoader.php";
+		 	// require "Section/PreLoader.php";
 			require "Section/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
@@ -48,25 +48,30 @@ $today = date('Y-m-d');
 		</div>
 		<?php
 			require "php/connection.php";
+			$query= $database->query("select * from patient  where patient_email='$useremail'");
+			$ans= $query->fetch_assoc();
+			$pid=$ans["patient_id"];
 			if($_GET){
 				$id=$_GET["id"];
 				$action=$_GET["action"];
 				if($action=='view')
 				{
 					// $query = "select * from schedule where doc_id = '$id' ";
-					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time' and schedule.doc_id = '$id'";
+					// $query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time' and schedule.doc_id = '$id'";
+					// $query = "select * from scheule ,patient where scheule.patient_id = patient_id and patient_email = $useremail";
+					$query = "select * from appointment where patient_id = $pid and sche_id = $id";
 					$result= $database->query($query);
 				}
 				else
 				{
 					?>
-						<script>window.location.href='doctordetail.php?action=view&id=<?php echo $id;?>';</script>
+						<script>window.location.href='session.php?action=view&id=<?php echo $id;?>';</script>
 					<?php
 				}
 			}
 			else
 			{
-				$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time'";
+				$query = "select * from appointment where patient_id = $pid";
 				$result= $database->query($query);	
 			}
 			
@@ -82,12 +87,19 @@ $today = date('Y-m-d');
 							{
 								$row=$result->fetch_assoc();
 								$scheid=$row['sche_id'];
-								$docid=$row["doc_id"];
-								$title=$row["sche_title"];
-								$date=$row['sche_date'];
-								$start=$row['sche_start'];
-								$end=$row['sche_end'];
-								$booking=$row['sche_noappo'];
+								$appoid=$row['appo_id'];
+								$appo_no=$row['appo_no'];
+								$appo_date=$row['appo_date'];
+
+								$query = "select * from schedule where sche_id = $scheid";
+								$result1= $database->query($query);	
+								$row1=$result1->fetch_assoc();
+
+								$docid=$row1["doc_id"];
+								$title=$row1["sche_title"];
+								$date=$row1['sche_date'];
+								$start=$row1['sche_start'];
+								$end=$row1['sche_end'];
 
                                 $query= $database->query("select * from doctor where doc_id='$docid'");
 								$doc= $query->fetch_assoc();
@@ -101,27 +113,13 @@ $today = date('Y-m-d');
 								$spcil_array= $spcil_res->fetch_assoc();
 								$spcil_name=$spcil_array["spec_type"];
 
-
-								$query="select * from appointment where sche_id = '$scheid'";
-								$empty=$database->query($query);	
-								$totapo=$empty->num_rows;
-								$space = $booking - $totapo;
-
-								$query= $database->query("select * from patient where patient_email='$useremail'");
-								$patient= $query->fetch_assoc();
-								$pid=$patient["patient_id"];
-
-								$query="select * from appointment where sche_id = '$scheid' and patient_id = '$pid'";
-								$empty=$database->query($query);	
-								$status=$empty->num_rows;
-
 					?>
-					<div class="col-lg-6 col-md-6 col-12" style="margin-top:30px;">
+					<div class="col-lg-12 col-md-6 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="row">
-								<img src="../Doctor/img/<?php echo $img; ?>" alt="#" class="squre col-lg-6 col-md-12" style="border-radius:50%;">
+								<img src="../Doctor/img/<?php echo $img; ?>" alt="#" class="squre col-lg-3 col-md-12" style="border-radius:50%;">
 								<!-- padding:20px 30px; margin:30px 0 0 10px;  -->
-                                <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-6 col-md-12" style="padding:30px;">
+                                <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-8 col-md-12" style="padding:30px;">
                                     <div>
                                             <div class="detail" style="color:#199fd9;"><b>D</b><?php echo 'r . '.$name; ?></div>
                                             <div class="detail" style="font-weight:bold;"><?php echo $spcil_name; ?></div>
@@ -134,42 +132,10 @@ $today = date('Y-m-d');
                                 </a>
                                 
                                 <?php
-									if($status > 0)
-									{
-										echo 
-											'
-												<p class="col-2 bookv" style="margin-bottom:30px;"><a href="mysession.php?action=view&id='.$scheid.'">View</a></p>
-											';
-									}
-									else
-									{
-										if($space > 0)
-										{
-											if(date('w', strtotime($date)) != 0)
-											{
-													echo 
-													'
-														<p class="col-2 book" style="margin-bottom:30px;"><a href="booking.php?action=add&id='.$scheid.'" >Book</a></p>
-													';
-													//style="color:white; padding:20px 30px;"
-											}
-											else
-											{
-													echo 
-													'
-													<p class="col-2 bookg" style="margin-bottom:30px;"><a href="booking.php?action=add&id='.$scheid.'">Free</a></p>
-													';
-											}   
-										}
-										else
-										{
-											echo 
-											'
-												<p class="col-2 bookr" style="margin-bottom:30px;"><a>Session Full</a></p>
-											';
-										}
-									}
-                                     
+									echo 
+										'
+											<p class="col-2 bookr" style="margin-bottom:30px;"><a href="booking.php?action=delete&id='.$appoid.'">cancle</a></p>
+										';
                                 ?>
 							</div>
 						</div>
@@ -179,10 +145,7 @@ $today = date('Y-m-d');
 						}
 						else
 						{
-							$query= $database->query("select * from doctor  where doc_id='$id'");
-							$result= $query->fetch_assoc();
-							$docname=$result["doc_name"];
-							echo '<div style="font-size:50px; margin-left:300px;">'.$docname." 's Session Not Available !</div>";
+							echo '<div style="font-size:50px; margin-left:300px;">Session Not Available !</div>';
 						} 
 					?>
 				</div>

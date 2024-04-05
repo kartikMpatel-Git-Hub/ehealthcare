@@ -44,7 +44,7 @@ if(isset($_SESSION["email"])){
 				$action=$_GET["action"];
 				if($action=='view')
 				{
-					$query = "select * from doctor where spec_id = '$id'";
+					$query = "select * from article where doc_id = '$id'";
 					$result= $database->query($query);
 				}
 				else
@@ -140,23 +140,60 @@ if(isset($_SESSION["email"])){
 							<div class="single-widget category">
 								<h3 class="title">Other Publisher's Blog</h3>
 								<ul class="categor-list">
-									<li><a href="#">Men's Apparel</a></li>
+									<?php
+										$query = "select DISTINCT  doctor.doc_id from doctor,article where doctor.doc_id = article.doc_id";
+										$result= $database->query($query);
+										if($result->num_rows)
+										{
+											for ($x=0; $x<$result->num_rows;$x++)
+											{
+												$row=$result->fetch_assoc();
+												$did = $row['doc_id'];
+												$query= $database->query("select * from doctor  where doc_id='$did'");
+    											$ans= $query->fetch_assoc();
+    											$doc_name=$ans["doc_name"];
+
+									?>
+										<li><a href="?action=view&id=<?php echo $did; ?>"><?php echo $doc_name;?></a></li>
+									<?php
+											}
+										}
+									?>
 								</ul>
+
 							</div>
 							<div class="single-widget recent-post">
 								<h3 class="title">Recent post</h3>
+								<?php 
+									$query = "select * from article";
+    								$result= $database->query($query);
+    								if($result->num_rows)
+    								{
+    								    for ($x=0; $x<$result->num_rows;$x++)
+    								    {
+    								        $row=$result->fetch_assoc();
+    								    }
+										$aid = $row['article_id'];
+										$title = $row['article_title'];
+										$img = $row['article_img'];
+										$date = $row['article_date'];
+										$view = $row['article_view'];
+								?>
 								<div class="single-post">
 									<div class="image">
-										<img src="img/blog-sidebar1.jpg" alt="#">
+										<img src="../Doctor/img/Article/<?php echo $img; ?>" alt="#">
 									</div>
 									<div class="content">
-										<h5><a href="#">We have annnocuced our new product.</a></h5>
+										<h5><a href="singlearticle.php?action=view&id=<?php echo $aid;?>"><?php echo $title;?></a></h5>
 										<ul class="comment">
-											<li><i class="fa fa-calendar" aria-hidden="true"></i>Jan 11, 2020</li>
-											<li><i class="fa fa-commenting-o" aria-hidden="true"></i>35</li>
+											<li><i class="fa fa-calendar" aria-hidden="true"></i><?php echo $date; ?></li>
+											<li><i class="fa fa-eye" aria-hidden="true"></i><?php echo $view; ?></li>
 										</ul>
 									</div>
 								</div>
+								<?php
+									}
+								?>
 							</div>
 						</div>
 					</div>

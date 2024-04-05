@@ -13,7 +13,7 @@
     
     if($_POST){
         include("../../php/connection.php");
-        $title=$_POST["title"];
+        $title=addslashes($_POST["title"]);
         $docid=$_POST["docid"];
         $nop=$_POST["nop"];
         $date=$_POST["date"];
