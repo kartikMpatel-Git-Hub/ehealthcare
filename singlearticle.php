@@ -123,6 +123,7 @@
 													$row1=$result1->fetch_assoc();
 													$name = $row1['patient_name'];
 													$email = $row1['patient_email'];
+													$img = $row1['patient_img'];
 
 			
 										?>
@@ -130,7 +131,7 @@
 											<div class="single-comments">
 												<div class="main">
 													<div class="head">
-														<img src="img/Other/user.png" alt="#"/>
+														<img src="img/Patient/<?php echo $img; ?>" alt="#"/>
 														<!-- <i class="fa fa-calendar"></i> -->
 													</div>
 													<div class="body">

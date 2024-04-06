@@ -57,11 +57,14 @@ $today = date('Y-m-d');
 					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time' and schedule.doc_id = '$id'";
 					$result= $database->query($query);
 				}
+				elseif($action == 'date'){
+					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time' and schedule.sche_date = '$id'";
+					$result= $database->query($query);
+				}
 				else
 				{
-					?>
-						<script>window.location.href='doctordetail.php?action=view&id=<?php echo $id;?>';</script>
-					<?php
+					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time'";
+					$result= $database->query($query);	
 				}
 			}
 			else
@@ -138,7 +141,7 @@ $today = date('Y-m-d');
 									{
 										echo 
 											'
-												<p class="col-2 bookv" style="margin-bottom:30px;"><a href="mysession.php?action=view&id='.$scheid.'">View</a></p>
+												<p class="col-4 bookv" style="margin-bottom:30px;"><a href="mysession.php?action=view&id='.$scheid.'">View</a></p>
 											';
 									}
 									else
@@ -149,7 +152,7 @@ $today = date('Y-m-d');
 											{
 													echo 
 													'
-														<p class="col-2 book" style="margin-bottom:30px;"><a href="php/booking.php?action=add&id='.$scheid.'" >Book</a></p>
+														<p class="col-4 book" style="margin-bottom:30px;"><a href="php/booking.php?action=add&id='.$scheid.'" >Book</a></p>
 													';
 													//style="color:white; padding:20px 30px;"
 											}
@@ -157,7 +160,7 @@ $today = date('Y-m-d');
 											{
 													echo 
 													'
-													<p class="col-2 bookg" style="margin-bottom:30px;"><a href="php/booking.php?action=add&id='.$scheid.'">Free</a></p>
+													<p class="col-4 bookg" style="margin-bottom:30px;"><a href="php/booking.php?action=add&id='.$scheid.'">Free</a></p>
 													';
 											}   
 										}
@@ -165,7 +168,7 @@ $today = date('Y-m-d');
 										{
 											echo 
 											'
-												<p class="col-2 bookr" style="margin-bottom:30px;"><a>Session Full</a></p>
+												<p class="col-4 bookr" style="margin-bottom:30px;"><a>Session Full</a></p>
 											';
 										}
 									}

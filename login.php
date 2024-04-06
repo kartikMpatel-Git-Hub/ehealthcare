@@ -74,24 +74,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sign Up Form by Colorlib</title>
-
-	<link rel="stylesheet" href="css/icofont.css">
+    <?php 
+        require "ImportFile/Head.php";
+    ?>
     
-    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-    <div class="main">
+    <!-- <div class="main">
 
         <section class="sign-in">
             <div class="container">
                 <div class="signin-content">
                     <div class="signin-image">
-                        <figure><img src="img/signin-image.jpg" alt="sing up image" style="border-radius: 10px;"></figure>
+                        <figure><img src="img/Other/signin-image.jpg" alt="sing up image" style="border-radius: 10px;"></figure>
                         <div class="create">
                             <a>Create Account As </a><br>
                             <a href="#"  id="login"><i class="icofont icofont-user"></i>  Doctor</a><br>
@@ -114,7 +110,7 @@
                                 <?php 
                                     echo $_SESSION['Message'];
                                     $_SESSION['Message'] = "";
-                                ?>
+                                    ?>
                             </dvi>
                             <div class="form-group form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit" value="Log in"/>
@@ -125,7 +121,92 @@
             </div>
         </section>
 
-    </div>
+    </div> -->
+    
+    <!-- <div class="breadcrumbs overlay">
+        <div class="container">
+            <div class="bread-inner">
+                <div class="row">
+                    <div class="col-12">
+                        <h2>Change Password</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <?php
+			require "php/connection.php";
+		?>
+		<section class="news-single section">
+            <div class="container">
+                <a href="index.php" style="color:black; text-decoration:none;"><i class="icofont icofont-arrow-left" style="font-size:40px;"></i></a>
+                <div class="row">
+                    <div class="col-lg-12 col-12">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="comments-form">
+                                    <form class="form" method="post" action="php/updateprofile.php">
+                                        <br><br>
+                                        <div class="row">
+                                            <div class="col-12  col-lg-4">
+                                                <img src="img/Other/signin-image.jpg" alt="sing up image" style="border-radius: 10px;">
+                                            </div>
+                                            <div class="col-lg-6 col-12">
+                                                <div class="row">
+                                                        <div class="col-lg-5 col-4"></div>
+                                                        <div class="col-lg-4 col-2"><h1>Login</h1></div>
+                                                </div>
+                                                <br><br>
+                                                <div class="row">
+                                                    <div class="form-group col-lg-2">
+										        	</div>
+										        	<div class="form-group col-lg-10">
+                                                        <p style="color:black; padding:10px; font-size:20px;">Email</p>
+										        		<input type="text" name="new" placeholder="Email" required>
+										        	</div>
+										        </div>
+                                                <br>
+										        <div class="row">
+                                                    <div class="form-group col-lg-2">
+                                                    </div>
+                                                    <div class="form-group col-lg-10">
+                                                        <p style="color:black; padding:10px; font-size:20px;">Password</p>
+										        		<input type="password" name="renew" placeholder="Password" required>
+										        	</div>
+										        </div>
+                                                <br><br>
+										        <div class="row">
+                                                    <div class="form-group col-lg-5 col-4">
+										        	</div>
+										        		<center>
+                                                            <button type="submit" class="btn primary" name="password">Login</button>    
+										        			<button type="submit" class="btn primary" name="password">Reset</button>
+										        		</center>
+										        </div>
+										        <center>
+                                                <br>
+										        <div style="color:red;">
+										        	<?php
+										        		 echo $_SESSION['ERROR'];
+										        		 $_SESSION['ERROR'] = "";
+										        	?>
+										        </div>
+										        </center>
+                                            </div>
+                                        </div>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		<?php  
+		//	require "Import/Javascript.php";
+		?>
+    </body>
+</html>
 
     <!-- JS -->
     <script src="vendor/jquery/jquery.min.js"></script>

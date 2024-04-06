@@ -33,6 +33,9 @@
 								</div>
 							</div>
 						</div>
+						<?php
+							$sunday = date("Y-m-d" , strtotime("sunday this week"));
+						?>
 						<div class="col-lg-4 col-md-12 col-12">
 							<!-- single-schedule -->
 							<div class="single-schedule last">
@@ -44,9 +47,9 @@
 										<span>Free Session</span>
 										<h4>On Every Sunday</h4>
 										<ul class="time-sidual">
-											<li class="day"> -Next Date- <span>8.00-20.00</span></li>
+											<li class="day">Next Free Session on :<span><?php echo $sunday; ?></span></li>
 										</ul>
-										<a href="session.php">Click Here to View All Session<i class="fa fa-long-arrow-right"></i></a>
+										<a href="session.php?action=date&id=<?php echo $sunday; ?>">Click Here to View All Session<i class="fa fa-long-arrow-right"></i></a>
 									</div>
 								</div>
 							</div>

@@ -21,7 +21,7 @@ if(isset($_SESSION["email"])){
     <body>
 		
 		<?php 
-			// require "Import/PreLoader.php";
+			require "Import/PreLoader.php";
 			require "Import/navbar.php";
 
 			require "php/connection.php";
@@ -99,12 +99,18 @@ if(isset($_SESSION["email"])){
 										<br>
 										<br>
 										<div class="row">
-											<div class="col-12">
+											<div class="col-3"></div>
+											<div class="col-6">
 												<div class="form-group button">	
-												<center>
-													<button type="submit" class="btn primary" name="profile">Update</button>
-													<a href="password.php" type="submit" class="btn primary" name="update">Change Password</a>
-												</center>
+													<center>
+														<button type="submit" class="btn primary" name="profile">Update</button>
+														<a href="password.php" type="submit" class="btn primary" name="update">Change Password</a>
+													</center>
+												</div>
+											</div>
+											<div class="col-3">
+												<div class="form-group button" style="float:right;">	
+													<a href="../../index.php" type="submit" class="btn primary" style="background-color:#d90000;">Log out</a>
 												</div>
 											</div>
 										</div>

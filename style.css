@@ -1141,6 +1141,10 @@ body{
 .portfolio .single-pf img{
 	height:100%;
 	width:100%;
+	border-radius: 10px;
+}
+:hover.single-pf img{
+	border-radius: 10px;
 }
 .portfolio .single-pf:before{
 	position:absolute;
@@ -4256,6 +4260,9 @@ input[type="file"] {
   }
   :hover.custom-file-upload {
 	color: black;
+  }
+  .nice-select .profile{
+	padding: 8px 0 0 120px;
   }
 /*=========================
 	End Footer CSS

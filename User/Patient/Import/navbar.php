@@ -6,10 +6,9 @@
 						<div class="col-lg-6 col-md-5 col-12">
 							<!-- Contact -->
 							<ul class="top-link">
-								<li><a href="#">About</a></li>
-								<li><a href="#">Doctors</a></li>
-								<li><a href="#">Contact</a></li>
-								<li><a href="#">FAQ</a></li>
+								<li><a href="doctor.php">Doctor</a></li>
+								<li><a href="profile.php">Profile</a></li>
+								<li><a href="session.php">Session</a></li>
 							</ul>
 							<!-- End Contact -->
 						</div>
@@ -30,7 +29,7 @@
 				<div class="container">
 					<div class="inner">
 						<div class="row">
-							<div class="col-lg-3 col-md-3 col-12">
+							<div class="col-lg-2 col-md-3 col-12">
 								<!-- Start Logo -->
 								<div class="logo">
 									<a href="index.html" style="font-size: large; color: darkblue; font-weight: bold; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">E-Health Care</a>
@@ -56,23 +55,9 @@
 								</div>
 								<!--/ End Main Menu -->
 							</div>
-							<div class="col-lg-2 col-12">
-								<!-- <div class="main-menu">
-									<nav class="navigation">
-										<ul class="nav menu">
-											<li class="active"><a href="profile.php">Profile <i class="icofont-rounded-down"></i></a>
-													<ul class="dropdown">
-														<li><a href="profile.php" class="btn"><i class="icofont icofont-doctor"></i>  <?php echo $_SESSION['name'];?></a></li>
-														<li><a href="profile.php" class="btn"><i class="icofont icofont-doctor"></i>  <?php echo $_SESSION['name'];?></a></li>
-														<li><a href="profile.php" class="btn"><i class="icofont icofont-doctor"></i>  <?php echo $_SESSION['name'];?></a></li>
-													</ul>
-											</li>
-										</ul>
-									</nav>
-								</div> -->
-								<div class="get-quote">
-									<a href="profile.php" class="btn"><i class="icofont icofont-doctor"></i>  <?php echo $_SESSION['name'];?></a>
-								</div>
+							<div class="get-quote col-2">
+								<a href="profile.php" class="btn"><i class="icofont icofont-doctor"></i>  <?php echo $_SESSION['name'];?></a>
+							</div>
 							</div>
 						</div>
 					</div>

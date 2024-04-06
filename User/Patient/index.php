@@ -298,43 +298,32 @@
 				<div class="row">
 					<div class="col-lg-12 col-12">
 						<div class="owl-carousel portfolio-slider">
+							<?php
+								$query= $database->query("select * from doctor");
+								for ($x=0; $x<$query->num_rows;$x++)
+								{
+									$row=$query->fetch_assoc();
+									$did=$row['doc_id'];	
+									$doc_img= $row['doc_img'];
+									$spe=$row['spec_id'];
+									$spcil_res= $database->query("select spec_type from specialist  where spec_id='$spe'");
+									$spcil_array= $spcil_res->fetch_assoc();
+									$spcil_name=$spcil_array["spec_type"];
+								
+							?>
 							<div class="single-pf">
-								<img src="img/pf1.jpg" alt="#">
-								<a href="blog-single.html" class="btn">View Details</a>
+								<img src="../../img/Doctor/<?php echo $doc_img;?>" alt="#">
+								<a href="doctordetail.php?action=view&id=<?php echo $did;?>" class="btn"><?php echo $spcil_name; ?></a>
 							</div>
-							<div class="single-pf">
-								<img src="img/pf2.jpg" alt="#">
-								<a href="portfolio-details.html" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="img/pf3.jpg" alt="#">
-								<a href="portfolio-details.html" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="img/pf4.jpg" alt="#">
-								<a href="portfolio-details.html" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="img/pf1.jpg" alt="#">
-								<a href="portfolio-details.html" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="img/pf2.jpg" alt="#">
-								<a href="portfolio-details.html" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="img/pf3.jpg" alt="#">
-								<a href="portfolio-details.html" class="btn">View Details</a>
-							</div>
-							<div class="single-pf">
-								<img src="img/pf4.jpg" alt="#">
-								<a href="portfolio-details.html" class="btn">View Details</a>
-							</div>
+							<?php
+								}
+							?>
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+
 		<section class="services section">
 			<div class="container">
 				<div class="row">
@@ -349,48 +338,49 @@
 					<div class="col-lg-4 col-md-6 col-12">
 						<div class="single-service">
 							<i class="icofont icofont-prescription"></i>
-							<h4><a href="service-details.html">General Treatment</a></h4>
+							<h4><a href="doctor.php">General Treatment</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<div class="single-service">
 							<i class="icofont icofont-tooth"></i>
-							<h4><a href="service-details.html">Teeth Whitening</a></h4>
+							<h4><a href="doctor.php?action=view&id=3">Teeth Whitening</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<div class="single-service">
 							<i class="icofont icofont-heart-alt"></i>
-							<h4><a href="service-details.html">Heart Surgery</a></h4>
+							<h4><a href="doctor.php?action=view&id=6">Heart Surgery</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<div class="single-service">
 							<i class="icofont icofont-listening"></i>
-							<h4><a href="service-details.html">Ear Treatment</a></h4>
+							<h4><a href="doctor.php?action=view&id=7">Ear Treatment</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<div class="single-service">
 							<i class="icofont icofont-eye-alt"></i>
-							<h4><a href="service-details.html">Vision Problems</a></h4>
+							<h4><a href="doctor.php?action=view&id=8">Vision Problems</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
 					</div>
 					<div class="col-lg-4 col-md-6 col-12">
 						<div class="single-service">
-							<i class="icofont icofont-blood"></i>
-							<h4><a href="service-details.html">Blood Transfusion</a></h4>
+							<i class="icofont icofont-xray"></i>
+							<h4><a href="doctor.php?action=view&id=4">XRAY</a></h4>
 							<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec luctus dictum eros ut imperdiet. </p>	
 						</div>
 					</div>
 				</div>
 			</div>
 		</section>
+
 		<section class="blog section" id="blog">
 			<div class="container">
 				<div class="row">
@@ -403,51 +393,43 @@
 					</div>
 				</div>
 				<div class="row">
+					<?php
+						$query= $database->query("select * from article");
+						$start = $query->num_rows;
+						$end = $start - 3;
+						for ($x=$start; $x>$end; $x--)
+						{
+							$row=$query->fetch_assoc();
+							$aid=$row['article_id'];	
+							$img= $row['article_img'];
+							$title= $row['article_title'];
+							$desc= $row['article_description'];
+							$date= $row['article_date'];
+							$desc = substr($desc,0,20);
+								
+					?>
 					<div class="col-lg-4 col-md-6 col-12">
 						<div class="single-news">
 							<div class="news-head">
-								<img src="img/blog1.jpg" alt="#">
+								<img src="../../img/Article/<?php echo $img; ?>" alt="#" class="col-12">
 							</div>
 							<div class="news-body">
 								<div class="news-content">
-									<div class="date">22 Aug, 2020</div>
-									<h2><a href="blog-single.html">We have annnocuced our new product.</a></h2>
-									<p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p>
+									<div class="date"><?php echo $date; ?></div>
+									<h2><a href="singlearticle.php?action=view&id=<?php echo $aid;?>"><?php echo $title;?></a></h2>
+									<p class="text"><?php echo $desc; ?></p>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-4 col-md-6 col-12">
-						<div class="single-news">
-							<div class="news-head">
-								<img src="img/blog2.jpg" alt="#">
-							</div>
-							<div class="news-body">
-								<div class="news-content">
-									<div class="date">15 Jul, 2020</div>
-									<h2><a href="blog-single.html">Top five way for solving teeth problems.</a></h2>
-									<p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-lg-4 col-md-6 col-12">
-						<div class="single-news">
-							<div class="news-head">
-								<img src="img/blog3.jpg" alt="#">
-							</div>
-							<div class="news-body">
-								<div class="news-content">
-									<div class="date">05 Jan, 2020</div>
-									<h2><a href="blog-single.html">We provide highly business soliutions.</a></h2>
-									<p class="text">Lorem ipsum dolor a sit ameti, consectetur adipisicing elit, sed do eiusmod tempor incididunt sed do incididunt sed.</p>
-								</div>
-							</div>
-						</div>
-					</div>
+					<?php
+						}
+					?>
+					
 				</div>
 			</div>
 		</section>
+		
 		<?php 
 			require "Import/Footer.php";
 			require "Import/Javascript.php";

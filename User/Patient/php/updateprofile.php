@@ -79,6 +79,7 @@
 
                                     $_SESSION['email'] = $email;
                                     $_SESSION['phoneno'] = $phoneno;
+                                    $_SESSION['name'] = $name;
                                     $useremail = $email;
                                     $_SESSION['ERROR'] = "Profile Updated Sucessfully !"; 
                                     $_SESSION['ERROR'] = $_SESSION['ERROR']."With Image Upload !"; 
@@ -99,6 +100,7 @@
 
                                 $_SESSION['email'] = $email;
                                 $_SESSION['phoneno'] = $phoneno;
+                                $_SESSION['name'] = $name;
                                 $useremail = $email;
                                 $_SESSION['ERROR'] = "Profile Updated Sucessfully !"; 
                             }
