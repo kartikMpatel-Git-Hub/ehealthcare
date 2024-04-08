@@ -42,22 +42,22 @@ $today = date('Y-m-d');
 				if($action=='view')
 				{
 					// $query = "select * from schedule where doc_id = '$id' ";
-					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time' and schedule.doc_id = '$id'";
+					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and  schedule.doc_id = '$id' and schedule.sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 					$result= $database->query($query);
 				}
 				elseif($action == 'date'){
-					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time' and schedule.sche_date = '$id'";
+					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_date = '$id' and schedule.sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 					$result= $database->query($query);
 				}
 				else
 				{
-					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time'";
+					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 					$result= $database->query($query);	
 				}
 			}
 			else
 			{
-				$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time'";
+				$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 				$result= $database->query($query);	
 			}
 			
@@ -151,10 +151,7 @@ $today = date('Y-m-d');
 						}
 						else
 						{
-							$query= $database->query("select * from doctor  where doc_id='$id'");
-							$result= $query->fetch_assoc();
-							$docname=$result["doc_name"];
-							echo '<div style="font-size:50px; margin-left:300px;">'.$docname." 's Session Not Available !</div>";
+							echo '<div style="font-size:50px; margin-left:300px;">Session Session Not Available !</div>';
 						} 
 					?>
 				</div>

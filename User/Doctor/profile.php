@@ -23,81 +23,6 @@ $spec=$row['spec_id'];
 $charge=$row['doc_charge'];
 $img=$row['doc_img'];
 
-if(isset($_POST['update']))
-{
-    $emaill = $_POST['email'];
-    $namee = $_POST['name'];
-    $phonenoo = $_POST['phoneno'];
-    $addresss = $_POST['address'];
-    $genderr = $_POST['gender'];
-    $specc = $_POST['spec'];
-    $chargee = $_POST['charge'];
-    $imgg = $_FILES['image']['name'];
-
-    if($imgg == "")
-    {
-        $imgg = $img;
-    }
-
-    if($emaill == "" || $namee == "" || $phonenoo == "" || $addresss == "" || $genderr == "" || $specc == "" || $chargee == "")
-    {
-        $_SESSION['ERROR'] = "Enter All Field First !!";
-    }  
-    else
-    {
-        $user = $database->query("select  * from  user,pending where user.user_email = '$emaill' and user.user_email != '$useremail' or pending.doc_email = '$emaill' and pending.status != 0;");
-        
-        if($user->num_rows)
-        {
-            $_SESSION['ERROR'] = "Email Already Exist !"; 
-        }
-        else
-        {
-            $user = $database->query("select  * from  doctor,pending where doctor.doc_phoneno = '$phonenoo' and doctor.doc_email != '$useremail' or pending.doc_phoneno = '$phonenoo' and pending.status != 0;");
-            if($user->num_rows)
-            {
-                $_SESSION['ERROR'] = "Phone No Already Exist !"; 
-            }
-            else
-            {
-                $user = $database->query("select  * from  doctor,pending where doctor.doc_img = '$imgg'  and doctor.doc_email != '$useremail' or pending.doc_img = '$imgg' and pending.status != 0;");
-                if($user->num_rows)
-                {
-                    $_SESSION['ERROR'] = "Wrong Image !"; 
-                }
-                else
-                {
-                    if(isset($_FILES['image']))
-                    {
-                        $query = "update doctor set doc_email = '$emaill',doc_name = '$namee', doc_phoneno = '$phonenoo' , doc_address = '$address' , doc_gender = '$genderr' , spec_id = $specc , doc_charge = $chargee , doc_img = '$imgg' where doc_email = '$useremail';";
-                        $database->query($query);
-    
-                        $query = "update user set user_email = '$emaill' , user_name = '$namee' where user_email = '$useremail';";
-                        $database->query($query);
-    
-                        $_SESSION['email'] = $emaill;
-                        $useremail = $emaill;
-    
-                        $_SESSION['ERROR'] = "Profile Updated Sucessfully !"; 
-
-                        $file_name = $_FILES['image']['name'];
-                        $tmp_name = $_FILES['image']['tmp_name'];
-                    
-                        if(move_uploaded_file($tmp_name,"img/".$file_name))
-                        {
-                            $_SESSION['ERROR'] = $_SESSION['ERROR']."With Image Upload !"; 
-                        }
-                        else
-                        {
-                            $_SESSION['ERROR'] = $_SESSION['ERROR']."With out Image Upload !"; 
-                        }
-                    }
-                }
-            }
-        }
-    }
-    header('location: profile.php');
-}
 
 ?>
 
@@ -107,9 +32,9 @@ if(isset($_POST['update']))
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/animations.css">  
-    <link rel="stylesheet" href="../css/main.css">  
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/css/animations.css">  
+    <link rel="stylesheet" href="../../css/css/main.css">  
+    <link rel="stylesheet" href="../../css/css/admin.css">
         
     <title>Dashboard</title>
     <style>
@@ -123,7 +48,17 @@ if(isset($_POST['update']))
             animation: transitionIn-Y-bottom 0.5s;
         }
     </style>
-    
+    <script>
+      function validateFileType() {
+         var selectedFile = document.getElementById('fileInput').files[0];
+         var allowedTypes = ['image/jpeg', 'image/png' , 'image/jpg'    ];
+
+         if (!allowedTypes.includes(selectedFile.type)) {
+            alert('Invalid file type. Please upload a JPEG, PNG and JPG file.');
+            document.getElementById('fileInput').value = '';
+         }
+      }
+   </script>
     
 </head>
 <body>
@@ -135,7 +70,7 @@ if(isset($_POST['update']))
                         <table border="0" class="profile-container">
                             <tr>
                                 <td width="30%" style="padding-left:20px" >
-                                    <img src="img/<?php echo $img;?>" alt="" width="100px" height="90px"  style="border-radius:60%">
+                                    <img src="../../img/Doctor/<?php echo $img;?>" alt="" width="100px" height="90px"  style="border-radius:60%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo $name;?></p>
@@ -172,6 +107,11 @@ if(isset($_POST['update']))
                     </td>
                 </tr>
                 <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-dashbord">
+                        <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">My Article</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row" >
                     <td class="menu-btn menu-icon-settings  menu-active menu-icon-settings-active">
                         <a href="settings.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Settings</p></a></div>
                     </td>
@@ -202,12 +142,12 @@ if(isset($_POST['update']))
                         </p>
                     </td>
                     <td width="10%">
-                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
+                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../../img/Other/calendar.svg" width="100%"></button>
                     </td>
                 </tr> 
             </table>  
             <table border="0" width="50%" style="border-spacing: 0;margin-left:30px;padding:0; text-align:left;" class="profile-container">
-                <form method="POST" enctype="multipart/form-data">                    
+                <form method="POST" enctype="multipart/form-data" action="updateprofile.php">                    
                     <tr>
                         <th colspan="2" style="text-align:center; font-size:30px; ">Profile</th>
                     </tr>   
@@ -269,12 +209,12 @@ if(isset($_POST['update']))
                     <tr>
                         <td>Image </td>
                         <td>
-                            <input type="file" name="image" class="input-text" value="<?php  echo $img ;?>" src="<?php  echo $img ;?>" placeholder="Your Image" style="margin-top:10px;">&nbsp;&nbsp;
+                            <input type="file" name="image" class="input-text" id="fileInput" value="<?php  echo $img ;?>" src="<?php  echo $img ;?>" placeholder="Your Image" style="margin-top:10px;"  onchange=validateFileType()>&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr style="margin-bottom:10%;">
                         <td colspan="2">
-                            <input type="submit" value="Update" name="update" class="login-btn btn-primary-soft btn" style="margin:5% 0 2% 20%;width:120px;text-align:center;">
+                            <input type="submit" name="update" class="login-btn btn-primary-soft btn" style="margin:5% 0 2% 20%;width:120px;text-align:center;">
                             <a href="change_password.php" class="login-btn btn-primary-soft btn" style="text-align:center;">change Password</a>
                         </td>
                     </tr>

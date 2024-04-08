@@ -4187,7 +4187,7 @@ img.squre{
 	padding:20px 10px; 
 	margin: auto;
 	color:white;
-	background-color: #1A76D1;;
+	background-color: #1A76D1;
 	border-radius: 10px;
 }
 :hover.book{
@@ -4263,6 +4263,25 @@ input[type="file"] {
   }
   .nice-select .profile{
 	padding: 8px 0 0 120px;
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+	-moz-appearance: textfield;
+  }
+  .register{
+	color:black;
+	padding: 30px;
+	border-radius: 0;
+	font-size: 30px;
+  }
+  :hover.register{
+	transition: 1s ease;
+	background-color: rgb(227, 227, 227);
   }
 /*=========================
 	End Footer CSS

@@ -94,14 +94,14 @@ if(isset($_SESSION["email"])){
 								<div class="single-main">
 									<!-- News Head -->
 									<div class="news-head">
-										<img src="../Doctor/img/article/<?php echo $img;?>" alt="#">
+										<img src="../../img/Article/<?php echo $img;?>" alt="#">
 									</div>
 									<!-- News Title -->
 									<h1 class="news-title"><a href="singlearticle.php?action=view&id=<?php echo $aid;?>"><?php echo $title;?></a></h1>
 									<!-- Meta -->
 									<div class="meta">
 										<div class="meta-left">
-											<span class="author"><a href="#"><img src="../Doctor/img/<?php echo $doc_img;?>" alt="#"><?php echo $doc_name;?></a></span>
+											<span class="author"><a href="#"><img src="../../img/Doctor/<?php echo $doc_img;?>" alt="#"><?php echo $doc_name;?></a></span>
 											<span class="date"><i class="fa fa-clock-o"></i><?php echo $date; ?></span>
 										</div>
 										<div class="meta-right">
@@ -181,7 +181,7 @@ if(isset($_SESSION["email"])){
 								?>
 								<div class="single-post">
 									<div class="image">
-										<img src="../Doctor/img/Article/<?php echo $img; ?>" alt="#">
+										<img src="../../img/Article/<?php echo $img; ?>" alt="#">
 									</div>
 									<div class="content">
 										<h5><a href="singlearticle.php?action=view&id=<?php echo $aid;?>"><?php echo $title;?></a></h5>

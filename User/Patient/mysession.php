@@ -27,7 +27,7 @@ $today = date('Y-m-d');
     </head>
     <body>
 		<?php
-		 	require "Import/PreLoader.php";
+		 	// require "Import/PreLoader.php";
 			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
@@ -56,10 +56,7 @@ $today = date('Y-m-d');
 				$action=$_GET["action"];
 				if($action=='view')
 				{
-					// $query = "select * from schedule where doc_id = '$id' ";
-					// $query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time' and schedule.doc_id = '$id'";
-					// $query = "select * from scheule ,patient where scheule.patient_id = patient_id and patient_email = $useremail";
-					$query = "select * from appointment where patient_id = $pid and sche_id = $id";
+					$query = "select * from appointment where appo_status != 0 and patient_id = $pid and sche_id = $id and sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 					$result= $database->query($query);
 				}
 				else
@@ -71,7 +68,7 @@ $today = date('Y-m-d');
 			}
 			else
 			{
-				$query = "select * from appointment where patient_id = $pid";
+				$query = "select * from appointment where appo_status != 0 and patient_id = $pid and sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 				$result= $database->query($query);	
 			}
 			
@@ -95,6 +92,8 @@ $today = date('Y-m-d');
 								$result1= $database->query($query);	
 								$row1=$result1->fetch_assoc();
 
+
+
 								$docid=$row1["doc_id"];
 								$title=$row1["sche_title"];
 								$date=$row1['sche_date'];
@@ -113,11 +112,14 @@ $today = date('Y-m-d');
 								$spcil_array= $spcil_res->fetch_assoc();
 								$spcil_name=$spcil_array["spec_type"];
 
+								$query= $database->query("select * from transaction where appo_id = $appoid");
+								$row= $query->fetch_assoc();
+								$tid=$row["tra_id"];
 					?>
 					<div class="col-lg-12 col-md-6 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="row">
-								<img src="../Doctor/img/<?php echo $img; ?>" alt="#" class="squre col-lg-3 col-md-12" style="border-radius:50%;">
+								<img src="../../img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-3 col-md-12" style="border-radius:50%;">
 								<!-- padding:20px 30px; margin:30px 0 0 10px;  -->
                                 <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-8 col-md-12" style="padding:30px;">
                                     <div>
@@ -134,7 +136,7 @@ $today = date('Y-m-d');
                                 <?php
 									echo 
 										'
-											<p class="col-2 bookr" style="margin-bottom:30px;"><a href="php/booking.php?action=delete&id='.$appoid.'">cancle</a></p>
+											<p class="col-2 bookr" style="margin-bottom:30px;"><a href="php/booking.php?action=delete&id='.$appoid.'&tid='.$tid.'">cancle</a></p>
 										';
                                 ?>
 							</div>
@@ -145,7 +147,7 @@ $today = date('Y-m-d');
 						}
 						else
 						{
-							echo '<div style="font-size:50px; margin-left:300px;">'."You Have No Appointment's !".'</div>';
+							echo '<div style="font-size:50px; margin-left:300px;">'."You Have No Future Appointment's !".'</div>';
 						} 
 					?>
 				</div>

@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/animations.css">  
-    <link rel="stylesheet" href="../css/main.css">  
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/css/animations.css">  
+    <link rel="stylesheet" href="../../css/css/main.css">  
+    <link rel="stylesheet" href="../../css/css/admin.css">
         
     <title>Dashboard</title>
     <style>
@@ -22,8 +22,19 @@
         .doctor-heade{
             animation: transitionIn-Y-over 0.5s;
         }
+      
     </style>
-    
+    <script>
+      function validateFileType() {
+         var selectedFile = document.getElementById('fileInput').files[0];
+         var allowedTypes = ['image/jpeg', 'image/png', 'application/pdf'];
+
+         if (!allowedTypes.includes(selectedFile.type)) {
+            alert('Invalid file type. Please upload a JPEG, PNG, or PDF file.');
+            document.getElementById('fileInput').value = '';
+         }
+      }
+   </script>
     
 </head>
 <body>
@@ -33,12 +44,12 @@
 
     if(isset($_SESSION["email"])){
         if(($_SESSION["email"])=="" or $_SESSION['usertype']!='D'){
-            header("location: ../../index.php");
+            header("location: ../../login.php");
         }else{
             $useremail=$_SESSION["email"];
         }
     }else{
-        header("location: ../../index.php");
+        header("location: ../../login.php");
     }
 
     include("../../php/connection.php");
@@ -47,6 +58,7 @@
     $userfetch=$userrow->fetch_assoc();
     $userid= $userfetch["doc_id"];
     $username=$userfetch["doc_name"];
+    $img=$userfetch["doc_img"];
 
     date_default_timezone_set('Asia/Kolkata');
 
@@ -61,7 +73,8 @@
                         <table border="0" class="profile-container">
                             <tr>
                                 <td width="30%" style="padding-left:20px" >
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                    <img src="../../img/Doctor/<?php echo $img;?>" alt="" width="100px" height="90px"  style="border-radius:60%">
+
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo substr($username,0,13)  ?>..</p>
@@ -98,7 +111,7 @@
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-patient menu-active menu-icon-dashbord-active ">
+                    <td class="menu-btn menu-icon-deshboard menu-active menu-icon-dashbord-active ">
                         <a href="article.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">My Article</p></a></div>
                     </td>
                 </tr>
@@ -114,7 +127,7 @@
             <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;margin-top:25px; ">
                 <tr >
                     <td width="13%" >
-                    <a href="schedule.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
+                    <a href="article.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
                     </td>
                     <td>
                         <p style="font-size: 23px;padding-left:12px;font-weight: 600;">Manage Article</p>                    
@@ -138,7 +151,7 @@
                         </p>
                     </td>
                     <td width="10%">
-                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
+                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../../img/Other/calendar.svg" width="100%"></button>
                     </td>
 
 
@@ -148,7 +161,7 @@
                     <td colspan="4" >
                         <div style="display: flex;margin-top: 40px;">
                         <div class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49);margin-top: 5px;">More Article</div>
-                        <a href="?action=add-article&id=none&error=0" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../img/icons/add.svg');">Add New Article</font></button>
+                        <a href="add-article.php" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../img/icons/add.svg');">Add New Article</font></button>
                         </a>
                         </div>
                     </td>
@@ -258,7 +271,7 @@
                                     <td colspan="4">
                                     <br><br><br><br>
                                     <center>
-                                    <img src="../img/notfound.svg" width="25%">
+                                    <img src="../../img/icons/notfound.svg" width="25%">
                                     
                                     <br>
                                     <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
@@ -322,7 +335,7 @@
             <div id="popup1" class="overlay">
                     <div class="popup">
                     <center>
-                        <a class="close" href="schedule.php">&times;</a> 
+                        <a class="close" href="article.php">&times;</a> 
                         <div style="display: flex;justify-content: center;">
                         <div class="abc">
                         <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
@@ -374,7 +387,7 @@
 
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    <input type="file" name="img" class="input-text" placeholder="Time" required><br>
+                                    <input type="file" name="img" class="input-text" placeholder="Time" onchange="validateFileType()" required><br>
                                 </td>
                             </tr>
                            
@@ -386,6 +399,8 @@
                                 </td>
                 
                             </tr>
+
+                            <div></div>
                            
                             </form>
                             </tr>
@@ -427,12 +442,12 @@
            
             echo '
             <div id="popup1" class="overlay">
-                <div class="popup" style="width: 70%; height:90%">
+                <div class="popup" >
                     <center>
                         <h2></h2>
                         <a class="close" href="article.php">&times;</a>
                         <div class="abc scroll" style="display: flex;justify-content: center;" >
-                            <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0" >
+                            <table  class="sub-table scrolldown add-doc-form-container" border="0" >
                                 <tr>
                                     <td>
                                         <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;"><center><b style="font-size:50px;">View Article</b></center></p><br><br>
@@ -442,7 +457,7 @@
                                 <tr>
                                     <td class="label-td" colspan="2" >
                                         <center>
-                                            <img src="img/Article/'.$img.'" height="300px">
+                                            <img src="../../img/Article/'.$img.'" height="300px">
                                         </center>
                                     </td>
                                 </tr>
@@ -466,15 +481,15 @@
                                 </tr>
                                 <tr>
                                     <td class="label-td" colspan="2" style="padding-top:30px;">
-                                    <label for="Tele" class="form-label"><center><b>________________________________________________________________________________________________________________________________________________________<b></center></label>
+                                    <label for="Tele" class="form-label"><center><b>___________________________________________________________<b></center></label>
                                     <label for="Tele" class="form-label"><center><b>Article<b></center></label>
-                                    <label for="Tele" class="form-label"><center><b>________________________________________________________________________________________________________________________________________________________<b></center></label>
+                                    <label for="Tele" class="form-label"><center><b>___________________________________________________________<b></center></label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="label-td" colspan="2">
                                         <p  style="word-wrap: break-word;">'.$desc.'<p><br><br>
-                                            <p  style="word-wrap: break-word;"><b><center>________________________________________________________________________________________________________________________________________________________</center></b><p>
+                                            <p  style="word-wrap: break-word;"><b><center>_______________________________________________________________</center></b><p>
                                     </td>
                                 </tr>
                             </table>

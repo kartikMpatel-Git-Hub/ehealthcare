@@ -4,11 +4,11 @@
 
     if(isset($_SESSION["email"])){
         if(($_SESSION["email"])=="" or $_SESSION['usertype']!='D'){
-            header("location: ../../php/login.php");
+            header("location: ../../login.php");
         }
 
     }else{
-        header("location: ../../php/login.php");
+        header("location: ../../login.php");
     }
     
     

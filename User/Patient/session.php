@@ -15,9 +15,7 @@ date_default_timezone_set('Asia/Kolkata');
 
 $time = date("H:i:s");
 $today = date('Y-m-d');
-
 ?>
-<!doctype html>
 <html class="no-js" lang="zxx">
     <head>
         <!-- Meta Tags -->
@@ -27,7 +25,7 @@ $today = date('Y-m-d');
     </head>
     <body>
 		<?php
-		 	require "Import/PreLoader.php";
+		 	// require "Import/PreLoader.php";
 			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
@@ -49,27 +47,27 @@ $today = date('Y-m-d');
 		<?php
 			require "php/connection.php";
 			if($_GET){
-				$id=$_GET["id"];
 				$action=$_GET["action"];
+				$id=$_GET["id"];
 				if($action=='view')
 				{
-					// $query = "select * from schedule where doc_id = '$id' ";
-					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time' and schedule.doc_id = '$id'";
+					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.doc_id = '$id' and schedule.sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 					$result= $database->query($query);
 				}
-				elseif($action == 'date'){
-					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time' and schedule.sche_date = '$id'";
+				elseif($action == 'date')
+				{
+					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_date = '$id' and schedule.sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 					$result= $database->query($query);
 				}
 				else
 				{
-					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time'";
+					$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 					$result= $database->query($query);	
 				}
 			}
 			else
 			{
-				$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time'";
+				$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
 				$result= $database->query($query);	
 			}
 			
@@ -105,7 +103,7 @@ $today = date('Y-m-d');
 								$spcil_name=$spcil_array["spec_type"];
 
 
-								$query="select * from appointment where sche_id = '$scheid'";
+								$query="select * from appointment where sche_id = '$scheid' and appo_status != 0";
 								$empty=$database->query($query);	
 								$totapo=$empty->num_rows;
 								$space = $booking - $totapo;
@@ -114,7 +112,7 @@ $today = date('Y-m-d');
 								$patient= $query->fetch_assoc();
 								$pid=$patient["patient_id"];
 
-								$query="select * from appointment where sche_id = '$scheid' and patient_id = '$pid'";
+								$query="select * from appointment where sche_id = '$scheid' and patient_id = '$pid' and appo_status != 0";
 								$empty=$database->query($query);	
 								$status=$empty->num_rows;
 
@@ -122,7 +120,7 @@ $today = date('Y-m-d');
 					<div class="col-lg-6 col-md-6 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="row">
-								<img src="../Doctor/img/<?php echo $img; ?>" alt="#" class="squre col-lg-6 col-md-12" style="border-radius:50%;">
+								<img src="../../img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-6 col-md-12" style="border-radius:50%;">
 								<!-- padding:20px 30px; margin:30px 0 0 10px;  -->
                                 <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-6 col-md-12" style="padding:30px;">
                                     <div>
@@ -133,6 +131,9 @@ $today = date('Y-m-d');
                                             <p   class="detail" ><?php echo $date; ?></p>
                                             <p   class="detail" ><?php echo $start.' To '.$end; ?> </p>
                                             <p   class="detail" >₹<?php echo $charge;?> Consultation fee at clinic</p>
+											<input type="hidden" class="form-control" name="payAmount" id="payAmount" value="<?php echo $charge;?>"disabled>
+											<input type="hidden" class="form-control" name="id" id="id" value="<?php echo $scheid;?>"disabled>
+
                                     </div>
                                 </a>
                                 
@@ -152,7 +153,7 @@ $today = date('Y-m-d');
 											{
 													echo 
 													'
-														<p class="col-4 book" style="margin-bottom:30px;"><a href="php/booking.php?action=add&id='.$scheid.'" >Book</a></p>
+														<a href="booksession.php?action=book&id='.$scheid.'" class="col-4 book" style="margin-bottom:30px; color:white;">Book</a>
 													';
 													//style="color:white; padding:20px 30px;"
 											}
@@ -182,10 +183,10 @@ $today = date('Y-m-d');
 						}
 						else
 						{
-							$query= $database->query("select * from doctor  where doc_id='$id'");
-							$result= $query->fetch_assoc();
-							$docname=$result["doc_name"];
-							echo '<div style="font-size:50px; margin-left:300px;">'.$docname." 's Session Not Available !</div>";
+							// $query= $database->query("select * from doctor  where doc_id='$id'");
+							// $result= $query->fetch_assoc();
+							// $docname=$result["doc_name"];
+							echo '<div style="font-size:50px; margin-left:300px;">Session Not Available !</div>' ;
 						} 
 					?>
 				</div>
@@ -196,5 +197,102 @@ $today = date('Y-m-d');
 			require "Import/Footer.php";
 			require "Import/Javascript.php";
 		?>
+
+
+<!-- Payment Getway -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+   
+jQuery(document).ready(function($)
+{
+    jQuery('#PayNow').click(function(e)
+    {
+	    var paymentOption='';
+        var paymentOption= "netbanking";
+        var payAmount = $('#payAmount').val();
+        var id = $('#id').val();
+        var request_url="Payment/payment.php";
+	    var formData = 
+        {
+	    	paymentOption:paymentOption,
+	    	payAmount:payAmount,
+	    	action:'payOrder'
+	    }
+    
+	    $.ajax({type: 'POST',url:request_url,data:formData,dataType: 'json',encode:true,}).done(function(data)
+        {
+        
+	    	if(data.res=='success')
+            {
+	    			var orderID=data.order_number;
+	    			var orderNumber=data.order_number;
+	    			var options = 
+                    {
+                        "key": data.razorpay_key, // Enter the Key ID generated from the Dashboard
+                        "amount": data.userData.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+                        "currency": "INR",
+                        "name": "E-Health Care", //your business name
+                        "description": data.userData.description,
+                        "image": "Payment/payment.png",
+                        "order_id": data.userData.rpay_order_id, //This is a sample Order ID. Pass 
+                        "handler": function (response)
+                        {
+                            window.location.replace("Payment/payment-success.php?action=Done&id="+id);
+                        },
+                        "modal": 
+                        {
+                            "ondismiss": function()
+                            {
+                                window.location.replace("Payment/payment-success.php?action=cancle&id="+id);
+                            }
+                        },
+                            "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
+                            "name": data.userData.name, //your customer's name
+                            "email": data.userData.email,
+                            "contact": data.userData.mobile //Provide the customer's phone number for better conversion rates 
+                        },
+                        "notes": 
+                        {
+                            "address": "E-Health Care"
+                        },
+                        "config": 
+                        {
+                            "display": 
+                            {
+                                "blocks": 
+                                {
+                                    "banks": 
+                                    {
+                                        "name": 'Pay using '+paymentOption,
+                                        "instruments": [{"method": paymentOption},],
+                                    },
+                                },
+                                "sequence": ['block.banks'],
+                                "preferences": 
+                                {
+                                    "show_default_blocks": true,
+                                },
+                            },
+                        },
+                        "theme": 
+                        {
+                            "color": "#3399cc"
+                        }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.on(
+                        'payment.failed', function (response)
+                        {
+                            window.location.replace("Payment/payment-failed.php?oid="+orderID+"&reason="+response.error.description+"&paymentid="+response.error.metadata.payment_id);
+                        });
+                    rzp1.open();
+                    e.preventDefault(); 
+            }
+        
+        });
+    });
+});
+</script>
+ 
     </body>
 </html>

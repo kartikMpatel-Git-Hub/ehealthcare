@@ -87,7 +87,7 @@ if(isset($_SESSION["email"])){
 					<div class="col-lg-4 col-md-6 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="news-head">
-								<img src="../Doctor/img/<?php echo $img; ?>" alt="#" height="10%">
+								<img src="../../img/Doctor/<?php echo $img; ?>" alt="#" height="10%">
 							</div>
 							<a href="doctordetail.php?action=view&id=<?php echo $docid; ?>">
 							<div class="news-body">

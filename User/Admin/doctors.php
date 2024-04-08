@@ -18,9 +18,9 @@ include("../../php/connection.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/animations.css">  
-    <link rel="stylesheet" href="../css/main.css">  
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/css/animations.css">  
+    <link rel="stylesheet" href="../../css/css/main.css">  
+    <link rel="stylesheet" href="../../css/css/admin.css">
         
     <title>Doctors</title>
     <style>
@@ -41,7 +41,7 @@ include("../../php/connection.php");
                         <table border="0" class="profile-container">
                             <tr>
                                 <td width="30%" style="padding-left:20px" >
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                    <img src="../../img/Other/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title">Administrator</p>
@@ -142,7 +142,7 @@ include("../../php/connection.php");
                         </p>
                     </td>
                     <td width="10%">
-                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
+                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../../img/icons/calendar.svg" width="100%"></button>
                     </td>
 
 
@@ -216,7 +216,7 @@ include("../../php/connection.php");
                                     <td colspan="4">
                                     <br><br><br><br>
                                     <center>
-                                    <img src="../img/notfound.svg" width="25%">
+                                    <img src="../../img/icons/notfound.svg" width="25%">
                                     
                                     <br>
                                     <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>

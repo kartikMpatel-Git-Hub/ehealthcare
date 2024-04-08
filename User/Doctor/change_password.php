@@ -15,8 +15,8 @@
     $query= "select * from doctor where doc_email = '$useremail';";
     $result= $database->query($query);
     $row=$result->fetch_assoc();
-    $name=$row['doc_name'];
     $img=$row['doc_img'];
+    $name=$row['doc_name'];
 
     if(isset($_POST['update']))
     {
@@ -69,9 +69,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/animations.css">  
-    <link rel="stylesheet" href="../css/main.css">  
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/css/animations.css">  
+    <link rel="stylesheet" href="../../css/css/main.css">  
+    <link rel="stylesheet" href="../../css/css/admin.css">
         
     <title>Dashboard</title>
     <style>
@@ -97,7 +97,7 @@
                         <table border="0" class="profile-container">
                             <tr>
                                 <td width="30%" style="padding-left:20px" >
-                                    <img src="img/<?php echo $img;?>" alt="" width="100px" height="90px"  style="border-radius:60%">
+                                    <img src="../../img/Doctor/<?php echo $img;?>" alt="" width="100px" height="90px"  style="border-radius:60%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo $name;?></p>
@@ -134,6 +134,11 @@
                     </td>
                 </tr>
                 <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-dashbord">
+                        <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">My Article</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row" >
                     <td class="menu-btn menu-icon-settings  menu-active menu-icon-settings-active">
                         <a href="settings.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Settings</p></a></div>
                     </td>
@@ -164,7 +169,7 @@
                         </p>
                     </td>
                     <td width="10%">
-                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
+                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../../img/Other/calendar.svg" width="100%"></button>
                     </td>
                 </tr> 
             </table> 

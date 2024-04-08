@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/animations.css">  
-    <link rel="stylesheet" href="../css/main.css">  
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/css/animations.css">  
+    <link rel="stylesheet" href="../../css/css/main.css">  
+    <link rel="stylesheet" href="../../css/css/admin.css">
         
 
 
@@ -34,13 +34,13 @@
 
     if(isset($_SESSION["email"])){
         if(($_SESSION["email"])=="" or $_SESSION['usertype']!='D'){
-            header("location: ../login.php");
+            header("location: ../../login.php");
         }else{
             $useremail=$_SESSION["email"];
         }
 
     }else{
-        header("location: ../login.php");
+        header("location: ../../login.php");
     }
     
 
@@ -50,7 +50,7 @@
     $userfetch=$userrow->fetch_assoc();
     $userid= $userfetch["doc_id"];
     $username=$userfetch["doc_name"];
-
+    $img=$userfetch['doc_img'];
 
     //echo $userid;
     //echo $username;
@@ -63,8 +63,8 @@
                     <td style="padding:10px" colspan="2">
                         <table border="0" class="profile-container">
                             <tr>
-                                <td width="30%" style="padding-left:20px" >
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                <td width="30%" style="padding-left:20px" >                        
+                                    <img src="../../img/Doctor/<?php echo $img;?>" alt="" width="100px" height="90px"  style="border-radius:60%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title"><?php echo substr($username,0,13)  ?>..</p>
@@ -98,6 +98,11 @@
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-patient">
                         <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">My Patients</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-dashbord">
+                        <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">My Article</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
@@ -135,7 +140,7 @@
                                 </p>
                             </td>
                             <td width="10%">
-                                <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
+                                <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../../img/Other/calendar.svg" width="100%"></button>
                             </td>
         
         
@@ -154,7 +159,7 @@
                                 <td style="width: 25%;">
                                     <a href="profile.php" class="non-style-link">
                                     <div  class="dashboard-items setting-tabs"  style="padding:20px;margin:auto;width:95%;display: flex">
-                                        <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('../img/icons/doctors-hover.svg');"></div>
+                                        <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('../../img/icons/doctors-hover.svg');"></div>
                                         <div>
                                                 <div class="h1-dashboard">
                                                     Account Settings  &nbsp;
@@ -178,7 +183,7 @@
                                 <td style="width: 25%;">
                                     <a href="?action=drop&id=<?php echo $userid.'&name='.$username ?>" class="non-style-link">
                                         <div  class="dashboard-items setting-tabs"  style="padding:20px;margin:auto;width:95%;display: flex;">
-                                            <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('../img/icons/patients-hover.svg');"></div>
+                                            <div class="btn-icon-back dashboard-icons-setting" style="background-image: url('../../img/icons/patients-hover.svg');"></div>
                                                 <div>
                                                     <div class="h1-dashboard" style="color: #ff5050;">
                                                         Delete Account

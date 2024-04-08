@@ -87,7 +87,7 @@ if(isset($_SESSION["email"])){
 						<div class="inner-content">
 							
 							<div class="image-slider">
-									<img src="../Doctor/img/<?php echo $img; ?>" alt="#">
+									<img src="../../img/Doctor/<?php echo $img; ?>" alt="#">
 							</div>
 							<div class="date">
 								<ul>

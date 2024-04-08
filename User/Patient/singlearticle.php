@@ -89,12 +89,12 @@ if(isset($_SESSION["email"])){
 							<div class="col-12">
 								<div class="single-main">
 									<div class="news-head">
-										<img src="../Doctor/img/Article/<?php echo $img;?>" alt="#">
+										<img src="../../img/Article/<?php echo $img;?>" alt="#">
 									</div>
 									<h1 class="news-title"><?php echo $title;?></h1>
 									<div class="meta">
 										<div class="meta-left">
-											<span class="author"><a href="#"><img src="../Doctor/img/<?php echo $doc_img;?>" alt="#"><?php echo $doc_name;?></a></span>
+											<span class="author"><a href="#"><img src="../../img/Doctor/<?php echo $doc_img;?>" alt="#"><?php echo $doc_name;?></a></span>
 											<span class="date"><i class="fa fa-clock-o"></i><?php echo $date; ?></span>
 										</div>
 										<div class="meta-right">

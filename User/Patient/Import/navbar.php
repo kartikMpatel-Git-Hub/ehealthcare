@@ -29,10 +29,10 @@
 				<div class="container">
 					<div class="inner">
 						<div class="row">
-							<div class="col-lg-2 col-md-3 col-12">
+							<div class="col-lg-3 col-md-3 col-12">
 								<!-- Start Logo -->
 								<div class="logo">
-									<a href="index.html" style="font-size: large; color: darkblue; font-weight: bold; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">E-Health Care</a>
+									<a href="index.html" style="font-size: large; color: rgb(42 176 226); font-weight: bold; font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"><img src="../../img/Other/logo.png" alt="#" width="50px">E-Health Care</a>
 								</div>
 								<!-- End Logo -->
 								<!-- Mobile Nav -->

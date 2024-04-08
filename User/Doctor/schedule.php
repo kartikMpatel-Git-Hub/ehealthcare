@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/animations.css">  
-    <link rel="stylesheet" href="../css/main.css">  
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/css/animations.css">  
+    <link rel="stylesheet" href="../../css/css/main.css">  
+    <link rel="stylesheet" href="../../css/css/admin.css">
         
     <title>Schedule</title>
     <style>
@@ -27,13 +27,13 @@
 
     if(isset($_SESSION["email"])){
         if(($_SESSION["email"])=="" or $_SESSION['usertype']!='D'){
-            header("location: ../../php/login.php");
+            header("location: ../../login.php");
         }else{
             $useremail=$_SESSION["email"];
         }
 
     }else{
-        header("location: ../../php/login.php");
+        header("location: ../..login.php");
     }
     
     date_default_timezone_set('Asia/Kolkata');
@@ -42,7 +42,12 @@
 
     //import database
     include("../../php/connection.php");
-
+    $query= "select * from doctor where doc_email = '$useremail';";
+    $result= $database->query($query);
+    $row=$result->fetch_assoc();
+    $img=$row['doc_img'];
+    $doc_id=$row['doc_id'];
+    $doc_name=$row['doc_name'];
     
     ?>
     <div class="container">
@@ -53,10 +58,10 @@
                         <table border="0" class="profile-container">
                             <tr>
                                 <td width="30%" style="padding-left:20px" >
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                    <img src="../../img/Doctor/<?php echo $img;?>" alt="" width="100px" height="90px"  style="border-radius:60%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
+                                    <p class="profile-title"><?php echo $doc_name; ?></p>
                                     <p class="profile-subtitle"><?php echo $useremail;?></p>
                                 </td>
                             </tr>
@@ -91,6 +96,11 @@
                     </td>
                 </tr>
                 <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-dashbord">
+                        <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">My Article</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row" >
                     <td class="menu-btn menu-icon-settings">
                         <a href="settings.php" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
                     </td>
@@ -120,13 +130,13 @@
                         echo $today;
                         // echo $time;
 
-                        $list110 = $database->query("select  * from  schedule;");
+                        $list110 = $database->query("select  * from  schedule where  sche_id in (select sche_id from schedule where doc_id = '$doc_id') and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end < '$time');");
 
                         ?>
                         </p>
                     </td>
                     <td width="10%">
-                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
+                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../../img/Other/calendar.svg" width="100%"></button>
                     </td>
 
 
@@ -165,29 +175,7 @@
                             <input type="date" name="sheduledate" id="date" class="input-text filter-container-items" style="margin: 0;width: 95%;">
 
                         </td>
-                        <td width="5%" style="text-align: center;">
-                        Doctor:
-                        </td>
-                        <td width="30%">
-                        <select name="docid" id="" class="box filter-container-items" style="width:90% ;height: 37px;margin: 0;" >
-                            <option value="" disabled selected hidden>Choose Doctor Name from the list</option><br/>
-                                
-                            <?php 
-                            
-                                $list11 = $database->query("select  * from  doctor order by doc_name asc;");
-
-                                for ($y=0;$y<$list11->num_rows;$y++){
-                                    $row00=$list11->fetch_assoc();
-                                    $sn=$row00["doc_name"];
-                                    $id00=$row00["doc_id"];
-                                    echo "<option value=".$id00.">$sn</option><br/>";
-                                };
-
-
-                                ?>
-
-                        </select>
-                    </td>
+                        
                     <td width="12%">
                         <input type="submit"  name="filter" value=" Filter" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%">
                         </form>
@@ -210,17 +198,11 @@
                             $sqlpt1=" schedule.sche_date='$sheduledate' ";
                         }
 
-
-                        $sqlpt2="";
-                        if(!empty($_POST["docid"])){
-                            $docid=$_POST["docid"];
-                            $sqlpt2=" doctor.doc_id=$docid ";
-                        }
                         //echo $sqlpt2;
                         //echo $sqlpt1;
                         $sqlmain= "select schedule.sche_id,schedule.sche_title,doctor.doc_name,schedule.sche_date,schedule.sche_start,schedule.sche_noappo from schedule inner join doctor on schedule.doc_id=doctor.doc_id ";
                         $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_id  not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time')  order by schedule.sche_date desc)";          
-                        $sqllist=array($sqlpt1,$sqlpt2);
+                        $sqllist=array($sqlpt1);
                         $sqlkeywords=array(" where "," and ");
                         $key2=0;
                         foreach($sqllist as $key){
@@ -236,10 +218,8 @@
                         
                         //
                     }else{
-                        // $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time')  order by schedule.sche_date desc";
-                        // $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_id  not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time')  order by schedule.sche_date desc)";          
-                        $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time'";
-                        $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time'"; 
+                        $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and sche_id in (select sche_id from schedule where doc_id = '$doc_id') and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
+                        $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and sche_id in (select sche_id from schedule where doc_id = '$doc_id') and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end > '$time')"; 
                     }
                     
 
@@ -299,7 +279,7 @@
                                     <td colspan="4">
                                     <br><br><br><br>
                                     <center>
-                                    <img src="../img/notfound.svg" width="25%">
+                                    <img src="../../img/icons/notfound.svg" width="25%">
                                     
                                     <br>
                                     <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
@@ -398,7 +378,7 @@
                                         <td colspan="4">
                                             <br><br><br><br>
                                                 <center>
-                                                    <img src="../img/notfound.svg" width="25%">
+                                                    <img src="../../img/icons/notfound.svg" width="25%">
                                                     <br>
                                                     <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
                                                     <a class="non-style-link" href="schedule.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Sessions &nbsp;</font></button>
@@ -471,10 +451,7 @@
                         <div class="abc">
                         <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
                         <tr>
-                                <td class="label-td" colspan="2">'.
-                                   "hello"
-                                
-                                .'</td>
+                                <td class="label-td" colspan="2"></td>
                             </tr>
 
                             <tr>
@@ -502,22 +479,8 @@
                             <tr>
                                 <td class="label-td" colspan="2">
                                     <select name="docid" id="" class="box" >
-                                    <option value="" disabled selected hidden>Choose Doctor Name from the list</option><br/>';
-                                        
-        
-                                        $list11 = $database->query("select  * from  doctor order by doc_name asc;");
-        
-                                        for ($y=0;$y<$list11->num_rows;$y++){
-                                            $row00=$list11->fetch_assoc();
-                                            $sn=$row00["doc_name"];
-                                            $id00=$row00["doc_id"];
-                                            echo "<option value=".$id00.">$sn</option><br/>";
-                                        };
-        
-        
-        
-                                        
-                        echo     '       </select><br><br>
+                                        <option value="'.$doc_id.'">'.$doc_name.'</option><br/>
+                                    </select><br><br>
                                 </td>
                             </tr>
                             <tr>
@@ -744,7 +707,7 @@
                                              <td colspan="7">
                                              <br><br><br><br>
                                              <center>
-                                             <img src="../img/notfound.svg" width="25%">
+                                             <img src="../../img/icons/notfound.svg" width="25%">
                                              
                                              <br>
                                              <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>

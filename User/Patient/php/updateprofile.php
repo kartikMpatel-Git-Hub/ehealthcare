@@ -52,7 +52,7 @@
                 }
                 else
                 {
-                    $user = $database->query("select  * from  patient where patient_img = '$img'  and patient_email != '$useremail';");
+                    $user = $database->query("select  * from  patient where patient_img = '$img'  and patient_email != '$useremail' and patient_img != 'user.jpg';");
                     if($user->num_rows)
                     {
                         $_SESSION['ERROR'] = "Wrong Image !"; 

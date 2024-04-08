@@ -11,6 +11,11 @@ if(isset($_SESSION["email"])){
     header("location: ../../login.php");
 }
 include("../../php/connection.php");
+
+$query= "select * from doctor where doc_email = '$useremail';";
+$result= $database->query($query);
+$row=$result->fetch_assoc();
+$img=$row['doc_img'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -18,9 +23,9 @@ include("../../php/connection.php");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/animations.css">  
-    <link rel="stylesheet" href="../css/main.css">  
-    <link rel="stylesheet" href="../css/admin.css">
+    <link rel="stylesheet" href="../../css/css/animations.css">  
+    <link rel="stylesheet" href="../../css/css/main.css">  
+    <link rel="stylesheet" href="../../css/css/admin.css">
         
     <title>Doctors</title>
     <style>
@@ -41,7 +46,8 @@ include("../../php/connection.php");
                         <table border="0" class="profile-container">
                             <tr>
                                 <td width="30%" style="padding-left:20px" >
-                                    <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
+                                    <img src="../../img/Doctor/<?php echo $img;?>" alt="" width="100px" height="90px"  style="border-radius:60%">
+
                                 </td>
                                 <td style="padding:0px;margin:0px;">
                                     <p class="profile-title">Administrator</p>
@@ -85,6 +91,11 @@ include("../../php/connection.php");
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-patient">
                         <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">Patients</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-dashbord">
+                        <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">My Article</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
@@ -142,7 +153,7 @@ include("../../php/connection.php");
                         </p>
                     </td>
                     <td width="10%">
-                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../img/calendar.svg" width="100%"></button>
+                        <button  class="btn-label"  style="display: flex;justify-content: center;align-items: center;"><img src="../../img/Other/calendar.svg" width="100%"></button>
                     </td>
 
 
@@ -216,7 +227,7 @@ include("../../php/connection.php");
                                     <td colspan="4">
                                     <br><br><br><br>
                                     <center>
-                                    <img src="../img/notfound.svg" width="25%">
+                                    <img src="../../img/icons/notfound.svg" width="25%">
                                     
                                     <br>
                                     <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
