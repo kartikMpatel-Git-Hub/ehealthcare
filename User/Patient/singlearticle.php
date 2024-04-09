@@ -36,7 +36,7 @@ if(isset($_SESSION["email"])){
 			</div>
 		</div>
 		<?php
-			require "php/connection.php";
+			require "../../php/connection.php";
 			$query= $database->query("select * from patient  where patient_email='$useremail'");
 			$ans= $query->fetch_assoc();
 			$userid=$ans["patient_id"];

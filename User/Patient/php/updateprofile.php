@@ -2,16 +2,16 @@
     session_start();
     if(isset($_SESSION["email"])){
         if(($_SESSION["email"])=="" or $_SESSION['usertype']!='P'){
-            header("location: ../../login.php");
+            header("location: ../../../login.php");
         }
         else{
             $useremail=$_SESSION["email"];
         }
     }else{
-        header("location: ../../login.php");
+        header("location: ../../../login.php");
     }
 
-    include("connection.php");
+    include("../../../php/connection.php");
     if(isset($_POST['profile']))
     {
         $query= $database->query("select * from patient where patient_email='$useremail'");

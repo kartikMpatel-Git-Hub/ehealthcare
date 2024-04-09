@@ -41,8 +41,9 @@ if(isset($_SESSION["email"])){
 			</div>
 		</div>
 		<?php
-			require "php/connection.php";
-			if($_GET){
+			require "../../php/connection.php";
+			if($_GET)
+			{
 				$id=$_GET["id"];
 				$action=$_GET["action"];
 				if($action=='view')
@@ -59,6 +60,7 @@ if(isset($_SESSION["email"])){
 			}
 			else
 			{
+				$action = "";
 				$query = "select * from doctor";
 				$result= $database->query($query);	
 			}
@@ -106,13 +108,17 @@ if(isset($_SESSION["email"])){
 					<?php 
 							}
 						}
-						else
+						elseif($action == "view")
 						{
 							$spcil_res= $database->query("select spec_type from specialist  where spec_id='$id'");
 							$spcil_array= $spcil_res->fetch_assoc();
 							$spcil_name=$spcil_array["spec_type"];
 							echo '<div style="font-size:50px; margin-left:300px;">'.$spcil_name.' Not Available !</div>';
 						} 
+						else
+						{
+							echo '<div style="font-size:50px; margin-left:300px;"> Doctor Not Available !</div>';	
+						}
 					?>
 				</div>
 			</section>

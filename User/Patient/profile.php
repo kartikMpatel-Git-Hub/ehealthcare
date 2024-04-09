@@ -21,10 +21,10 @@ if(isset($_SESSION["email"])){
     <body>
 		
 		<?php 
-			require "Import/PreLoader.php";
+			// require "Import/PreLoader.php";
 			require "Import/navbar.php";
 
-			require "php/connection.php";
+			require "../../php/connection.php";
 			$query= $database->query("select * from patient  where patient_email='$useremail'");
 			$ans= $query->fetch_assoc();
 			$id=$ans["patient_id"];
@@ -48,7 +48,7 @@ if(isset($_SESSION["email"])){
 			</div>
 		</div>
 		<?php
-			require "php/connection.php";
+			require "../../php/connection.php";
 		?>
 		<section class="news-single section">
 			<div class="container">

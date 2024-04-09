@@ -50,7 +50,7 @@ include("../../php/connection.php");
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                <a href="../logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
+                                <a href="../../login.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
                                 </td>
                             </tr>
                     </table>
@@ -332,7 +332,7 @@ include("../../php/connection.php");
                                 <tr>
                                     <td>
                                         <p style="padding: 0;margin: 0;text-align: center;font-size: 25px;font-weight: 500;">
-                                             <img src="../Doctor/img/'.$img.'" height="150px">
+                                             <img src="../../img/Doctor/'.$img.'" height="150px">
                                         </p><br><br>
                                     </td>
                                 </tr>

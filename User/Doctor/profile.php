@@ -188,13 +188,20 @@ $img=$row['doc_img'];
                         <td style="padding-top:30px;">
                             <select name="spec" id="" class="box">
                                 <?php 
-                                    $list = $database->query("select  * from  specialist;");
+                                    $list = $database->query("select  * from  specialist where spec_id = $spec;");
+                                    $row=$list->fetch_assoc();
+                                    $sid=$row['spec_id'];
+                                    $name=$row['spec_type'];
+                                ?>
+                                <option value="<?php echo $sid; ?>"><?php echo $name; ?></option><br/>
+                                <?php
+                                    $list = $database->query("select  * from  specialist");
                                     for ($y=0;$y<$list->num_rows;$y++)
                                     {
-                                         $row=$list->fetch_assoc();
-                                         $sn=$row["spec_type"];
-                                         $id=$row["spec_id"];
-                                         echo "<option value=".$id.">$sn</option><br/>";
+                                        $row=$list->fetch_assoc();
+                                        $sn=$row["spec_type"];
+                                        $id=$row["spec_id"];
+                                        echo "<option value=".$id.">$sn</option><br/>";
                                     }
                                 ?>
                             </select><br><br>

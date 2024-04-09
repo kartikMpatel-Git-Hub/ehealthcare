@@ -1,5 +1,10 @@
-
-
+<?php
+session_start();    
+$_SESSION["user"] = "";
+$_SESSION["usertype"] = "";
+$_SESSION['Message'] = "";
+$_SESSION['ERROR'] = "";
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
@@ -8,13 +13,13 @@
     <script src="https://kit.fontawesome.com/yourcode.js" crossorigin="anonymous"></script>
         <!-- Meta Tags -->
 		<?php
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 		<?php
-		 	require "Section/PreLoader.php";
-			require "Section/navbar.php";
+		 	require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
 			<div class="container">
@@ -86,8 +91,8 @@
             </div>
         </div>
         <?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>

@@ -1,16 +1,22 @@
-
+<?php
+session_start();    
+$_SESSION["user"] = "";
+$_SESSION["usertype"] = "";
+$_SESSION['Message'] = "";
+$_SESSION['ERROR'] = "";
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
 	<head>
         <?php 
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 			?>
     </head>
     <body>
 		
 		<?php 
-			require "Section/PreLoader.php";
-			require "Section/navbar.php";
+			require "Import/PreLoader.php";
+			require "Import/navbar.php";
 			?>
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs overlay">
@@ -179,8 +185,8 @@
 		</section>
 		<!--/ End Single News -->
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
 		<!--/ End Footer Area -->
 		

@@ -1,4 +1,9 @@
 <?php
+session_start();    
+$_SESSION["user"] = "";
+$_SESSION["usertype"] = "";
+$_SESSION['Message'] = "";
+$_SESSION['ERROR'] = "";
 date_default_timezone_set('Asia/Kolkata');
 
 $time = date("H:i:s");
@@ -10,13 +15,13 @@ $today = date('Y-m-d');
     <head>
         <!-- Meta Tags -->
 		<?php
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 		<?php
-		 	require "Section/PreLoader.php";
-			require "Section/navbar.php";
+		 	require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
 			<div class="container">
@@ -99,10 +104,10 @@ $today = date('Y-m-d');
 								$space = $booking - $totapo;
 
 					?>
-					<div class="col-lg-6 col-md-6 col-12" style="margin-top:30px;">
+					<div class="col-lg-12 col-md-12 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="row">
-								<img src="img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-6 col-md-12" style="border-radius:50%;">
+								<img src="img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-3 col-md-3" style="border-radius:50%;">
 								<!-- padding:20px 30px; margin:30px 0 0 10px;  -->
                                 <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-6 col-md-12" style="padding:30px;">
                                     <div>
@@ -159,8 +164,8 @@ $today = date('Y-m-d');
 		<!-- End Portfolio Details Area -->
 		
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>

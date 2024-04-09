@@ -1,16 +1,22 @@
-
+<?php
+session_start();    
+$_SESSION["user"] = "";
+$_SESSION["usertype"] = "";
+$_SESSION['Message'] = "";
+$_SESSION['ERROR'] = "";
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
         <!-- Meta Tags -->
 		<?php
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 		<?php
-		 	require "Section/PreLoader.php";
-			require "Section/navbar.php";
+		 	require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
 			<div class="container">
@@ -47,6 +53,7 @@
 			}
 			else
 			{
+				$action = "";
 				$query = "select * from doctor";
 				$result= $database->query($query);	
 			}
@@ -94,21 +101,25 @@
 					<?php 
 							}
 						}
-						else
+						elseif($action == "view")
 						{
 							$spcil_res= $database->query("select spec_type from specialist  where spec_id='$id'");
 							$spcil_array= $spcil_res->fetch_assoc();
 							$spcil_name=$spcil_array["spec_type"];
 							echo '<div style="font-size:50px; margin-left:300px;">'.$spcil_name.' Not Available !</div>';
 						} 
+						else
+						{
+							echo '<div style="font-size:50px; margin-left:300px;"> Doctor Not Available !</div>';	
+						}
 					?>
 				</div>
 			</section>
 		<!-- End Portfolio Details Area -->
 		
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>

@@ -3,15 +3,15 @@ session_start();
 
 if(isset($_SESSION["email"])){
     if(($_SESSION["email"])=="" or $_SESSION['usertype']!='P'){
-        header("location: ../../login.php");
+        header("location: ../../../login.php");
     }else{
         $useremail=$_SESSION["email"];
     }
 }else{
-    header("location: ../../login.php");
+    header("location: ../../../login.php");
 }
 
-require "connection.php";
+require "../../../php/connection.php";
 if($_GET){
     $id=$_GET["id"];
     $action=$_GET["action"];

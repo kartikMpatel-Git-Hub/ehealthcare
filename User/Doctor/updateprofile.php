@@ -37,7 +37,7 @@ if($_POST)
     }  
     else
     {
-        $user = $database->query("select  * from  user,pending where user.user_email = '$emaill' and user.user_email != '$useremail' or pending.doc_email = '$emaill' and pending.status != 0;");
+        $user = $database->query("select  * from  user,pending where user.user_email = '$emaill' and user.user_email != '$useremail' or pending.doc_email = '$emaill' and pending.status = 1;");
         
         if($user->num_rows)
         {
@@ -45,7 +45,7 @@ if($_POST)
         }
         else
         {
-            $user = $database->query("select  * from  doctor,pending where doctor.doc_phoneno = '$phonenoo' and doctor.doc_email != '$useremail' or pending.doc_phoneno = '$phonenoo' and pending.status != 0;");
+            $user = $database->query("select  * from  doctor,pending where doctor.doc_phoneno = '$phonenoo' and doctor.doc_email != '$useremail' or pending.doc_phoneno = '$phonenoo' and pending.status = 1;");
             if($user->num_rows)
             {
                 $_SESSION['ERROR'] = "Phone No Already Exist !"; 
@@ -77,11 +77,9 @@ if($_POST)
                     
                         if(move_uploaded_file($tmp_name,"img/".$file_name))
                         {
-                            $_SESSION['ERROR'] = $_SESSION['ERROR']."With Image Upload !"; 
                         }
                         else
                         {
-                            $_SESSION['ERROR'] = $_SESSION['ERROR']."With out Image Upload !"; 
                         }
                     }
                 }

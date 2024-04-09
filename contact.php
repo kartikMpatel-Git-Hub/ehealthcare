@@ -1,17 +1,24 @@
+<?php
+session_start();    
+$_SESSION["user"] = "";
+$_SESSION["usertype"] = "";
+$_SESSION['Message'] = "";
+$_SESSION['ERROR'] = "";
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
         <!-- Meta Tags -->
 		<?php  
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 	
 		<!-- Preloader -->
         <?php 
-			require "Section/PreLoader.php";
-			require "Section/Header.php";
+			require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<!-- End Header Area -->
 	
@@ -34,14 +41,7 @@
 			<div class="container">
 				<div class="inner">
 					<div class="row"> 
-						<div class="col-lg-6">
-							<div class="contact-us-left">
-								<!--Start Google-map -->
-								<div id="myMap"></div>
-								<!--/End Google-map -->
-							</div>
-						</div>
-						<div class="col-lg-6">
+						<div class="col-lg-12">
 							<div class="contact-us-form">
 								<h2>Contact With Us</h2>
 								<p>If you have any questions please fell free to contact with us.</p>
@@ -88,18 +88,13 @@
 						</div>
 					</div>
 				</div>
-				<div style="margin-top:200px;">
-					<?php 
-						require "Section/Menu.php";
-					?>
-				</div>
 		</section>
 		<!--/ End Contact Us -->
 		
 		<!-- Footer Area -->
 		<?php 
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>

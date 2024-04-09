@@ -16,7 +16,7 @@
         
 	$today = date('Y-m-d');
 	$_SESSION['today'] = $today;
-	require "php/connection.php";
+	require "../../php/connection.php";
 
 	$query = "select * from doctor";
 	$result= $database->query($query);
@@ -277,7 +277,7 @@
 							<h2>Do you need Emergency Medical Care?</h2>
 							<p>For Emergency Medical Care Contact us With Mail.</p>
 							<div class="button">
-								<a href="#" class="btn">Contact Now</a>
+								<a href="feedback.php" class="btn">Contact Now</a>
 								<a href="#" class="btn second">Learn More<i class="fa fa-long-arrow-right"></i></a>
 							</div>
 						</div>
@@ -396,16 +396,18 @@
 					<?php
 						$query= $database->query("select * from article");
 						$start = $query->num_rows;
-						$end = $start - 3;
-						for ($x=$start; $x>$end; $x--)
+						if($start)
 						{
-							$row=$query->fetch_assoc();
-							$aid=$row['article_id'];	
-							$img= $row['article_img'];
-							$title= $row['article_title'];
-							$desc= $row['article_description'];
-							$date= $row['article_date'];
-							$desc = substr($desc,0,20);
+							$end = $start - 3;
+							for ($x=$start; $x>$end; $x--)
+							{
+								$row=$query->fetch_assoc();
+								$aid=$row['article_id'];	
+								$img= $row['article_img'];
+								$title= $row['article_title'];
+								$desc= $row['article_description'];
+								$date= $row['article_date'];
+								$desc = substr($desc,0,20);
 								
 					?>
 					<div class="col-lg-4 col-md-6 col-12">
@@ -423,6 +425,14 @@
 						</div>
 					</div>
 					<?php
+							}
+						}
+						else
+						{echo '
+							<div class="col-lg-4"></div>
+							<div class="col-lg-4"><h2 style="text-align:center;">Article Not Available</h2></div>
+							
+							';
 						}
 					?>
 					

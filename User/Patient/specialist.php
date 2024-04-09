@@ -45,7 +45,7 @@ if(isset($_SESSION["email"])){
 		</div>
 		<div class="row" style="width:90%; padding:50px 0 50px 10%;">
             <?php
-                require "php/connection.php";
+                require "../../php/connection.php";
 
                 $query = "select * from specialist";
                 $result= $database->query($query);

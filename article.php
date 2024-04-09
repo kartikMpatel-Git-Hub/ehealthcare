@@ -1,15 +1,22 @@
+<?php
+session_start();    
+$_SESSION["user"] = "";
+$_SESSION["usertype"] = "";
+$_SESSION['Message'] = "";
+$_SESSION['ERROR'] = "";
+?>
 <!doctype html>
 <html class="no-js" lang="zxx">
     <head>
         <?php 
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 		?>
     </head>
     <body>
 	
 		<?php 
-			require "Section/PreLoader.php";
-			require "Section/navbar.php";
+			require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<!-- Breadcrumbs -->
 		<div class="breadcrumbs overlay">
@@ -43,6 +50,7 @@
 			}
 			else
 			{
+				$action = "";
 				$query = "select * from article";
 				$result= $database->query($query);	
 			}
@@ -107,13 +115,17 @@
                         <?php 
                                 }
                             }
-                            else
+                            elseif($action == "view")
                             {
                                 $spcil_res= $database->query("select spec_type from specialist  where spec_id='$id'");
                                 $spcil_array= $spcil_res->fetch_assoc();
                                 $spcil_name=$spcil_array["spec_type"];
                                 echo '<div style="font-size:50px; margin-left:300px;">'.$spcil_name.' Not Available !</div>';
-                            } 
+                            }
+							else
+							{
+                                echo '<div style="font-size:30px; margin-top:30%;margin-bottom:30%; ">Specialist Article Not Available !</div>';
+							} 
                         ?>
 					</div>
 					<div class="col-lg-4 col-12">
@@ -144,6 +156,10 @@
 										<li><a href="?action=view&id=<?php echo $did; ?>"><?php echo $doc_name;?></a></li>
 									<?php
 											}
+										}
+										else
+										{
+											echo "doctor's Article Not Available !";
 										}
 									?>
 								</ul>
@@ -180,6 +196,10 @@
 								</div>
 								<?php
 									}
+									else
+									{
+										echo "Article Not Available !";
+									}
 								?>
 							</div>
 						</div>
@@ -190,8 +210,8 @@
 		</section>
 		<!--/ End Single News -->
 		<?php  
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
 		<!--/ End Footer Area -->
 		

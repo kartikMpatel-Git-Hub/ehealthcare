@@ -38,7 +38,7 @@ if(isset($_SESSION["email"])){
 		</div>
 		<!-- End Breadcrumbs -->
 		<?php
-			require "php/connection.php";
+			require "../../php/connection.php";
 			if($_GET){
 				$id=$_GET["id"];
 				$action=$_GET["action"];
@@ -122,10 +122,7 @@ if(isset($_SESSION["email"])){
                             }
                             else
                             {
-                                $spcil_res= $database->query("select spec_type from specialist  where spec_id='$id'");
-                                $spcil_array= $spcil_res->fetch_assoc();
-                                $spcil_name=$spcil_array["spec_type"];
-                                echo '<div style="font-size:50px; margin-left:300px;">'.$spcil_name.' Not Available !</div>';
+                                echo '<div style="font-size:30px; margin-top:200px;">Article Not Available !</div>';
                             } 
                         ?>
 					</div>
@@ -157,6 +154,10 @@ if(isset($_SESSION["email"])){
 										<li><a href="?action=view&id=<?php echo $did; ?>"><?php echo $doc_name;?></a></li>
 									<?php
 											}
+										}
+										else
+										{
+											echo "doctor's Article Not Available !";
 										}
 									?>
 								</ul>
@@ -192,6 +193,10 @@ if(isset($_SESSION["email"])){
 									</div>
 								</div>
 								<?php
+									}
+									else
+									{
+										echo "Article Not Available !";
 									}
 								?>
 							</div>

@@ -24,7 +24,7 @@ if(isset($_SESSION["email"])){
 		 	require "Import/PreLoader.php";
 			require "Import/navbar.php";
 
-			require "php/connection.php";
+			require "../../php/connection.php";
 			if($_GET){
 				$id=$_GET["id"];
 				$action=$_GET["action"];

@@ -1,0 +1,35 @@
+.stars {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+  }
+  
+  .stars .star {
+    /* display: inline-block; */
+    float: left;
+    position: relative;
+    width: 1.1em;
+    font-size: 36px;
+    color: #ccc;
+    cursor: pointer;
+  }
+  
+  .stars .star:before {
+    content: '\2605';
+    position: absolute;
+    color: #ccc; /* Initial color */
+    transition: color 0.2s; /* Smooth color transition */
+  }
+  
+  .stars .star:hover:before {
+    color: #FFD700; /* Color when hovered over */
+  }
+  
+  .stars[data-rating="1"] .star:nth-child(-n+1):before,
+  .stars[data-rating="2"] .star:nth-child(-n+2):before,
+  .stars[data-rating="3"] .star:nth-child(-n+3):before,
+  .stars[data-rating="4"] .star:nth-child(-n+4):before,
+  .stars[data-rating="5"] .star:nth-child(-n+5):before {
+    color: #FFD700; /* Color when selected */
+  }
+  

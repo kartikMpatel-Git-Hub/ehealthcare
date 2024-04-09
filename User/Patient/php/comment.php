@@ -2,13 +2,13 @@
     session_start();
     if(isset($_SESSION["email"])){
         if(($_SESSION["email"])=="" or $_SESSION['usertype']!='P'){
-            header("location: ../../login.php");
+            header("location: ../../../login.php");
         }
         else{
             $useremail=$_SESSION["email"];
         }
     }else{
-        header("location: ../../login.php");
+        header("location: ../../../login.php");
     }
     
 
@@ -18,7 +18,7 @@
         date_default_timezone_set('Asia/Kolkata');
         $date=date('Y-m-d');
         $time = date("H:i:s");
-        include("connection.php");
+        include("../../../php/connection.php");
         $id=$_GET["id"];
         $action=$_GET["action"];
         $query1 = "select * from patient where patient_email='$useremail'";

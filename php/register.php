@@ -1,7 +1,9 @@
 <?php
 
-session_start();
-
+session_start();    
+$_SESSION["user"] = "";
+$_SESSION["usertype"] = "";
+$_SESSION['ERROR'] = "";
 include("connection.php");
 
 if(isset($_POST['pat']))

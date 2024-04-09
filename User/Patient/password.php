@@ -24,7 +24,7 @@ if(isset($_SESSION["email"])){
 			// require "Import/PreLoader.php";
 			require "Import/navbar.php";
 
-			require "php/connection.php";
+			require "../../php/connection.php";
 			$query= $database->query("select * from patient  where patient_email='$useremail'");
 			$ans= $query->fetch_assoc();
 			$id=$ans["patient_id"];

@@ -45,7 +45,7 @@ $today = date('Y-m-d');
 			</div>
 		</div>
 		<?php
-			require "php/connection.php";
+			require "../../php/connection.php";
 			if($_GET){
 				$action=$_GET["action"];
 				$id=$_GET["id"];

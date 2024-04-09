@@ -35,7 +35,14 @@
         $database->query($sql2);
         $sql3= "insert into doctor (doc_email,doc_name,doc_password,doc_address,doc_gender,doc_phoneno,spec_id,doc_charge,doc_img) values ('$email','$name','$password','$address','$gender','$phoneno',$spec,$charge,'$img');";
         $database->query($sql3);
-        
+
+        $query= "select * from doctor where doc_email='$email';";
+        $result= $database->query($query);
+        $row=$result->fetch_assoc();
+        $docid=$row['doc_id'];
+
+        $sql4= "insert into rating (doc_id) values ($docid);";
+        $database->query($sql4);
         header("location: pending_request.php");
     }
 

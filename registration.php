@@ -1,12 +1,15 @@
 <?php
-    session_start();     
+session_start();    
+$_SESSION["user"] = "";
+$_SESSION["usertype"] = "";
+$_SESSION['ERROR'] = "";
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php 
-        require "ImportFile/Head.php";
+        require "Import/Head.php";
     ?>
     
 </head>

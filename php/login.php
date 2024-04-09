@@ -3,7 +3,6 @@
 
     $_SESSION["user"] = "";
     $_SESSION["usertype"] = "";
-    $_SESSION['Message'] = "";
     $_SESSION['ERROR'] = "";
     date_default_timezone_set('Asia/Kolkata');
     $date = date('Y-m-d');
@@ -17,7 +16,9 @@
         $error = '<label for="promter" class="form-label"></label>';
 
         $result = $database->query("select * from user where user_email='$email'");
-        if($result->num_rows == 1) {
+        echo $result->num_rows ;
+        if($result->num_rows == 1) 
+        {
             $utype = $result->fetch_assoc()['user_type'];
 
             if ($utype == 'A') {
@@ -31,7 +32,7 @@
 
                 } else {
                     // echo "wrong";
-                    $_SESSION['Message'] = "Wrong Email Or Password !!";
+                    $_SESSION['Message'] = "Wrong Password !!";
                     header('location: ../login.php');       
                 }
             } 
@@ -46,7 +47,7 @@
 
                 } else {
                     // echo "wrong";
-                    $_SESSION['Message'] = "Wrong Email Or Password !!";
+                    $_SESSION['Message'] = "Wrong Password !!";
                     header('location: ../login.php');       
                 }
             } 
@@ -61,18 +62,32 @@
 
                 } else {
                     // echo "wrong";
-                    $_SESSION['Message'] = "Wrong Email Or Password !!";
+                    $_SESSION['Message'] = "Wrong Password !!";
                     header('location: ../login.php');       
                 }
             } 
         }
-        else {
-            $_SESSION['Message'] = "Wrong Email And Password !!";
-            header('location: ../login.php');       
+        else 
+        {
+            $query= $database->query("select * from pending where doc_email='$email' and doc_password = '$password'");
+            $row= $query->fetch_assoc();
+            $status=$row["Status"];
+            echo $status;
+            if($status == 1) 
+            {
+                $_SESSION['Message'] = "Your Details Are Under Inquiry !!";
+                header('location: ../login.php');     
+            }
+            elseif($status == 0)
+            {
+                $_SESSION['Message'] = "Register For Login !!";
+                header('location: ../login.php');  
+            }      
         }
     }
     else
     {
+        $_SESSION['Message'] = "Email Not Found !!";
         header('location: ../login.php');       
     }
 

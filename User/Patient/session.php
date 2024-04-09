@@ -25,7 +25,7 @@ $today = date('Y-m-d');
     </head>
     <body>
 		<?php
-		 	// require "Import/PreLoader.php";
+		 	require "Import/PreLoader.php";
 			require "Import/navbar.php";
 		?>
 		<div class="breadcrumbs overlay">
@@ -45,7 +45,7 @@ $today = date('Y-m-d');
 			</div>
 		</div>
 		<?php
-			require "php/connection.php";
+			require "../../php/connection.php";
 			if($_GET){
 				$action=$_GET["action"];
 				$id=$_GET["id"];
@@ -102,11 +102,20 @@ $today = date('Y-m-d');
 								$spcil_array= $spcil_res->fetch_assoc();
 								$spcil_name=$spcil_array["spec_type"];
 
-
-								$query="select * from appointment where sche_id = '$scheid' and appo_status != 0";
+								$query = "select * from appointment where sche_id = '$scheid' and appo_status != 0";
 								$empty=$database->query($query);	
-								$totapo=$empty->num_rows;
-								$space = $booking - $totapo;
+								if($empty->num_rows)
+								{
+									$query=$database->query("select * from appointment where sche_id = '$scheid' and appo_status != 0");
+									$row= $query->fetch_assoc();
+									$apono=$row["appo_no"];
+
+								}
+								else
+								{
+									$apono = $empty->num_rows;
+								}
+								$space = $booking - $apono;
 
 								$query= $database->query("select * from patient where patient_email='$useremail'");
 								$patient= $query->fetch_assoc();
@@ -117,10 +126,10 @@ $today = date('Y-m-d');
 								$status=$empty->num_rows;
 
 					?>
-					<div class="col-lg-6 col-md-6 col-12" style="margin-top:30px;">
+					<div class="col-lg-12 col-md-12 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="row">
-								<img src="../../img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-6 col-md-12" style="border-radius:50%;">
+								<img src="../../img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-3 col-md-12" style="border-radius:50%;">
 								<!-- padding:20px 30px; margin:30px 0 0 10px;  -->
                                 <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-6 col-md-12" style="padding:30px;">
                                     <div>
@@ -183,9 +192,7 @@ $today = date('Y-m-d');
 						}
 						else
 						{
-							// $query= $database->query("select * from doctor  where doc_id='$id'");
-							// $result= $query->fetch_assoc();
-							// $docname=$result["doc_name"];
+							
 							echo '<div style="font-size:50px; margin-left:300px;">Session Not Available !</div>' ;
 						} 
 					?>
@@ -198,101 +205,5 @@ $today = date('Y-m-d');
 			require "Import/Javascript.php";
 		?>
 
-
-<!-- Payment Getway -->
-<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-<script>
-   
-jQuery(document).ready(function($)
-{
-    jQuery('#PayNow').click(function(e)
-    {
-	    var paymentOption='';
-        var paymentOption= "netbanking";
-        var payAmount = $('#payAmount').val();
-        var id = $('#id').val();
-        var request_url="Payment/payment.php";
-	    var formData = 
-        {
-	    	paymentOption:paymentOption,
-	    	payAmount:payAmount,
-	    	action:'payOrder'
-	    }
-    
-	    $.ajax({type: 'POST',url:request_url,data:formData,dataType: 'json',encode:true,}).done(function(data)
-        {
-        
-	    	if(data.res=='success')
-            {
-	    			var orderID=data.order_number;
-	    			var orderNumber=data.order_number;
-	    			var options = 
-                    {
-                        "key": data.razorpay_key, // Enter the Key ID generated from the Dashboard
-                        "amount": data.userData.amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-                        "currency": "INR",
-                        "name": "E-Health Care", //your business name
-                        "description": data.userData.description,
-                        "image": "Payment/payment.png",
-                        "order_id": data.userData.rpay_order_id, //This is a sample Order ID. Pass 
-                        "handler": function (response)
-                        {
-                            window.location.replace("Payment/payment-success.php?action=Done&id="+id);
-                        },
-                        "modal": 
-                        {
-                            "ondismiss": function()
-                            {
-                                window.location.replace("Payment/payment-success.php?action=cancle&id="+id);
-                            }
-                        },
-                            "prefill": { //We recommend using the prefill parameter to auto-fill customer's contact information especially their phone number
-                            "name": data.userData.name, //your customer's name
-                            "email": data.userData.email,
-                            "contact": data.userData.mobile //Provide the customer's phone number for better conversion rates 
-                        },
-                        "notes": 
-                        {
-                            "address": "E-Health Care"
-                        },
-                        "config": 
-                        {
-                            "display": 
-                            {
-                                "blocks": 
-                                {
-                                    "banks": 
-                                    {
-                                        "name": 'Pay using '+paymentOption,
-                                        "instruments": [{"method": paymentOption},],
-                                    },
-                                },
-                                "sequence": ['block.banks'],
-                                "preferences": 
-                                {
-                                    "show_default_blocks": true,
-                                },
-                            },
-                        },
-                        "theme": 
-                        {
-                            "color": "#3399cc"
-                        }
-                    };
-                    var rzp1 = new Razorpay(options);
-                    rzp1.on(
-                        'payment.failed', function (response)
-                        {
-                            window.location.replace("Payment/payment-failed.php?oid="+orderID+"&reason="+response.error.description+"&paymentid="+response.error.metadata.payment_id);
-                        });
-                    rzp1.open();
-                    e.preventDefault(); 
-            }
-        
-        });
-    });
-});
-</script>
- 
     </body>
 </html>

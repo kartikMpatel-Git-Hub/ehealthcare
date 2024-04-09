@@ -1,4 +1,11 @@
 <?php
+session_start();    
+$_SESSION["user"] = "";
+$_SESSION["usertype"] = "";
+$_SESSION['Message'] = "";
+$_SESSION['ERROR'] = "";
+
+
 		date_default_timezone_set('Asia/Kolkata');
 
 		$today = date('Y-m-d');
@@ -26,7 +33,7 @@
 <html class="no-js" lang="zxx">
     <head>
        <?php
-			require "ImportFile/Head.php";
+			require "Import/Head.php";
 			?>
 			<link rel="stylesheet" href="style.css">
     </head>
@@ -34,14 +41,14 @@
 		
 		
 		<?php 
-			require "Section/PreLoader.php";
-			require "Section/navbar.php";
+			require "Import/PreLoader.php";
+			require "Import/navbar.php";
 		?>
 		<!-- Slider Area -->
 		<section class="slider">
 			<div class="hero-slider">
 				<!-- Start Single Slider -->
-				<div class="single-slider" style="background-image:url('img/slider2.jpg')">
+				<div class="single-slider" style="background-image:url('img/Other/slider2.jpg')">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-7">
@@ -59,7 +66,7 @@
 				</div>
 				<!-- End Single Slider -->
 				<!-- Start Single Slider -->
-				<div class="single-slider" style="background-image:url('img/slider.jpg')">
+				<div class="single-slider" style="background-image:url('img/Other/slider.jpg')">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-7">
@@ -77,7 +84,7 @@
 				</div>
 				<!-- Start End Slider -->
 				<!-- Start Single Slider -->
-				<div class="single-slider" style="background-image:url('img/slider3.jpg')">
+				<div class="single-slider" style="background-image:url('img/Other/slider3.jpg')">
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-7">
@@ -102,7 +109,7 @@
 		
 		<!--/End Start schedule Area -->
 		<?php 
-			require "Section/Menu.php";
+			require "Import/Menu.php";
 		?>
 		<!-- Start Feautes -->
 		<section class="Feautes section">
@@ -111,7 +118,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>We Are Always Ready to Help You & Your Family</h2>
-							<img src="img/section-img.png" alt="#">
+							<img src="img/Other/section-img.png" alt="#">
 						</div>
 					</div>
 				</div>
@@ -214,7 +221,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>We Offer Different Helth Article Of Specialist To Improve Your Health</h2>
-							<img src="img/section-img.png" alt="#">
+							<img src="img/Other/section-img.png" alt="#">
 						</div>
 					</div>
 				</div>
@@ -257,7 +264,7 @@
 							<h2>Do you need Emergency Medical Care?</h2>
 							<p>For Emergency Medical Care Contact us With Mail.</p>
 							<div class="button">
-								<a href="#" class="btn">Contact Now</a>
+								<a href="contact.php" class="btn">Contact Now</a>
 								<a href="#" class="btn second">Learn More<i class="fa fa-long-arrow-right"></i></a>
 							</div>
 						</div>
@@ -271,7 +278,7 @@
 					<div class="col-lg-12">
 						<div class="section-title">
 							<h2>Here Are Some Article Of Specialist Doctor </h2>
-							<img src="img/section-img.png" alt="#">
+							<img src="img/Other/section-img.png" alt="#">
 				</div>
 			</div>
 			<div class="container-fluid">
@@ -376,16 +383,18 @@
 					<?php
 						$query= $database->query("select * from article");
 						$start = $query->num_rows;
-						$end = $start - 3;
-						for ($x=$start; $x>$end; $x--)
+						if($start)
 						{
-							$row=$query->fetch_assoc();
-							$aid=$row['article_id'];	
-							$img= $row['article_img'];
-							$title= $row['article_title'];
-							$desc= $row['article_description'];
-							$date= $row['article_date'];
-							$desc = substr($desc,0,20);
+							$end = $start - 3;
+							for ($x=$start; $x>$end; $x--)
+							{
+								$row=$query->fetch_assoc();
+								$aid=$row['article_id'];	
+								$img= $row['article_img'];
+								$title= $row['article_title'];
+								$desc= $row['article_description'];
+								$date= $row['article_date'];
+								$desc = substr($desc,0,20);
 								
 					?>
 					<div class="col-lg-4 col-md-6 col-12">
@@ -402,17 +411,31 @@
 							</div>
 						</div>
 					</div>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="section-title">
 					<?php
+							}
+						}
+						else
+						{
+							echo '
+							<div class="col-lg-4"></div>
+							<div class="col-lg-4"><h2 style="text-align:center;">Article Not Available</h2></div>
+							
+							';
 						}
 					?>
-					
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</section>
 
 		<?php 
-			require "Section/Footer.php";
-			require "ImportFile/Javascript.php";
+			require "Import/Footer.php";
+			require "Import/Javascript.php";
 		?>
     </body>
 </html>
