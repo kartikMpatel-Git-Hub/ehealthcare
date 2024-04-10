@@ -398,8 +398,7 @@
 						$start = $query->num_rows;
 						if($start)
 						{
-							$end = $start - 3;
-							for ($x=$start; $x>$end; $x--)
+							for ($x=0; $x<$query->num_rows; $x++)
 							{
 								$row=$query->fetch_assoc();
 								$aid=$row['article_id'];	

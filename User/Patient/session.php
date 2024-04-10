@@ -126,7 +126,7 @@ $today = date('Y-m-d');
 								$status=$empty->num_rows;
 
 					?>
-					<div class="col-lg-12 col-md-12 col-12" style="margin-top:30px;">
+					<div class="col-lg-11 col-md-12 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="row">
 								<img src="../../img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-3 col-md-12" style="border-radius:50%;">

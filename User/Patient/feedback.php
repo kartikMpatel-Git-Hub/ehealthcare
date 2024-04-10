@@ -69,7 +69,7 @@
 				<div class="bread-inner">
 					<div class="row">
 						<div class="col-12">
-							<h2>Contact Us</h2>
+							<h2>Session Feedback</h2>
 						</div>
 					</div>
 				</div>

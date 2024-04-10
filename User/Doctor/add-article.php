@@ -22,6 +22,7 @@
         $img = $_FILES['img']['name'];
         $date=date('Y-m-d');
         
+
         $sql="insert into article (doc_id,article_title,article_date,article_description,article_img) values ($docid,'$title','$date','$description','$img');";
         $result= $database->query($sql);
         if(isset($_FILES['img']))
@@ -29,7 +30,7 @@
             $file_name = $_FILES['img']['name'];
             $tmp_name = $_FILES['img']['tmp_name'];
             
-            if(move_uploaded_file($tmp_name,"img/Article/".$file_name))
+            if(move_uploaded_file($tmp_name,"../../img/Article/".$file_name))
             {
                 $_SESSION['ERROR'] = $_SESSION['ERROR']."With Image Upload !"; 
             }
@@ -38,7 +39,7 @@
                 $_SESSION['ERROR'] = $_SESSION['ERROR']."With out Image Upload !"; 
             }
         }
-        header("location: article.php");
+        // header("location: article.php");
     }
 ?>
 <!DOCTYPE html>
@@ -214,7 +215,7 @@
                             <tr>
                                 <td class="label-td" colspan="2">
                                     <select name="docid" id="" class="box" >
-                                            <option value="'.$userid.'"><?php echo $username; ?></option><br/>
+                                            <option value="<?php echo $userid;?>"><?php echo $username; ?></option><br/>
                                     </select><br><br>
                                 </td>
                             </tr>

@@ -225,8 +225,6 @@
                             $docid=$_POST["docid"];
                             $sqlpt2=" doctor.doc_id=$docid ";
                         }
-                        //echo $sqlpt2;
-                        //echo $sqlpt1;
                         $sqlmain= "select schedule.sche_id,schedule.sche_title,doctor.doc_name,schedule.sche_date,schedule.sche_start,schedule.sche_noappo from schedule inner join doctor on schedule.doc_id=doctor.doc_id ";
                         $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_id  not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time')  order by schedule.sche_date desc)";          
                         $sqllist=array($sqlpt1,$sqlpt2);
@@ -245,8 +243,6 @@
                         
                         //
                     }else{
-                        // $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time')  order by schedule.sche_date desc";
-                        // $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_id  not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time')  order by schedule.sche_date desc)";          
                         $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time'";
                         $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time'"; 
                     }

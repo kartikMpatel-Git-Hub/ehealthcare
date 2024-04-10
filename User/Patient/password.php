@@ -48,7 +48,7 @@ if(isset($_SESSION["email"])){
 			</div>
 		</div>
 		<?php
-			require "php/connection.php";
+			require "../../php/connection.php";
 		?>
 		<section class="news-single section">
 			<div class="container">

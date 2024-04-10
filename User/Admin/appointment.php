@@ -231,7 +231,7 @@
                             };
                         };
                     }else{
-                        $sqlmain= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id  where schedule.sche_date > '$today'";
+                        $sqlmain= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id  where schedule.sche_date > '$today' and appointment.appo_status = 1";
                         $sqlmain1= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id  where schedule.sche_date <= '$today' and schedule.sche_end < '$time'";
 
                     }
