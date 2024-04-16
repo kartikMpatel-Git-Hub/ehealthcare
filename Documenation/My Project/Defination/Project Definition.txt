@@ -1,0 +1,14 @@
+The Doctor Appoitment in which Patient can book his/her Appoitment according Schedule/session.there are three different type of user avaliable ,First Admin who has authority to add and delete doctor,also create or edit doctor's session.second user is doctor or service provider who can create his/her own session in which patients can book their appointment ,doctor can delete or edit his/her session/schedule and cancel patients booked appointment . third user is end-user who can book his/her appointment according to doctor's schedule and has abitity to see the detail and fees structure of any specialist doctor.
+
+
+**********************
+
+The Doctor Appointment System is designed to streamline the appointment booking process, allowing patients to schedule appointments based on the available sessions. The system caters to three distinct user roles:
+
+Firstly, the Admin holds the authority to manage doctors by adding or deleting them. Additionally, the admin can create or edit doctor sessions, providing a centralized control over the system.
+
+The second user role is that of the Doctor . These users have the autonomy to create their own sessions, enabling patients to book appointments within the specified schedule. Doctors can also manage their sessions and schedules, including the ability to edit or delete them. Furthermore, they have the authority to cancel appointments that have been booked by patients.
+
+The third category of users is the Patient. End-users can conveniently book appointments according to the schedule of the desired doctor. They also possess the ability to view detailed information and fee structures of specialist doctors, contributing to an informed decision-making process.
+
+This comprehensive system ensures efficient communication and coordination among administrators, doctors, and end-users, thereby optimizing the overall appointment booking experience.

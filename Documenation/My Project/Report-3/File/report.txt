@@ -1,0 +1,75 @@
+1.Future Scope 
+	-All possible types of payment add Like BHIM Pay And UPI Option Like New Payment Option  
+	-Expand this site On Large Scale Because This Is Very Small And Create TO Manage Small Number Of City But In Future It Scale For Whole State And County  
+	-Add Virtual Session Of Doctor Where Doctor Give His/Her Appointment Without Meet Physically.
+
+	Integration of Payment Options : To enhance the payment options on your platform, you're looking to incorporate popular methods such as BHIM Pay and UPI (Unified Payments Interface). BHIM Pay is a mobile app developed by the National Payments Corporation of India (NPCI) to facilitate digital transactions through UPI. Integrating these options will offer users more flexibility and convenience in making payments on your platform. This integration involves collaborating with relevant financial institutions, implementing secure payment gateways, and ensuring seamless user experience during transactions. By diversifying payment methods, you're accommodating a broader range of users with varying preferences and access to banking services.
+	
+	Scaling up the Platform :Your current platform caters to a limited number of cities, but you aim to expand its reach to cover entire states and counties. This expansion requires a strategic approach encompassing infrastructure development, resource allocation, and market penetration strategies. Scaling up involves optimizing server capacity, enhancing network bandwidth, and employing scalable software architecture to accommodate increased traffic and data volume. Moreover, it entails market research to understand regional preferences and needs, localization of content and services, and forging partnerships with local stakeholders such as healthcare providers, government agencies, and community organizations. By scaling up, you're positioning your platform to become a comprehensive solution accessible to a wider audience, thereby maximizing its impact and potential.
+	
+	Implementation of Virtual Doctor Consultations : 	In response to the growing demand for telemedicine services, you're introducing virtual sessions where patients can consult with doctors remotely. This feature requires the integration of video conferencing technology, secure communication channels, and electronic health record (EHR) systems to facilitate seamless interaction between patients and healthcare providers. Doctors need a user-friendly interface to schedule appointments, review patient histories, and conduct virtual consultations effectively. Patients, on the other hand, require intuitive platforms to book appointments, share medical records securely, and engage in real-time consultations from the comfort of their homes. Ensuring compliance with healthcare regulations, safeguarding patient privacy, and maintaining high standards of medical practice are paramount in implementing virtual doctor consultations. By embracing telemedicine, you're enhancing accessibility to healthcare services, improving patient outcomes, and fostering a more patient-centered approach to medical care delivery.
+	
+2.Testing - Theory and test case
+3.Limitation
+	- Connectivity challenges: In some areas, access to reliable internet connectivity may be limited, which can affect the ability to use e-healthcare management systems effectively.
+	-E-healthcare management systems may reduce the face-to-face interaction between healthcare providers and patients, potentially affecting the quality of care and patient satisfaction.	
+4.Usecase
+5.activity
+
+Test Case
+
+1.Login Page - k
+	- Valid Id and Password
+	- Invalide Id And Password
+	- Blank Filed 
+2.Change Password - r
+	- Password Changed 
+	- Password Not Change 
+		-UserNot Found
+		-Old Password Is Wrong 
+		-New Password And Re-Password Must Same 
+3.Registration - k 
+	- User Register
+	- Use Not Added 
+		- Username Already Exixst 
+		- Email Already Exixst 
+		- Mobile No Already Exixst
+4.Change Username - r
+	-Username Change
+	-Username Not Change
+		-Already Exixst
+		
+		
+Manali's Project 
+
+
+Test Case
+
+1.Login Page - M
+	- Valid Id and Password
+	- Invalide Id And Password
+	- Blank Filed 
+2.Change Password - J
+	- Password Changed 
+	- Password Not Change 
+		-UserNot Found
+		-Old Password Is Wrong 
+		-New Password And Re-Password Must Same 
+3.Change Username - J
+	-Username Change
+	-Username Not Change
+		-Already Exixst
+4.Registration - M
+	- User Register
+	- Use Not Added 
+		- Username Already Exixst 
+		- Email Already Exixst 
+		- Contact No Already Exixst
+5.Make Invoice / Purchase Medicine - J
+	- Invoice Created 
+	- Medicine Out Of Stock 
+6.Add Purchase - M
+	- Purchase Added 
+	- Purchase Not Create 
+		- Supplier Not Found 
+ 
