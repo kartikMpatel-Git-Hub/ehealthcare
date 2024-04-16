@@ -119,6 +119,26 @@ $_SESSION['ERROR'] = "";
                                                 <div class="row">
                                                     <div class="form-group col-lg-2">
                                                     </div>
+                                                    <div class="form-group col-lg-5">
+                                                        <p style="color:black; padding:10px; font-size:15px;">Date Of Birth </p>
+                                                        <input type="date" name="dob" placeholder="Date Of Birth" required>
+                                                    </div>
+                                                    <div class="form-group col-lg-5">
+                                                        <p style="color:black; padding:10px; font-size:15px;">Experience </p>
+                                                        <input type="number" name="charge" placeholder="Experience" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-lg-2">
+                                                    </div>
+                                                    <div class="form-group col-lg-10">
+                                                        <p style="color:black; padding:10px; font-size:15px;">About </p>
+                                                        <input type="text" name="address" placeholder="About You" required>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group col-lg-2">
+                                                    </div>
                                                     <div class="form-group col-lg-10">
                                                         <p style="color:black; padding:10px; font-size:15px;">Address</p>
                                                         <input type="text" name="address" placeholder="Address" required>
