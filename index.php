@@ -382,11 +382,10 @@ $_SESSION['ERROR'] = "";
 				<div class="row">
 					<?php
 						$query= $database->query("select * from article");
-						$start = $query->num_rows;
-						if($start)
+						$end = $query->num_rows;
+						if($end)
 						{
-							$end = $start - 3;
-							for ($x=$start; $x>$end; $x--)
+							for ($x=1; $x<=$end; $x++)
 							{
 								$row=$query->fetch_assoc();
 								$aid=$row['article_id'];	
@@ -411,15 +410,17 @@ $_SESSION['ERROR'] = "";
 							</div>
 						</div>
 					</div>
-					<div class="row">
-						<div class="col-lg-12">
-							<div class="section-title">
 					<?php
 							}
 						}
 						else
 						{
-							echo '
+					?>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="section-title">
+					
+							<?php echo '
 							<div class="col-lg-4"></div>
 							<div class="col-lg-4"><h2 style="text-align:center;">Article Not Available</h2></div>
 							

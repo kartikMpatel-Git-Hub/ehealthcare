@@ -46,6 +46,7 @@
                     }
                     else
                     {
+                        $newpassword = md5($newpassword);
                         $query = "update admin set admin_password = '$newpassword' where admin_email = '$useremail';";
                         $database->query($query);
                         $_SESSION['ERROR'] = "Password Changed Sucessfully !!";

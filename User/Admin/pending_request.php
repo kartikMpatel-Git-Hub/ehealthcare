@@ -93,6 +93,11 @@ include("../../php/connection.php");
                     </td>
                 </tr>
                 <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-dashbord">
+                        <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">Article</p></a></div>
+                    </td>
+                </tr>   
+                <tr class="menu-row" >
                     <td class="menu-btn menu-icon-user ">
                         <a href="profile.php" class="non-style-link-menu"><div><p class="menu-text">Profile</p></a></div>
                     </td>

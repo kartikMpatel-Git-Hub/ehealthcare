@@ -110,7 +110,7 @@ if(isset($_POST['update']))
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-dashbord " >
+                    <td class="menu-btn menu-icon-dashbord" >
                         <a href="index.php" class="non-style-link-menu"><div><p class="menu-text">Dashboard</p></a></div></a>
                     </td>
                 </tr>
@@ -135,8 +135,13 @@ if(isset($_POST['update']))
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-patient">
+                    <td class="menu-btn menu-icon-patient ">
                         <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">Patients</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-dashbord">
+                        <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">Article</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >

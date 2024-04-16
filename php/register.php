@@ -36,6 +36,8 @@ if(isset($_POST['pat']))
         {
             if($cpassword == $password)
             {
+                $password = md5($password);
+                echo $password;
                 $query1 = "insert into patient(patient_email,patient_name,patient_password,patient_gender,patient_phoneno,patient_dob,patient_address,patient_img) values ('$email','$name','$password','$gender','$phoneno','$dob','$add','user.jpg');";
                 $database->query($query1);
                 $query2 = "insert into user(user_email,user_name,user_type) values('$email','$name','P');";
@@ -79,7 +81,7 @@ elseif(isset($_POST['doc']))
         }
         else
         {
-            $query = "select * from patient where patient_phoneno = '$phoneno'";
+            $query = "select * from doctor,pending where doc_phoneno = '$phoneno' or  pending.doc_phoneno = '$phoneno' and pending.Status != 0";
             $result= $database->query($query);	
             if($ans=$result->num_rows)
             {
@@ -89,6 +91,7 @@ elseif(isset($_POST['doc']))
             {
                 if($cpassword == $password)
                 {
+                    $password = md5($password);
                     $query1 = "insert into pending(doc_email,doc_name,doc_password,doc_gender,doc_phoneno,doc_charge,doc_address,spec_id,doc_img,Status) values ('$email','$name','$password','$gender','$phoneno','$charge','$add',$spec,'user.jpg','1');";
                     $database->query($query1);
                     $_SESSION['Message'] = 'Doctor Details Add Successfully For Inquiry !!';

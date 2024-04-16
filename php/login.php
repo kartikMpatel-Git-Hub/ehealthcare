@@ -12,7 +12,9 @@
     {
         $email = $_POST["email"];
         $password = $_POST['password'];
-        
+
+        $password = md5($password);
+
         $error = '<label for="promter" class="form-label"></label>';
 
         $result = $database->query("select * from user where user_email='$email'");

@@ -73,34 +73,43 @@
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-dashbord " >
+                    <td class="menu-btn menu-icon-dashbord" >
                         <a href="index.php" class="non-style-link-menu"><div><p class="menu-text">Dashboard</p></a></div></a>
                     </td>
                 </tr>
                 <tr class="menu-row">
+                    <td class="menu-btn menu-icon-doctor ">
+                        <a href="doctors.php" class="non-style-link-menu "><div><p class="menu-text">Doctors</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-doctor ">
+                        <a href="pending_request.php" class="non-style-link-menu "><div><p class="menu-text">Pendeing Request</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-schedule">
+                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">Schedule</p></div></a>
+                    </td>
+                </tr>
+                <tr class="menu-row">
                     <td class="menu-btn menu-icon-appoinment">
-                        <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">My Appointments</p></a></div>
-                    </td>
-                </tr>
-                
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">My Sessions</p></div></a>
+                        <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">Appointment</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-patient">
-                        <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">My Patients</p></a></div>
+                    <td class="menu-btn menu-icon-patient ">
+                        <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">Patients</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-deshboard menu-active menu-icon-dashbord-active ">
-                        <a href="article.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">My Article</p></a></div>
+                    <td class="menu-btn menu-icon-dashbord menu-icon-dashbord-active menu-active ">
+                        <a href="article.php" class="non-style-link-menu   non-style-link-menu-active"><div><p class="menu-text">Article</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-settings">
-                        <a href="settings.php" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
+                    <td class="menu-btn menu-icon-user">
+                        <a href="profile.php" class="non-style-link-menu"><div><p class="menu-text">Profile</p></a></div>
                     </td>
                 </tr>
                 
@@ -156,59 +165,9 @@
                     </td>
                     
                 </tr>
-                <tr>
-                    <td colspan="4" style="padding-top:0px;width: 100%;" >
-                        <center>
-                        <table class="filter-container" border="0" >
-                        <tr>
-                           <td width="10%">
-
-                           </td> 
-                        <td width="5%" style="text-align: center;">
-                        Date:
-                        </td>
-                        <td width="30%">
-                        <form action="" method="post">
-                            
-                            <input type="date" name="sheduledate" id="date" class="input-text filter-container-items" style="margin: 0;width: 95%;">
-
-                        </td>
-                        
-                    <td width="12%">
-                        <input type="submit"  name="filter" value=" Filter" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%">
-                        </form>
-                    </td>
-
-                    </tr>
-                            </table>
-
-                        </center>
-                    </td>
-                    
-                </tr>
                 
                 <?php
-                    if($_POST){
-                        //print_r($_POST);
-                        $sqlpt1="";
-                        if(!empty($_POST["sheduledate"])){
-                            $sheduledate=$_POST["sheduledate"];
-                            $sqlpt1=" schedule.sche_date='$sheduledate' ";
-                        }
                         $sqlmain= "select * from article";
-                        $sqllist=array($sqlpt1);
-                        $sqlkeywords=array(" where "," and ");
-                        $key2=0;
-                        foreach($sqllist as $key){
-
-                            if(!empty($key)){
-                                $sqlmain.=$sqlkeywords[$key2].$key;
-                                $key2++;
-                            };
-                        };
-                    }else{
-                        $sqlmain= "select * from article";
-                    }
                 ?>
                   
                 <tr>
@@ -424,14 +383,21 @@
             $row=$result->fetch_assoc();
             $desc=$row["article_description"];
             $img=$row['article_img'];
+            $doc_id=$row['doc_id'];
+
+            $sqlmain1= "select * from doctor where doc_id=$doc_id";
+            $result1= $database->query($sqlmain1);
+            $row1=$result1->fetch_assoc();
+            $doc_name=$row1["doc_name"];
+
            
             echo '
             <div id="popup1" class="overlay">
-                <div class="popup" style="width: 70%; height:90%">
+                <div class="popup" style="width: 70%; ">
                     <center>
                         <h2></h2>
                         <a class="close" href="article.php">&times;</a>
-                        <div class="abc scroll" style="display: flex;justify-content: center;" >
+                        <div class="abc scroll" style="display: flex;justify-content: center;" style="height : 100%;">
                             <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0" >
                                 <tr>
                                     <td>
@@ -455,7 +421,7 @@
                                 <tr>
                                     <td class="label-td"  style="padding-top:30px;">
                                         <label for="name" ><b>Publisher/Doctor Name - </b></label>
-                                        <label for="name" >'.$username.'</label>
+                                        <label for="name" >'.$doc_name.'</label>
                                     </td>
                                 </tr>
                                 <tr>

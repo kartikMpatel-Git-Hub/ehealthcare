@@ -52,6 +52,7 @@
                     }
                     else
                     {
+                        $newpassword = md5($newpassword);
                         $query = "update doctor set doc_password = '$newpassword' where doc_email = '$useremail';";
                         $database->query($query);
                         $_SESSION['ERROR'] = "Password Changed Sucessfully !!";
