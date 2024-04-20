@@ -1,0 +1,3 @@
+test Case : user -> Email
+		  : register as patient
+		  : Database Name Capital 

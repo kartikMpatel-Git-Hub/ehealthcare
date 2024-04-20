@@ -207,7 +207,7 @@
                                                     Patients &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </div>
                                         </div>
-                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/patients-hover.svg');"></div>
+                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../../img/icons/patients-hover.svg');"></div>
                                     </div>
                                     </a>
                                 </td>
@@ -222,7 +222,7 @@
                                                     Request
                                                 </div>
                                         </div>
-                                                <div class="btn-icon-back dashboard-icons" style="margin-left: 70px;background-image: url('../img/icons/user.svg');"></div>
+                                                <div class="btn-icon-back dashboard-icons" style="margin-left: 70px;background-image: url('../../img/icons/doctors-hover.svg');"></div>
                                     </div>
                                     </a>
                                 </td>
