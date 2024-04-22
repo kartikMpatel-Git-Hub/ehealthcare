@@ -35,13 +35,17 @@
     }else{
         header("location: ../../php/login.php");
     }
-    
+    include("../../php/connection.php");
+    $query= "select * from admin where admin_email = '$useremail';";
+    $result= $database->query($query);
+
+    $row=$result->fetch_assoc();
+    $name=$row['admin_name'];
     date_default_timezone_set('Asia/Kolkata');
 
     $time = date("H:i:s");
 
     //import database
-    include("../../php/connection.php");
 
     
     ?>
@@ -56,8 +60,8 @@
                                     <img src="../../img/Other/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
-                                    <p class="profile-subtitle"><?php echo $useremail;?></p>
+                                    <a href="profile.php" style="text-decoration:none;"><p class="profile-title"><?php echo $name; ?></p>
+                                    <p class="profile-subtitle"><?php echo $useremail; ?></p></a>
                                 </td>
                             </tr>
                             <tr>
@@ -104,11 +108,7 @@
                         <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">Article</p></a></div>
                     </td>
                 </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-user">
-                        <a href="profile.php" class="non-style-link-menu"><div><p class="menu-text">Profile</p></a></div>
-                    </td>
-                </tr>
+                
 
             </table>
         </div>
@@ -230,8 +230,10 @@
                             $docid=$_POST["docid"];
                             $sqlpt2=" doctor.doc_id=$docid ";
                         }
-                        $sqlmain= "select schedule.sche_id,schedule.sche_title,doctor.doc_name,schedule.sche_date,schedule.sche_start,schedule.sche_noappo from schedule inner join doctor on schedule.doc_id=doctor.doc_id ";
+                        $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
                         $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_id  not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time')  order by schedule.sche_date desc)";          
+                   
+                        
                         $sqllist=array($sqlpt1,$sqlpt2);
                         $sqlkeywords=array(" where "," and ");
                         $key2=0;
@@ -242,14 +244,21 @@
                                 $key2++;
                             };
                         };
+                        foreach($sqllist as $key){
+
+                            if(!empty($key)){
+                                $sqlmain1.=$sqlkeywords[$key2].$key;
+                                $key2++;
+                            };
+                        };
                         //echo $sqlmain;
 
                         
                         
                         //
                     }else{
-                        $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_end > '$time'";
-                        $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time'"; 
+                        $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
+                        $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today'  and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end > '$time')"; 
                     }
                     
 
@@ -429,7 +438,7 @@
                                         $sche_date=$row["sche_date"];
                                         $scheduletime=$row["sche_start"];
 
-                                        $query ="select * from appointment where sche_id = $scheduleid ;";
+                                        $query ="select * from appointment where sche_id = $scheduleid and appo_status != 0;";
                                         $result = $database->query($query);
                                         $nop=$result->num_rows;
                                         echo '
@@ -646,7 +655,7 @@
             $sche_date=$row["sche_date"];
             $scheduletime=$row["sche_end"];
             $nop=$row['sche_noappo'];
-            $sqlmain12= "select * from appointment inner join patient on patient.patient_id = appointment.patient_id inner join schedule on schedule.sche_id=appointment.sche_id where schedule.sche_id=$id;";
+            $sqlmain12= "select * from appointment inner join patient on patient.patient_id = appointment.patient_id inner join schedule on schedule.sche_id=appointment.sche_id where schedule.sche_id=$id and appo_status != 0;";
             $result12= $database->query($sqlmain12);
             echo '
             <div id="popup1" class="overlay">
@@ -769,14 +778,15 @@
                                          else{
                                          for ( $x=0; $x<$result->num_rows;$x++){
                                              $row=$result->fetch_assoc();
-                                             $apponum=$row["sche_noappo"];
+                                             $apponum=$row["appo_no"];
                                              $pid=$row["patient_id"];
+                                             $pimg=$row["patient_img"];
                                              $pname=$row["patient_name"];
                                              $ptel=$row["patient_phoneno"];
                                              
                                              echo '<tr style="text-align:center;">
                                                 <td>
-                                                '.substr($pid,0,15).'
+                                                    <img src="../../img/Patient/'.$pimg.'" width="50px" style="border-radius:50%;">
                                                 </td>
                                                  <td style="font-weight:600;padding:25px">'.
                                                  

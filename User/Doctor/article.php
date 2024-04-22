@@ -161,7 +161,7 @@
                     <td colspan="4" >
                         <div style="display: flex;margin-top: 40px;">
                         <div class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49);margin-top: 5px;">More Article</div>
-                        <a href="add-article.php" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../img/icons/add.svg');">Add New Article</font></button>
+                        <a href="add-article.php" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../../img/icons/add.svg');">Add New Article</font></button>
                         </a>
                         </div>
                     </td>
@@ -173,61 +173,9 @@
                     </td>
                     
                 </tr>
-                <tr>
-                    <td colspan="4" style="padding-top:0px;width: 100%;" >
-                        <center>
-                        <table class="filter-container" border="0" >
-                        <tr>
-                           <td width="10%">
-
-                           </td> 
-                        <td width="5%" style="text-align: center;">
-                        Date:
-                        </td>
-                        <td width="30%">
-                        <form action="" method="post">
-                            
-                            <input type="date" name="sheduledate" id="date" class="input-text filter-container-items" style="margin: 0;width: 95%;">
-
-                        </td>
-                        
-                    <td width="12%">
-                        <input type="submit"  name="filter" value=" Filter" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%">
-                        </form>
-                    </td>
-
-                    </tr>
-                            </table>
-
-                        </center>
-                    </td>
-                    
-                </tr>
-                
                 <?php
-                    if($_POST){
-                        //print_r($_POST);
-                        $sqlpt1="";
-                        if(!empty($_POST["sheduledate"])){
-                            $sheduledate=$_POST["sheduledate"];
-                            $sqlpt1=" schedule.sche_date='$sheduledate' ";
-                        }
-                        $sqlmain= "select * from article";
-                        $sqllist=array($sqlpt1);
-                        $sqlkeywords=array(" where "," and ");
-                        $key2=0;
-                        foreach($sqllist as $key){
-
-                            if(!empty($key)){
-                                $sqlmain.=$sqlkeywords[$key2].$key;
-                                $key2++;
-                            };
-                        };
-                    }else{
                         $sqlmain= "select * from article where doc_id = '$userid'";
-                    }
                 ?>
-                  
                 <tr>
                    <td colspan="4">
                        <center>
@@ -275,7 +223,7 @@
                                     
                                     <br>
                                     <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                    <a class="non-style-link" href="schedule.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Sessions &nbsp;</font></button>
+                                    <a class="non-style-link" href="article.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Sessions &nbsp;</font></button>
                                     </a>
                                     </center>
                                     <br><br><br><br>
@@ -308,6 +256,8 @@
                                         <div style="display:flex;justify-content: center;">
                                         
                                         <a href="?action=view&id='.$aid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
+                                        &nbsp;&nbsp;
+                                        <a href="?action=comment&id='.$aid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Comment</font></button></a>
                                        &nbsp;&nbsp;&nbsp;
                                        <a href="?action=drop&id='.$aid.'&name='.$title.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-delete"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Remove</font></button></a>
                                         </div>
@@ -426,14 +376,16 @@
                         </div>
                         <div style="display: flex;justify-content: center;">
                         <a href="delete-article.php?id='.$id.'" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"<font class="tn-in-text">&nbsp;Yes&nbsp;</font></button></a>&nbsp;&nbsp;&nbsp;
-                        <a href="schedule.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
+                        <a href="article.php" class="non-style-link"><button  class="btn-primary btn"  style="display: flex;justify-content: center;align-items: center;margin:10px;padding:10px;"><font class="tn-in-text">&nbsp;&nbsp;No&nbsp;&nbsp;</font></button></a>
 
                         </div>
                     </center>
             </div>
             </div>
             '; 
-        }elseif($action=='view'){
+        }
+        elseif($action=='view')
+        {
             $sqlmain= "select * from article where article_id=$id";
             $result= $database->query($sqlmain);
             $row=$result->fetch_assoc();
@@ -442,7 +394,7 @@
            
             echo '
             <div id="popup1" class="overlay">
-                <div class="popup" >
+                <div class="popup" style="width: 70%;">
                     <center>
                         <h2></h2>
                         <a class="close" href="article.php">&times;</a>
@@ -481,15 +433,19 @@
                                 </tr>
                                 <tr>
                                     <td class="label-td" colspan="2" style="padding-top:30px;">
-                                    <label for="Tele" class="form-label"><center><b>___________________________________________________________<b></center></label>
+                                    <label for="Tele" class="form-label"><center><b>________________________________________________________________________________________________________________________________________________________<b></center></label>
                                     <label for="Tele" class="form-label"><center><b>Article<b></center></label>
-                                    <label for="Tele" class="form-label"><center><b>___________________________________________________________<b></center></label>
+                                    <label for="Tele" class="form-label"><center><b>________________________________________________________________________________________________________________________________________________________<b></center></label>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td class="label-td" colspan="2">
                                         <p  style="word-wrap: break-word;">'.$desc.'<p><br><br>
-                                            <p  style="word-wrap: break-word;"><b><center>_______________________________________________________________</center></b><p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label-td" colspan="2" style="padding-top:30px;">
+                                        <label for="Tele" class="form-label"><center><b>________________________________________________________________________________________________________________________________________________________<b></center></label>
                                     </td>
                                 </tr>
                             </table>
@@ -498,6 +454,140 @@
                 </div>
             </div>
             ';  
+        }
+        elseif($action=='comment')
+        {
+
+            $sqlmain12= "select * from article where article_id = $id";
+            $result12= $database->query($sqlmain12);
+            echo '
+            <div id="popup1" class="overlay">
+                <div class="popup" style="width: 70%;">
+                    <center>
+                        <h2></h2>
+                        <a class="close" href="article.php">&times;</a>
+                        <div class="content">
+                            
+                            
+                        </div>
+                        <div class="abc scroll" style="display: flex;justify-content: center;">
+                        <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
+                        
+                            <tr>
+                                <td>
+                                    <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">View Feedbacks.</p><br><br>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                    <label for="spec" class="form-label"><b>Patients that Give Feedback On This Session</b> ('.$result12->num_rows.')</label>
+                                    <br><br>
+                                </td>
+                            </tr>
+
+                            
+                            <tr>
+                            <td colspan="4">
+                                <center>
+                                 <div class="abc scroll">
+                                 <table width="100%" class="sub-table scrolldown" border="0">
+                                 <thead>
+                                 <tr>   
+                                        <th class="table-headin">
+
+                                         </th>
+                                         <th class="table-headin">
+                                             Patient name
+                                         </th>
+                                         <th class="table-headin">
+                                             
+                                             Comment
+                                             
+                                         </th>
+                                        
+                                         
+                                         <th class="table-headin">
+                                             Date & Time 
+                                         </th>
+                                         
+                                 </thead>
+                                 <tbody>';
+                                         
+
+                                        $query = "select * from comment where article_id = $id";
+                                        $result= $database->query($query);
+                
+                                         if($result->num_rows==0){
+                                             echo '<tr>
+                                             <td colspan="7">
+                                             <br><br><br><br>
+                                             <center>
+                                             <img src="../../img/icons/notfound.svg" width="25%">
+                                             
+                                             <br>
+                                             <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+                                             <a class="non-style-link" href="appointment.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Appointments &nbsp;</font></button>
+                                             </a>
+                                             </center>
+                                             <br><br><br><br>
+                                             </td>
+                                             </tr>';
+                                             
+                                         }
+                                         else
+                                         {
+                                         for ( $x=0; $x<$result->num_rows;$x++){
+                                             $row=$result->fetch_assoc();
+                                             $cmt=$row["cmt_detail"];
+                                             $pid=$row["patient_id"];
+                                             $cdate=$row["cmt_date"];
+                                             $ctime=$row["cmt_time"];
+
+                                             $queryp = "select * from patient where patient_id = $pid";
+                                             $result= $database->query($queryp);
+                                             $row=$result->fetch_assoc();
+                                             $pname=$row["patient_name"];
+                                             $pimg=$row["patient_img"];
+
+                                             echo '<tr style="text-align:center;">
+                                                <td>
+                                                    <img src="../../img/Patient/'.$pimg.'" width="50px" style="border-radius:50%;">
+                                                </td>
+                                                 <td style="font-weight:600;padding:25px">'.
+                                                 
+                                                 substr($pname,0,25)
+                                                 .'</td >
+                                                 <td style="text-align:center;font-size:23px;font-weight:500; color: var(--btnnicetext);">
+                                                 '.$cmt.'
+                                                 
+                                                 </td>
+                                                 <td>
+                                                 '.$cdate.' At '.$ctime.'
+                                                 </td>
+                                                 
+                                                 
+                
+                                                 
+                                             </tr>';
+                                             
+                                         }
+                                     }
+                                    echo '</tbody>
+                
+                                 </table>
+                                 </div>
+                                 </center>
+                            </td> 
+                         </tr>
+
+                        </table>
+                        </div>
+                    </center>
+                    <br><br>
+            </div>
+            </div>
+            '; 
         }
     }
     ?>

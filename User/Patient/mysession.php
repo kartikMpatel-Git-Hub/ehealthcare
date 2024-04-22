@@ -140,7 +140,8 @@ $today = date('Y-m-d');
                                 <?php
 									echo 
 										'
-											<p class="col-2 bookr" style="margin-bottom:30px;"><a href="php/booking.php?action=delete&id='.$appoid.'&tid='.$tid.'">cancle</a></p>
+											<div class="col-4"></div>
+											<a href="php/booking.php?action=delete&id='.$appoid.'&tid='.$tid.'" class="col-4 btn" style="margin-bottom:30px; color:white;  background-color:#e13e3e;">cancle</a>
 										';
                                 ?>
 							</div>
@@ -229,7 +230,8 @@ $today = date('Y-m-d');
                     					            <?php
 														echo 
 															'
-																<p class="col-2 bookv" style="margin-bottom:30px;"><a href="feedback.php?action=feedback&id='.$appoid.'">Feedback</a></p>
+																<div class="col-4"></div>	
+																<a href="feedback.php?action=feedback&id='.$appoid.'" class="col-4 btn" style="margin-bottom:30px; color:white;  background-color:gray;">Feedback</a>
 															';
                     					            ?>
 												</div>

@@ -26,6 +26,10 @@
         $spec=$row["spec_id"];
         $img=$row["doc_img"];
         $charge=$row["doc_charge"];
+        $dob=$row["doc_dob"];
+        $exp=$row["doc_experience"];
+        $about=addslashes($row["about"]);
+
 
         echo $email;
 
@@ -33,7 +37,7 @@
         $database->query($sql1);
         $sql2= "insert into user (user_email,user_name,user_type) values('$email','$name','D')";
         $database->query($sql2);
-        $sql3= "insert into doctor (doc_email,doc_name,doc_password,doc_address,doc_gender,doc_phoneno,spec_id,doc_charge,doc_img) values ('$email','$name','$password','$address','$gender','$phoneno',$spec,$charge,'$img');";
+        $sql3= "insert into doctor (doc_email,doc_name,doc_password,doc_address,doc_gender,doc_phoneno,spec_id,doc_charge,doc_img,doc_dob,doc_experience,doc_about) values ('$email','$name','$password','$address','$gender','$phoneno',$spec,$charge,'$img','$dob',$exp,'$about');";
         $database->query($sql3);
 
         $query= "select * from doctor where doc_email='$email';";

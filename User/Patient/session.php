@@ -131,7 +131,7 @@ $today = date('Y-m-d');
 							<div class="row">
 								<img src="../../img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-3 col-md-12" style="border-radius:50%;">
 								<!-- padding:20px 30px; margin:30px 0 0 10px;  -->
-                                <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-6 col-md-12" style="padding:30px;">
+                                <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-9 col-md-12" style="padding:30px;">
                                     <div>
                                             <div class="detail" style="color:#199fd9;"><b>D</b><?php echo 'r . '.$name; ?></div>
                                             <div class="detail" style="font-weight:bold;"><?php echo $spcil_name; ?></div>
@@ -145,13 +145,14 @@ $today = date('Y-m-d');
 
                                     </div>
                                 </a>
-                                
+                              
                                 <?php
 									if($status > 0)
 									{
 										echo 
 											'
-												<p class="col-4 bookv" style="margin-bottom:30px;"><a href="mysession.php?action=view&id='.$scheid.'">View</a></p>
+												<div class="col-4"></div>
+												<a href="mysession.php?action=view&id='.$scheid.'" class="col-4 btn" style="margin-bottom:30px; color:white;  background-color:gray;">View</a>
 											';
 									}
 									else
@@ -162,7 +163,8 @@ $today = date('Y-m-d');
 											{
 													echo 
 													'
-														<a href="booksession.php?action=book&id='.$scheid.'" class="col-4 book" style="margin-bottom:30px; color:white;">Book</a>
+														<div class="col-4"></div>
+														<a href="booksession.php?action=book&id='.$scheid.'" class="col-4 btn" style="margin-bottom:30px; color:white;">Book</a>
 													';
 													//style="color:white; padding:20px 30px;"
 											}
@@ -170,15 +172,17 @@ $today = date('Y-m-d');
 											{
 													echo 
 													'
-													<p class="col-4 bookg" style="margin-bottom:30px;"><a href="php/booking.php?action=add&id='.$scheid.'">Free</a></p>
+													<div class="col-4"></div>
+													<a href="php/booking.php?action=add&id='.$scheid.'" class="col-4 btn" style="margin-bottom:30px; color:white; background-color:green;">Free</a>
 													';
-											}   
-										}
-										else
-										{
+												}   
+											}
+											else
+											{
 											echo 
 											'
-												<p class="col-4 bookr" style="margin-bottom:30px;"><a>Session Full</a></p>
+												<div class="col-4"></div>
+												<a class="col-4 btn" style="margin-bottom:30px; color:white;  background-color:#e13e3e;">Session Full</a>
 											';
 										}
 									}

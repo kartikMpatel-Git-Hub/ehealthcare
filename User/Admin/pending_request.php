@@ -11,7 +11,10 @@ if(isset($_SESSION["email"])){
     header("location: ../../login.php");
 }   
 include("../../php/connection.php");
-
+$query= "select * from admin where admin_email = '$useremail';";
+$result= $database->query($query);
+$row=$result->fetch_assoc();
+$name=$row['admin_name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -50,8 +53,8 @@ include("../../php/connection.php");
                                     <img src="../../img/Other/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
-                                    <p class="profile-subtitle"><?php echo $useremail; ?></p>
+                                    <a href="profile.php" style="text-decoration:none;"><p class="profile-title"><?php echo $name; ?></p>
+                                    <p class="profile-subtitle"><?php echo $useremail; ?></p></a>
                                 </td>
                             </tr>
                             <tr>
@@ -97,11 +100,6 @@ include("../../php/connection.php");
                         <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">Article</p></a></div>
                     </td>
                 </tr>   
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-user ">
-                        <a href="profile.php" class="non-style-link-menu"><div><p class="menu-text">Profile</p></a></div>
-                    </td>
-                </tr>
             </table>
         </div>
         <div class="dash-body" style="margin-top: 15px">
@@ -145,6 +143,7 @@ include("../../php/connection.php");
                                         <th colspan="4" style="font-size:20px; padding:30px;">Pending Request</th>
                                     </tr>
                                     <tr>
+                                        <th class="table-headin"></th>
                                         <th class="table-headin">Doctor Name</th>
                                         <th class="table-headin">Email</th>
                                         <th class="table-headin">Specialties</th>
@@ -175,6 +174,7 @@ include("../../php/connection.php");
                                             for ( $x=0; $x<$result->num_rows;$x++){
                                                 $row=$result->fetch_assoc();
                                                 $docid=$row["pen_doc_id"];
+                                                $docimg=$row["doc_img"];
                                                 $name=$row["doc_name"];
                                                 $email=$row["doc_email"];
                                                 $spe=$row["spec_id"];
@@ -183,6 +183,7 @@ include("../../php/connection.php");
                                                 $spcil_name=$spcil_array["spec_type"];
                                                 echo '
                                                     <tr>
+                                                        <td> &nbsp;&nbsp;&nbsp;&nbsp;<img src="../../img/Doctor/'.$docimg.'" height="50px" style="border-radius:50%;"></td>
                                                         <td> &nbsp;'.substr($name,0,30).'</td>
                                                         <td>'.substr($email,0,20).'</td>
                                                         <td>'.substr($spcil_name,0,20).'</td>
@@ -208,6 +209,7 @@ include("../../php/connection.php");
                                         <th colspan="5" style="font-size:20px; padding:30px;">All Request</th>
                                     </tr>
                                     <tr>
+                                        <th class="table-headin"></th>
                                         <th class="table-headin">Doctor Name</th>
                                         <th class="table-headin">Email</th>
                                         <th class="table-headin">Specialties</th>
@@ -242,6 +244,7 @@ include("../../php/connection.php");
                                                 $row=$result->fetch_assoc();
                                                 $docid=$row["pen_doc_id"];
                                                 $name=$row["doc_name"];
+                                                $docimg=$row["doc_img"];
                                                 $email=$row["doc_email"];
                                                 $spe=$row["spec_id"];
                                                 $status=$row["Status"];
@@ -250,6 +253,7 @@ include("../../php/connection.php");
                                                 $spcil_name=$spcil_array["spec_type"];
                                                 echo '
                                                     <tr>
+                                                        <td style="text-align:center; "> &nbsp;<img src="../../img/Doctor/'.$docimg.'" height="50px" style="border-radius:50%;"></td>
                                                         <td style="text-align:center; "> &nbsp;'.substr($name,0,30).'</td>
                                                         <td style="text-align:center; ">'.substr($email,0,20).'</td>
                                                         <td style="text-align:center; ">'.substr($spcil_name,0,20).'</td>

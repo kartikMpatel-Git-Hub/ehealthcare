@@ -11,6 +11,10 @@
         header("location: ../../login.php");
     }
     include("../../php/connection.php");
+    $query= "select * from admin where admin_email = '$useremail';";
+    $result= $database->query($query);
+    $row=$result->fetch_assoc();
+    $name=$row['admin_name'];
     $_SESSION['ERROR'] = "";
     if(isset($_POST['update']))
     {
@@ -19,6 +23,7 @@
         $row=$result->fetch_assoc();
         $password = $row['admin_password'];
         $oldpassword = $_POST['old'];
+        $oldpassword = md5($oldpassword);
         $newpassword = $_POST['new'];
         $renewpassword = $_POST['renew'];
         if($oldpassword == "" || $password == "" || $newpassword == "" || $renewpassword =="")
@@ -96,8 +101,8 @@
                                     <img src="../../img/Other/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
-                                    <p class="profile-subtitle"><?php echo $useremail; ?></p>
+                                    <a href="profile.php" style="text-decoration:none;"><p class="profile-title"><?php echo $name; ?></p>
+                                    <p class="profile-subtitle"><?php echo $useremail; ?></p></a>
                                 </td>
                             </tr>
                             <tr>
@@ -109,13 +114,18 @@
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-dashbord " >
+                    <td class="menu-btn menu-icon-dashbord" >
                         <a href="index.php" class="non-style-link-menu"><div><p class="menu-text">Dashboard</p></a></div></a>
                     </td>
                 </tr>
                 <tr class="menu-row">
                     <td class="menu-btn menu-icon-doctor ">
                         <a href="doctors.php" class="non-style-link-menu "><div><p class="menu-text">Doctors</p></a></div>
+                    </td>
+                </tr>
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-doctor ">
+                        <a href="pending_request.php" class="non-style-link-menu "><div><p class="menu-text">Pendeing Request</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
@@ -129,15 +139,16 @@
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-patient">
+                    <td class="menu-btn menu-icon-patient ">
                         <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">Patients</p></a></div>
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-user menu-active menu-icon-active">
-                        <a href="profile.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Profile</p></a></div>
+                    <td class="menu-btn menu-icon-dashbord">
+                        <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">Article</p></a></div>
                     </td>
                 </tr>
+                
             </table>
         </div>
         <div class="dash-body" style="margin-top: 15px">

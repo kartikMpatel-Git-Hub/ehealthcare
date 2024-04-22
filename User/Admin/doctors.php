@@ -11,6 +11,10 @@ if(isset($_SESSION["email"])){
     header("location: ../../login.php");
 }
 include("../../php/connection.php");
+$query= "select * from admin where admin_email = '$useremail';";
+$result= $database->query($query);
+$row=$result->fetch_assoc();
+$name=$row['admin_name'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,8 +48,8 @@ include("../../php/connection.php");
                                     <img src="../../img/Other/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
-                                    <p class="profile-subtitle"><?php echo $useremail;  ?></p>
+                                    <a href="profile.php" style="text-decoration:none;"><p class="profile-title"><?php echo $name; ?></p>
+                                    <p class="profile-subtitle"><?php echo $useremail; ?></p></a>
                                 </td>
                             </tr>
                             <tr>
@@ -92,11 +96,7 @@ include("../../php/connection.php");
                         <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">Article</p></a></div>
                     </td>
                 </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-user">
-                        <a href="profile.php" class="non-style-link-menu"><div><p class="menu-text">Profile</p></a></div>
-                    </td>
-                </tr>
+                
 
             </table>
         </div>
@@ -190,10 +190,9 @@ include("../../php/connection.php");
                         <thead>
                         <tr>
                                 <th class="table-headin">
-                                    
-                                
-                                Doctor Name
-                                
+                                </th>
+                                <th class="table-headin">
+                                    Doctor Name
                                 </th>
                                 <th class="table-headin">
                                     Email
@@ -237,6 +236,7 @@ include("../../php/connection.php");
                                 for ( $x=0; $x<$result->num_rows;$x++){
                                     $row=$result->fetch_assoc();
                                     $docid=$row["doc_id"];
+                                    $docimg=$row["doc_img"];
                                     $name=$row["doc_name"];
                                     $email=$row["doc_email"];
                                     $spe=$row["spec_id"];
@@ -244,16 +244,10 @@ include("../../php/connection.php");
                                     $spcil_array= $spcil_res->fetch_assoc();
                                     $spcil_name=$spcil_array["spec_type"];
                                     echo '<tr>
-                                        <td> &nbsp;'.
-                                        substr($name,0,30)
-                                        .'</td>
-                                        <td>
-                                        '.substr($email,0,20).'
-                                        </td>
-                                        <td>
-                                            '.substr($spcil_name,0,20).'
-                                        </td>
-
+                                        <td> &nbsp;&nbsp;<img src="../../img/Doctor/'.$docimg.'" width="50px" height="50px" style="border-radius:50%;"></td>
+                                        <td> &nbsp;'.substr($name,0,30).'</td>
+                                        <td>'.substr($email,0,20).'</td>
+                                        <td>'.substr($spcil_name,0,20).'</td>
                                         <td>
                                         <div style="display:flex;justify-content: center;">
                                         <a href="?action=edit&id='.$docid.'&error=0" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-edit"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Edit</font></button></a>
@@ -337,82 +331,47 @@ include("../../php/connection.php");
                                 <tr>
                                     <td>
                                         <p style="padding: 0;margin: 0;text-align: center;font-size: 25px;font-weight: 500;">
-                                             <img src="../../img/Doctor/'.$img.'" height="150px">
+                                             <img src="../../img/Doctor/'.$img.'" height="300px" style="border-radius:5%;">
                                         </p><br><br>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td class="label-td" colspan="2">
-                                        <label for="name" class="form-label">Name: </label>
+                                        <label for="name" class="form-label"><b> Name: </b></label>'.$name.'<br><br>
                                     </td>
                                 </tr> 
                                 <tr>
                                     <td class="label-td" colspan="2">
-                                        '.$name.'<br><br>
+                                        <label for="Email" class="form-label"><b> Email: </b></label>'.$email.'<br><br>
                                     </td>
                                 </tr> 
                                 <tr>
                                     <td class="label-td" colspan="2">
-                                        <label for="Email" class="form-label">Email: </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label-td" colspan="2">
-                                    '.$email.'<br><br>
+                                        <label for="Email" class="form-label"><b> Address: </b></label>'.$address.'<br><br>
                                     </td>
                                 </tr> 
                                 <tr>
                                     <td class="label-td" colspan="2">
-                                        <label for="Email" class="form-label">Address: </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label-td" colspan="2">
-                                    '.$address.'<br><br>
-                                    </td>
-                                </tr> 
-                                <tr>
-                                    <td class="label-td" colspan="2">
-                                        <label for="spec" class="form-label">Specialties: </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label-td" colspan="2">
-                                    '.$spcil_name.'<br><br>
+                                        <label for="spec" class="form-label"><b> Specialties: </b></label>'.$spcil_name.'<br><br>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td class="label-td" colspan="2">
-                                        <label for="spec" class="form-label">Gender: </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label-td" colspan="2">
-                                    '.$gen.'<br><br>
+                                        <label for="spec" class="form-label"><b> Gender: </b></label>'.$gen.'<br><br>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td class="label-td" colspan="2">
-                                        <label for="spec" class="form-label">Phone No: </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label-td" colspan="2">
-                                    '.$pno.'<br><br>
+                                        <label for="spec" class="form-label"><b> Phone No:</b> </label>'.$pno.'<br><br>
                                     </td>
                                 </tr>
 
                                 <tr>
                                     <td class="label-td" colspan="2">
-                                        <label for="spec" class="form-label">Charge : </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="label-td" colspan="2">
-                                    '.$charge.'<br><br>
+                                        <label for="spec" class="form-label"><b> Charge : </b></label>'.$charge.'<br><br>
                                     </td>
                                 </tr>    
                                 <tr>

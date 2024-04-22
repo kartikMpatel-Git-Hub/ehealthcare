@@ -62,6 +62,9 @@ elseif(isset($_POST['doc']))
     $phoneno = $_POST['phoneno'];
     $charge = $_POST['charge'];
     $spec = $_POST['spec'];
+    $dob=$_POST['dob'];
+    $exp=$_POST['exp'];
+    $about=addslashes($_POST["about"]);
     $add = $_POST['address'];
 
     if($spec == "-Specialist-")
@@ -81,7 +84,7 @@ elseif(isset($_POST['doc']))
         }
         else
         {
-            $query = "select * from doctor,pending where doc_phoneno = '$phoneno' or  pending.doc_phoneno = '$phoneno' and pending.Status != 0";
+            $query = "select * from doctor,pending where doctor.doc_phoneno = '$phoneno' or  pending.doc_phoneno = '$phoneno' and pending.Status != 0";
             $result= $database->query($query);	
             if($ans=$result->num_rows)
             {
@@ -92,7 +95,7 @@ elseif(isset($_POST['doc']))
                 if($cpassword == $password)
                 {
                     $password = md5($password);
-                    $query1 = "insert into pending(doc_email,doc_name,doc_password,doc_gender,doc_phoneno,doc_charge,doc_address,spec_id,doc_img,Status) values ('$email','$name','$password','$gender','$phoneno','$charge','$add',$spec,'user.jpg','1');";
+                    $query1 = "insert into pending(doc_email,doc_name,doc_password,doc_gender,doc_phoneno,doc_charge,doc_address,spec_id,doc_dob,doc_experience,doc_about,doc_img,Status) values ('$email','$name','$password','$gender','$phoneno','$charge','$add',$spec,'$dob',$exp,'$about','user.jpg','1');";
                     $database->query($query1);
                     $_SESSION['Message'] = 'Doctor Details Add Successfully For Inquiry !!';
                     header("location: ../registration.php?action=doctor");

@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		
 		<!-- Title -->
-        <title>Mediplus - Free Medical and Doctor Directory HTML Template.</title>
+        <title>E-Health Care</title>
 		
 		<!-- Favicon -->
         <link rel="stylesheet" href="../../css/main.css">

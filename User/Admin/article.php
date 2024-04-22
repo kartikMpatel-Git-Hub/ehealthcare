@@ -42,7 +42,10 @@
     }
 
     include("../../php/connection.php");
-    
+    $query= "select * from admin where admin_email = '$useremail';";
+    $result= $database->query($query);
+    $row=$result->fetch_assoc();
+    $name=$row['admin_name'];
 
     date_default_timezone_set('Asia/Kolkata');
 
@@ -60,8 +63,8 @@
                                     <img src="../../img/Other/user.png" alt="" width="100px" height="90px"  style="border-radius:60%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
-                                    <p class="profile-subtitle"><?php echo substr($useremail,0,22)  ?></p>
+                                    <a href="profile.php" style="text-decoration:none;"><p class="profile-title"><?php echo $name; ?></p>
+                                    <p class="profile-subtitle"><?php echo $useremail; ?></p></a>
                                 </td>
                             </tr>
                             <tr>
@@ -107,11 +110,7 @@
                         <a href="article.php" class="non-style-link-menu   non-style-link-menu-active"><div><p class="menu-text">Article</p></a></div>
                     </td>
                 </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-user">
-                        <a href="profile.php" class="non-style-link-menu"><div><p class="menu-text">Profile</p></a></div>
-                    </td>
-                </tr>
+                
                 
             </table>
         </div>
@@ -153,7 +152,7 @@
                     <td colspan="4" >
                         <div style="display: flex;margin-top: 40px;">
                         <div class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49);margin-top: 5px;">More Article</div>
-                        <a href="?action=add-article&id=none&error=0" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../img/icons/add.svg');">Add New Article</font></button>
+                        <a href="?action=add-article&id=none&error=0" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../../img/icons/add.svg');">Add New Article</font></button>
                         </a>
                         </div>
                     </td>
@@ -393,7 +392,7 @@
            
             echo '
             <div id="popup1" class="overlay">
-                <div class="popup" style="width: 70%; ">
+                <div class="popup" style="width: 70%;">
                     <center>
                         <h2></h2>
                         <a class="close" href="article.php">&times;</a>
@@ -440,7 +439,36 @@
                                 <tr>
                                     <td class="label-td" colspan="2">
                                         <p  style="word-wrap: break-word;">'.$desc.'<p><br><br>
-                                            <p  style="word-wrap: break-word;"><b><center>________________________________________________________________________________________________________________________________________________________</center></b><p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label-td" colspan="2" style="padding-top:30px;">
+                                    <label for="Tele" class="form-label"><center><b>________________________________________________________________________________________________________________________________________________________<b></center></label>
+                                    <label for="Tele" class="form-label"><center><b>Comments<b></center></label>
+                                    <label for="Tele" class="form-label"><center><b>________________________________________________________________________________________________________________________________________________________<b></center></label>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label-td" colspan="2">';
+                                    $query = "select * from comment where article_id=$id";
+								    $result= $database->query($query);
+                                    for ($x=0; $x<$result->num_rows;$x++)
+                                    {
+                                        $row=$result->fetch_assoc();
+										$pid = $row['patient_id'];
+										$des = $row['cmt_detail'];
+										$query1 = "select * from patient where patient_id='$pid'";
+										$result1= $database->query($query1);
+										$row1=$result1->fetch_assoc();
+										$pname = $row1['patient_name'];
+										$pimg = $row1['patient_img'];
+                                        echo '
+                                            <br><br>
+                                            <img src="../../img/Patient/'.$pimg.'" width="50px" style="border-radius:50%;"><span style="color:gray;">'.$pname.'</span>
+                                            <p  style="word-wrap: break-word;">'.$des.'<p>
+                                            ';
+                                    }
+                                    echo '
                                     </td>
                                 </tr>
                             </table>

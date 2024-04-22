@@ -119,6 +119,8 @@
         $row=$result->fetch_assoc();
         $password = $row['patient_password'];
         $oldpassword = $_POST['old'];
+        $oldpassword = md5($oldpassword);
+        echo $oldpassword;
         $newpassword = $_POST['new'];
         $renewpassword = $_POST['renew'];
         if($oldpassword == "" || $password == "" || $newpassword == "" || $renewpassword =="")
@@ -149,6 +151,7 @@
                     }
                     else
                     {
+                        $newpassword = md5($newpassword);
                         $query = "update patient set patient_password = '$newpassword' where patient_email = '$useremail';";
                         $database->query($query);
                         $_SESSION['ERROR'] = "Password Changed Sucessfully !!";

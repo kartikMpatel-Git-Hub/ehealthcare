@@ -151,73 +151,21 @@
                     </td>
                     
                 </tr>
-                <tr>
-                    <td colspan="4" style="padding-top:0px;width: 100%;" >
-                        <center>
-                        <table class="filter-container" border="0" >
-                        <tr>
-                           
-                        <td width="5%" style="text-align: center;">
-                        Date:
-                        </td>
-                        <td width="5%">
-                        <form action="" method="post">
-                            
-                            <input type="date" name="sheduledate" id="date" class="input-text filter-container-items" style="margin: 0;width: 95%;">
-
-                        </td>
-                        
-
-                    </tr>
-                            </table>
-
-                        </center>
-                    </td>
-                    
-                </tr>
-                
                 <?php
-                    if($_POST){
-                        //print_r($_POST);
-                        $sqlpt1="";
-                        if(!empty($_POST["sheduledate"])){
-                            $sheduledate=$_POST["sheduledate"];
-                            $sqlpt1=" schedule.scheduledate='$sheduledate' ";
-                        }
-
-
-                        $sqlpt2="";
-                        if(!empty($_POST["docid"])){
-                            $docid=$_POST["docid"];
-                            $sqlpt2=" doctor.doc_id=$docid ";
-                        }
-                        //echo $sqlpt2;
-                        //echo $sqlpt1;
-                        $sqlmain= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id";
-                        $sqllist=array($sqlpt1,$sqlpt2);
-                        $sqlkeywords=array(" where "," and ");
-                        $key2=0;
-                        foreach($sqllist as $key){
-
-                            if(!empty($key)){
-                                $sqlmain.=$sqlkeywords[$key2].$key;
-                                $key2++;
-                            };
-                        };
-                    }else{
                         $sqlmain= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id where   appointment.appo_status != 0 and schedule.doc_id = $doc_id and schedule.sche_date >= '$today' and schedule.sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
                         $sqlmain1= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id where  appointment.appo_status != 0 and schedule.sche_date <= '$today' and schedule.doc_id = $doc_id and schedule.sche_id in (select sche_id from schedule where sche_date = '$today' and sche_end < '$time') ";
-
-                    }
-
-
-
                 ?>
                   
                 <tr>
                    <td colspan="4">
                        <center>
                         <div class="abc scroll">
+                        <?php 
+                            $result= $database->query($sqlmain);
+                            $result1= $database->query($sqlmain1);
+                            if($result->num_rows > 0)
+                            {
+                        ?>
                         <table width="93%" class="sub-table scrolldown" border="0">
                             <thead>
                                 <tr>
@@ -228,9 +176,6 @@
                                         Appointment number
                                     </th>
                                     <th class="table-headin">
-                                        Doctor
-                                    </th>
-                                    <th class="table-headin">
                                         Session Title
                                     </th>
                                     <th class="table-headin" >
@@ -246,28 +191,8 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $result= $database->query($sqlmain);
-
-                                    if($result->num_rows==0){
-                                        echo '<tr>
-                                        <td colspan="7">
-                                        <br><br><br><br>
-                                        <center>
-                                        <img src="../../img/icons/notfound.svg" width="25%">
-
-                                        <br>
-                                        <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                        <a class="non-style-link" href="appointment.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Appointments &nbsp;</font></button>
-                                        </a>
-                                        </center>
-                                        <br><br><br><br>
-                                        </td>
-                                        </tr>';
-
-                                    }
-                                    else
-                                    {
-                                        for ( $x=0; $x<$result->num_rows;$x++){
+                                        for ( $x=0; $x<$result->num_rows;$x++)
+                                        {
                                             $row=$result->fetch_assoc();
                                             $appoid=$row["appo_id"];
                                             $scheduleid=$row["sche_id"];
@@ -281,7 +206,6 @@
                                             <tr>
                                                 <td style="text-align:center;"> &nbsp;'.substr($pname,0,25).'</td >
                                                 <td style="text-align:center;font-size:23px;font-weight:500; color: var(--btnnicetext);">'.$apponum.'</td>
-                                                <td style="text-align:center;">'.substr($doc_name,0,25).'</td>
                                                 <td style="text-align:center;">'.substr($title,0,15).'</td>
                                                 <td style="text-align:center;">'.substr($scheduledate,0,10).' <br>'.substr($scheduletime,0,5).'</td>
                                                 <td style="text-align:center;">'.$appodate.'</td>
@@ -292,13 +216,16 @@
                                                 </td>
                                             </tr>';
                                         }
-                                    }
                                 ?>
                             </tbody>
                         </table>
-
+                        <?php
+                            }
+                            else if($result1->num_rows > 0)
+                            {
+                        ?>
                         <div style="font-size :30px; font-weight:bold; margin:20px 0 20px 0 ;">Complite Appointment</div>
-                        <table width="93%" class="sub-table scrolldown" border="0" height="50%">
+                        <table width="93%" class="sub-table scrolldown" border="0" height="auto">
                             <thead>
                                 <tr>
                                     <th class="table-headin">
@@ -326,29 +253,9 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $result= $database->query($sqlmain1);
-
-                                    if($result->num_rows==0){
-                                        echo '<tr>
-                                        <td colspan="7">
-                                        <br><br><br><br>
-                                        <center>
-                                        <img src="../../img/icons/notfound.svg" width="25%">
-
-                                        <br>
-                                        <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                        <a class="non-style-link" href="appointment.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Appointments &nbsp;</font></button>
-                                        </a>
-                                        </center>
-                                        <br><br><br><br>
-                                        </td>
-                                        </tr>';
-
-                                    }
-                                    else
-                                    {
-                                        for ( $x=0; $x<$result->num_rows;$x++){
-                                            $row=$result->fetch_assoc();
+                                        for ( $x=0; $x<$result1->num_rows;$x++)
+                                        {
+                                            $row=$result1->fetch_assoc();
                                             $appoid=$row["appo_id"];
                                             $scheduleid=$row["sche_id"];
                                             $title=$row["sche_title"];
@@ -373,11 +280,38 @@
                                             </tr>';
                                         }
                                     }
+                                    else
+                                    { ?>
+
+                        <table width="93%" class="sub-table scrolldown" border="0" height="auto">
+                            <thead>
+                                <tr>
+                                    <th class="table-headin">
+                                       <b> No Appointment </b>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>                                        
+                                <tr>
+                                    <td colspan="7">
+                                    <br><br><br><br>
+                                    <center>
+                                    <img src="../../img/icons/notfound.svg" width="25%">
+                                    <br>
+                                    <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+                                    <a class="non-style-link" href="appointment.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Appointments &nbsp;</font></button>
+                                    </a>
+                                    </center>
+                                    <br><br><br><br>
+                                    </td>
+                                </tr>
+                                <?php
+                                    }
                                 ?>
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
                         </div>
-                        </center>
+                    </center>
                    </td> 
                 </tr>
                        

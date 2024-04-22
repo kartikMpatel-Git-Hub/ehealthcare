@@ -1,12 +1,16 @@
-		<footer id="footer" class="footer ">
+	<?php
+	$time = date("H:i:s");
+	$today = date('Y-m-d');
+	?>
+	
+	<footer id="footer" class="footer ">
 			<!-- Footer Top -->
 			<div class="footer-top">
 				<div class="container">
 					<div class="row">
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
-								<h2>About Us</h2>
-								<p>Lorem ipsum dolor sit am consectetur adipisicing elit do eiusmod tempor incididunt ut labore dolore magna.</p>
+								<h2>Social Media</h2>
 								<!-- Social -->
 								<ul class="social">
 									<li><a href="#"><i class="icofont-facebook"></i></a></li>
@@ -24,45 +28,43 @@
 								<div class="row">
 									<div class="col-lg-6 col-md-6 col-12">
 										<ul>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Home</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>About Us</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Services</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Our Cases</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Other Links</a></li>	
-										</ul>
-									</div>
-									<div class="col-lg-6 col-md-6 col-12">
-										<ul>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Consuling</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Finance</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Testimonials</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>FAQ</a></li>
-											<li><a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Contact Us</a></li>	
+											<li><a href="index.php"><i class="fa fa-caret-right" aria-hidden="true"></i>Home</a></li>
+											<li><a href="doctor.php"><i class="fa fa-caret-right" aria-hidden="true"></i>Doctor</a></li>
+											<li><a href="specialist.php"><i class="fa fa-caret-right" aria-hidden="true"></i>Specialist</a></li>
+											<li><a href="session.php"><i class="fa fa-caret-right" aria-hidden="true"></i>Sessions</a></li>
+											<li><a href="article.php"><i class="fa fa-caret-right" aria-hidden="true"></i>Article</a></li>	
 										</ul>
 									</div>
 								</div>
 							</div>
 						</div>
+						<?php
+							$query = "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in(select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
+							$result= $database->query($query);	
+						?>
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
-								<h2>Open Hours</h2>
-								<p>Lorem ipsum dolor sit ame consectetur adipisicing elit do eiusmod tempor incididunt.</p>
+								<h2>Session</h2>
+								<p>Here Are Next Schedule</p>
+								<?php  
+									for($x=0; $x<$result->num_rows;$x++)
+									{
+										$row=$result->fetch_assoc();
+										$title=$row["sche_title"];
+										$date=$row['sche_date'];
+										$start=$row['sche_start'];
+										$end=$row['sche_end'];
+								?>
 								<ul class="time-sidual">
-									<li class="day">Monday - Fridayp <span>8.00-20.00</span></li>
-									<li class="day">Saturday <span>9.00-18.30</span></li>
-									<li class="day">Monday - Thusday <span>9.00-15.00</span></li>
+									<li class="day"><?php echo $title; ?><span><?php echo $start." - ".$end;?></span></li>
 								</ul>
+								<?php }?>
 							</div>
 						</div>
 						<div class="col-lg-3 col-md-6 col-12">
 							<div class="single-footer">
-								<h2>Newsletter</h2>
-								<p>subscribe to our newsletter to get allour news in your inbox.. Lorem ipsum dolor sit amet, consectetur adipisicing elit,</p>
-								<form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
-									<input name="email" placeholder="Email Address" class="common-input" onfocus="this.placeholder = ''"
-										onblur="this.placeholder = 'Your email address'" required="" type="email">
-									<button class="button"><i class="icofont icofont-paper-plane"></i></button>
-								</form>
+								<h2>Article</h2>
+								<p>Check Out Our New Article For Better Health Care Advice On Health Topic </p>
 							</div>
 						</div>
 					</div>
@@ -73,7 +75,7 @@
 					<div class="row">
 						<div class="col-lg-12 col-md-12 col-12">
 							<div class="copyright-content">
-								<p>© Copyright 2018  |  All Rights Reserved</p>
+								<p>© Copyright 2024  |  All Rights Reserved</p>
 							</div>
 						</div>
 					</div>

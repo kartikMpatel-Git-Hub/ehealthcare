@@ -75,11 +75,13 @@ if($_POST)
                         $file_name = $_FILES['image']['name'];
                         $tmp_name = $_FILES['image']['tmp_name'];
                     
-                        if(move_uploaded_file($tmp_name,"img/".$file_name))
+                        if(move_uploaded_file($tmp_name,"../../img/Doctor/".$file_name))
                         {
+                            echo "file Transfer ";
                         }
                         else
                         {
+                            echo "file Not Transfer ";
                         }
                     }
                 }

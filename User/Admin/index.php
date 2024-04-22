@@ -45,7 +45,10 @@
 
     //import database
     include("../../php/connection.php");
-
+    $query= "select * from admin where admin_email = '$useremail';";
+    $result= $database->query($query);
+    $row=$result->fetch_assoc();
+    $name=$row['admin_name'];
     
     ?>
     <div class="container">
@@ -59,8 +62,8 @@
                                     <img src="../../img/Other/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
-                                    <p class="profile-subtitle"><?php echo $useremail; ?></p>
+                                    <a href="profile.php" style="text-decoration:none;"><p class="profile-title"><?php echo $name; ?></p>
+                                    <p class="profile-subtitle"><?php echo $useremail; ?></p></a>
                                 </td>
                             </tr>
                             <tr>
@@ -106,11 +109,7 @@
                         <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">Article</p></a></div>
                     </td>
                 </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-user">
-                        <a href="profile.php" class="non-style-link-menu"><div><p class="menu-text">Profile</p></a></div>
-                    </td>
-                </tr>
+                
             </table>
         </div>
         <div class="dash-body" style="margin-top: 15px">
@@ -192,7 +191,7 @@
                                                     Doctors &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                                 </div>
                                         </div>
-                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/doctors-hover.svg');"></div>
+                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../../img/icons/doctors-hover.svg');"></div>
                                     </div>
                                     </a>
                                 </td>
@@ -237,7 +236,7 @@
                                                     Today Sessions
                                                 </div>
                                         </div>
-                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../img/icons/session-iceblue.svg');"></div>
+                                                <div class="btn-icon-back dashboard-icons" style="background-image: url('../../img/icons/session-iceblue.svg');"></div>
                                     </div>
                                     </a>
                                 </td>

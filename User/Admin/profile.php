@@ -97,8 +97,8 @@ if(isset($_POST['update']))
                                     <img src="../../img/Other/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
-                                    <p class="profile-subtitle"><?php echo $useremail; ?></p>
+                                    <a href="profile.php" style="text-decoration:none;"><p class="profile-title"><?php echo $name; ?></p>
+                                    <p class="profile-subtitle"><?php echo $useremail; ?></p></a>
                                 </td>
                             </tr>
                             <tr>
@@ -142,11 +142,6 @@ if(isset($_POST['update']))
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-dashbord">
                         <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">Article</p></a></div>
-                    </td>
-                </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-user menu-active menu-icon-active">
-                        <a href="profile.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Profile</p></a></div>
                     </td>
                 </tr>
             </table>

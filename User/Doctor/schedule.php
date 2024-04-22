@@ -146,7 +146,7 @@
                     <td colspan="4" >
                         <div style="display: flex;margin-top: 40px;">
                         <div class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49);margin-top: 5px;">Schedule a Session</div>
-                        <a href="?action=add-session&id=none&error=0" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../img/icons/add.svg');">Add a Session</font></button>
+                        <a href="?action=add-session&id=none&error=0" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="margin-left:25px;background-image: url('../../img/icons/add.svg');">Add a Session</font></button>
                         </a>
                         </div>
                     </td>
@@ -158,72 +158,15 @@
                     </td>
                     
                 </tr>
-                <tr>
-                    <td colspan="4" style="padding-top:0px;width: 100%;" >
-                        <center>
-                        <table class="filter-container" border="0" >
-                        <tr>
-                           <td width="10%">
-
-                           </td> 
-                        <td width="5%" style="text-align: center;">
-                        Date:
-                        </td>
-                        <td width="30%">
-                        <form action="" method="post">
-                            
-                            <input type="date" name="sheduledate" id="date" class="input-text filter-container-items" style="margin: 0;width: 95%;">
-
-                        </td>
-                        
-                    <td width="12%">
-                        <input type="submit"  name="filter" value=" Filter" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%">
-                        </form>
-                    </td>
-
-                    </tr>
-                            </table>
-
-                        </center>
-                    </td>
-                    
-                </tr>
-                
                 <?php
-                    if($_POST){
-                        //print_r($_POST);
-                        $sqlpt1="";
-                        if(!empty($_POST["sheduledate"])){
-                            $sheduledate=$_POST["sheduledate"];
-                            $sqlpt1=" schedule.sche_date='$sheduledate' ";
-                        }
+                
+                    $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and sche_id in (select sche_id from schedule where doc_id = '$doc_id') and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
+                    $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and sche_id in (select sche_id from schedule where doc_id = '$doc_id') and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end > '$time')"; 
 
-                        //echo $sqlpt2;
-                        //echo $sqlpt1;
-                        $sqlmain= "select schedule.sche_id,schedule.sche_title,doctor.doc_name,schedule.sche_date,schedule.sche_start,schedule.sche_noappo from schedule inner join doctor on schedule.doc_id=doctor.doc_id ";
-                        $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_id  not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and schedule.sche_id not in (select schedule.sche_id from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and schedule.sche_end < '$time')  order by schedule.sche_date desc)";          
-                        $sqllist=array($sqlpt1);
-                        $sqlkeywords=array(" where "," and ");
-                        $key2=0;
-                        foreach($sqllist as $key){
-
-                            if(!empty($key)){
-                                $sqlmain.=$sqlkeywords[$key2].$key;
-                                $key2++;
-                            };
-                        };
-                        //echo $sqlmain;
-
-                        
-                        
-                        //
-                    }else{
-                        $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date >= '$today' and sche_id in (select sche_id from schedule where doc_id = '$doc_id') and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end < '$time')";
-                        $sqlmain1= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_date <= '$today' and sche_id in (select sche_id from schedule where doc_id = '$doc_id') and sche_id not in (select sche_id from schedule where sche_date = '$today' and sche_end > '$time')"; 
-                    }
-                    
-
-
+                    $result= $database->query($sqlmain);
+                    $result1= $database->query($sqlmain1);
+                    if($result->num_rows)
+                    {
                 ?>
                   
                 <tr>
@@ -271,27 +214,6 @@
                         <tbody>
                         
                             <?php
-                                
-                                $result= $database->query($sqlmain);
-
-                                if($result->num_rows==0){
-                                    echo '<tr>
-                                    <td colspan="4">
-                                    <br><br><br><br>
-                                    <center>
-                                    <img src="../../img/icons/notfound.svg" width="25%">
-                                    
-                                    <br>
-                                    <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                    <a class="non-style-link" href="schedule.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Sessions &nbsp;</font></button>
-                                    </a>
-                                    </center>
-                                    <br><br><br><br>
-                                    </td>
-                                    </tr>';
-                                    
-                                }
-                                else{
                                 for ( $x=0; $x<$result->num_rows;$x++){
                                     $row=$result->fetch_assoc();
                                     $scheduleid=$row["sche_id"];
@@ -324,9 +246,10 @@
                                         </td>
                                     </tr>';
                                     
-                                }    
+                                } 
                             }    
-
+                            else if($result1->num_rows)
+                            {
                             ?>
                         <table width="93%" class="sub-table scrolldown" border="0" style="margin-top:50px;">
                         <thead>
@@ -370,26 +293,6 @@
                         <!-- Complite Session -->
                             <?php
                                                                                             
-                                $result1= $database->query($sqlmain1);
-
-                                if($result1->num_rows==0){
-                                    echo '
-                                    <tr>
-                                        <td colspan="4">
-                                            <br><br><br><br>
-                                                <center>
-                                                    <img src="../../img/icons/notfound.svg" width="25%">
-                                                    <br>
-                                                    <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                                    <a class="non-style-link" href="schedule.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Sessions &nbsp;</font></button>
-                                                    </a>
-                                                </center>
-                                            <br><br><br><br>
-                                        </td>
-                                    </tr>';
-                                    
-                                }
-                                else{
                                     for ( $x=0; $x<$result1->num_rows;$x++)
                                     {
                                         $row=$result1->fetch_assoc();
@@ -411,13 +314,31 @@
                                             <td style="text-align:center;">
                                                 <div style="display:flex;justify-content: center;">
                                                     <a href="?action=view&id='.$scheduleid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>&nbsp;&nbsp;&nbsp;
+                                                    <a href="?action=feedback&id='.$scheduleid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Feedback</font></button></a>&nbsp;&nbsp;&nbsp;
                                                     <a href="?action=drop&id='.$scheduleid.'&name='.$title.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-delete"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Remove</font></button></a>
                                                 </div>
                                             </td>
                                         </tr>';
                                         
                                     }    
-                                }    
+                                } 
+                                else
+                                {
+                                    echo '
+                                    <tr>
+                                        <td colspan="7">
+                                        <br><br><br><br>
+                                        <center>
+                                        <img src="../../img/icons/notfound.svg" width="25%">
+                                        <br>
+                                        <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+                                        <a class="non-style-link" href="schedule.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Schedule &nbsp;</font></button>
+                                        </a>
+                                        </center>
+                                        <br><br><br><br>
+                                        </td>
+                                    </tr> ';
+                                }   
 
                             ?>
                             </tbody>
@@ -589,7 +510,9 @@
             </div>
             </div>
             '; 
-        }elseif($action=='view'){
+        }
+        elseif($action=='view')
+        {
             $sqlmain= "select * from schedule inner join doctor on schedule.doc_id=doctor.doc_id where schedule.sche_id=$id";
             $result= $database->query($sqlmain);
             $row=$result->fetch_assoc();
@@ -678,7 +601,7 @@
                                  <thead>
                                  <tr>   
                                         <th class="table-headin">
-                                             Patient ID
+                                             
                                          </th>
                                          <th class="table-headin">
                                              Patient name
@@ -691,7 +614,7 @@
                                         
                                          
                                          <th class="table-headin">
-                                             Patient Telephone
+                                             Patient Appointment Date
                                          </th>
                                          
                                  </thead>
@@ -722,14 +645,14 @@
                                          else{
                                          for ( $x=0; $x<$result->num_rows;$x++){
                                              $row=$result->fetch_assoc();
-                                             $apponum=$row["sche_noappo"];
-                                             $pid=$row["patient_id"];
+                                             $apponum=$row["appo_no"];
+                                             $pimg=$row["patient_img"];
                                              $pname=$row["patient_name"];
-                                             $ptel=$row["patient_phoneno"];
+                                             $adate=$row["appo_date"];
                                              
                                              echo '<tr style="text-align:center;">
                                                 <td>
-                                                '.substr($pid,0,15).'
+                                                    <img src="../../img/Patient/'.$pimg.'" width="50px" style="border-radius:50%;">
                                                 </td>
                                                  <td style="font-weight:600;padding:25px">'.
                                                  
@@ -740,7 +663,7 @@
                                                  
                                                  </td>
                                                  <td>
-                                                 '.substr($ptel,0,25).'
+                                                 '.substr($adate,0,25).'
                                                  </td>
                                                  
                                                  
@@ -768,8 +691,143 @@
             </div>
             </div>
             ';  
+        }
+        elseif($action=='feedback')
+        {
+            $sqlmain12= "select * from appointment inner join patient on patient.patient_id = appointment.patient_id inner join schedule on schedule.sche_id=appointment.sche_id where schedule.sche_id=$id;";
+            $result12= $database->query($sqlmain12);
+            echo '
+            <div id="popup1" class="overlay">
+                <div class="popup" style="width: 70%;">
+                    <center>
+                        <h2></h2>
+                        <a class="close" href="schedule.php">&times;</a>
+                        <div class="content">
+                            
+                            
+                        </div>
+                        <div class="abc scroll" style="display: flex;justify-content: center;">
+                        <table width="80%" class="sub-table scrolldown add-doc-form-container" border="0">
+                        
+                            <tr>
+                                <td>
+                                    <p style="padding: 0;margin: 0;text-align: left;font-size: 25px;font-weight: 500;">View Feedbacks.</p><br><br>
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                    <label for="spec" class="form-label"><b>Patients that Give Feedback On This Session</b> ('.$result12->num_rows."/".$nop.')</label>
+                                    <br><br>
+                                </td>
+                            </tr>
+
+                            
+                            <tr>
+                            <td colspan="4">
+                                <center>
+                                 <div class="abc scroll">
+                                 <table width="100%" class="sub-table scrolldown" border="0">
+                                 <thead>
+                                 <tr>   
+                                        <th class="table-headin">
+
+                                         </th>
+                                         <th class="table-headin">
+                                             Patient name
+                                         </th>
+                                         <th class="table-headin">
+                                             
+                                             Feedback
+                                             
+                                         </th>
+                                        
+                                         
+                                         <th class="table-headin">
+                                             Rating
+                                         </th>
+                                         
+                                 </thead>
+                                 <tbody>';
+                                         
+
+                                        $query = "select * from feedback where sche_id = $id";
+                                        $result= $database->query($query);
+                
+                                         if($result->num_rows==0){
+                                             echo '<tr>
+                                             <td colspan="7">
+                                             <br><br><br><br>
+                                             <center>
+                                             <img src="../../img/icons/notfound.svg" width="25%">
+                                             
+                                             <br>
+                                             <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+                                             <a class="non-style-link" href="appointment.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Appointments &nbsp;</font></button>
+                                             </a>
+                                             </center>
+                                             <br><br><br><br>
+                                             </td>
+                                             </tr>';
+                                             
+                                         }
+                                         else
+                                         {
+                                         for ( $x=0; $x<$result->num_rows;$x++){
+                                             $row=$result->fetch_assoc();
+                                             $feedback=$row["feedback_description"];
+                                             $rating=$row["rating"];
+                                             $pid=$row["patient_id"];
+
+                                             $queryp = "select * from patient where patient_id = $pid";
+                                             $result= $database->query($queryp);
+                                             $row=$result->fetch_assoc();
+                                             $pname=$row["patient_name"];
+                                             $pimg=$row["patient_img"];
+
+                                             echo '<tr style="text-align:center;">
+                                                <td>
+                                                    <img src="../../img/Patient/'.$pimg.'" width="50px" style="border-radius:50%;">
+                                                </td>
+                                                 <td style="font-weight:600;padding:25px">'.
+                                                 
+                                                 substr($pname,0,25)
+                                                 .'</td >
+                                                 <td style="text-align:center;font-size:23px;font-weight:500; color: var(--btnnicetext);">
+                                                 '.$feedback.'
+                                                 
+                                                 </td>
+                                                 <td>
+                                                 '.substr($rating,0,25).'
+                                                 </td>
+                                                 
+                                                 
+                
+                                                 
+                                             </tr>';
+                                             
+                                         }
+                                     }
+                                          
+                                     
+                
+                                    echo '</tbody>
+                
+                                 </table>
+                                 </div>
+                                 </center>
+                            </td> 
+                         </tr>
+
+                        </table>
+                        </div>
+                    </center>
+                    <br><br>
+            </div>
+            </div>
+            ';  
+        }
     }
-}
         
     ?>
     </div>

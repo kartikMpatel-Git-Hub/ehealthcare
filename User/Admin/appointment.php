@@ -33,7 +33,10 @@
     }
    
     include("../../php/connection.php");
-
+    $query= "select * from admin where admin_email = '$useremail';";
+    $result= $database->query($query);
+    $row=$result->fetch_assoc();
+    $name=$row['admin_name'];
     
     ?>
     <div class="container">
@@ -47,8 +50,8 @@
                                     <img src="../../img/Other/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Administrator</p>
-                                    <p class="profile-subtitle"><?php echo $useremail; ?></p>
+                                    <a href="profile.php" style="text-decoration:none;"><p class="profile-title"><?php echo $name; ?></p>
+                                    <p class="profile-subtitle"><?php echo $useremail; ?></p></a>
                                 </td>
                             </tr>
                             <tr>
@@ -95,11 +98,7 @@
                         <a href="article.php" class="non-style-link-menu"><div><p class="menu-text">Article</p></a></div>
                     </td>
                 </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-user">
-                        <a href="profile.php" class="non-style-link-menu"><div><p class="menu-text">Profile</p></a></div>
-                    </td>
-                </tr>
+                
 
             </table>
         </div>
@@ -249,10 +248,20 @@
                    <td colspan="4">
                        <center>
                         <div class="abc scroll">
+                        <?php
+                             $result= $database->query($sqlmain);
+                             $result1= $database->query($sqlmain1);
+
+                            if($result->num_rows)
+                            {
+                        ?>
                         <table width="93%" class="sub-table scrolldown" border="0">
                             <thead>
                                 <tr>
                                     <th class="table-headin">
+                                        
+                                    </th>
+                                    <th class="table-headin">
                                         Patient name
                                     </th>
                                     <th class="table-headin">
@@ -277,27 +286,6 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $result= $database->query($sqlmain);
-
-                                    if($result->num_rows==0){
-                                        echo '<tr>
-                                        <td colspan="7">
-                                        <br><br><br><br>
-                                        <center>
-                                        <img src="../../img/icons/notfound.svg" width="25%">
-
-                                        <br>
-                                        <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                        <a class="non-style-link" href="appointment.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Appointments &nbsp;</font></button>
-                                        </a>
-                                        </center>
-                                        <br><br><br><br>
-                                        </td>
-                                        </tr>';
-
-                                    }
-                                    else
-                                    {
                                         for ( $x=0; $x<$result->num_rows;$x++){
                                             $row=$result->fetch_assoc();
                                             $appoid=$row["appo_id"];
@@ -307,11 +295,13 @@
                                             $scheduledate=$row["sche_date"];
                                             $scheduletime=$row["sche_start"];
                                             $pname=$row["patient_name"];
+                                            $pimg=$row["patient_img"];
                                             $apponum=$row["appo_no"];
                                             $appodate=$row["appo_date"];
                                             echo '
                                             <tr>
-                                                <td style="font-weight:600;"> &nbsp;'.substr($pname,0,25).'</td >
+                                                <td style="font-weight:600;"> &nbsp;<img src="../../img/Patient/'.$pimg.'" width="50px" style="border-radius:50%;"></td >
+                                                <td style="font-weight:600;text-align:center;"> &nbsp;'.substr($pname,0,25).'</td >
                                                 <td style="text-align:center;font-size:23px;font-weight:500; color: var(--btnnicetext);">'.$apponum.'</td>
                                                 <td>'.substr($docname,0,25).'</td>
                                                 <td>'.substr($title,0,15).'</td>
@@ -324,16 +314,22 @@
                                                 </td>
                                             </tr>';
                                         }
-                                    }
+                                    
                                 ?>
                             </tbody>
                         </table>
-
+                        <?php
+                            }
+                            elseif($result1->num_rows)
+                            {
+                        ?>
                         <div style="font-size :30px; font-weight:bold; margin:20px 0 20px 0 ;">Complite Appointment</div>
-                        <table width="93%" class="sub-table scrolldown" border="0" height="50%">
+                        <table width="93%" class="sub-table scrolldown" border="0" height="auto">
                             <thead>
                                 <tr>
                                     <th class="table-headin">
+                                    </th>
+                                    <th class="table-headin">
                                         Patient name
                                     </th>
                                     <th class="table-headin">
@@ -358,29 +354,9 @@
                             </thead>
                             <tbody>
                                 <?php
-                                    $result= $database->query($sqlmain1);
-
-                                    if($result->num_rows==0){
-                                        echo '<tr>
-                                        <td colspan="7">
-                                        <br><br><br><br>
-                                        <center>
-                                        <img src="../../img/icons/notfound.svg" width="25%">
-
-                                        <br>
-                                        <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                        <a class="non-style-link" href="appointment.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Appointments &nbsp;</font></button>
-                                        </a>
-                                        </center>
-                                        <br><br><br><br>
-                                        </td>
-                                        </tr>';
-
-                                    }
-                                    else
-                                    {
-                                        for ( $x=0; $x<$result->num_rows;$x++){
-                                            $row=$result->fetch_assoc();
+                                    
+                                        for ( $x=0; $x<$result1->num_rows;$x++){
+                                            $row=$result1->fetch_assoc();
                                             $appoid=$row["appo_id"];
                                             $scheduleid=$row["sche_id"];
                                             $title=$row["sche_title"];
@@ -388,10 +364,12 @@
                                             $scheduledate=$row["sche_date"];
                                             $scheduletime=$row["sche_start"];
                                             $pname=$row["patient_name"];
+                                            $pimg=$row["patient_img"];
                                             $apponum=$row["appo_no"];
                                             $appodate=$row["appo_date"];
                                             echo '
                                             <tr>
+                                                <td style="font-weight:600;"> &nbsp;<img src="../../img/Patient/'.$pimg.'" width="50px" style="border-radius:50%;"></td >
                                                 <td style="font-weight:600;"> &nbsp;'.substr($pname,0,25).'</td >
                                                 <td style="text-align:center;font-size:23px;font-weight:500; color: var(--btnnicetext);">'.$apponum.'</td>
                                                 <td>'.substr($docname,0,25).'</td>
@@ -405,10 +383,34 @@
                                                 </td>
                                             </tr>';
                                         }
-                                    }
+                                    
                                 ?>
                             </tbody>
                         </table>
+                        <?php
+                            }
+                            else
+                            {
+                        ?>
+                        <table width="93%" class="sub-table scrolldown" border="0" height="auto">
+                            <tbody>
+                                <tr>
+                                        <td colspan="7">
+                                        <br><br><br><br>
+                                        <center>
+                                        <img src="../../img/icons/notfound.svg" width="25%">
+
+                                        <br>
+                                        <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+                                        <a class="non-style-link" href="appointment.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Appointments &nbsp;</font></button>
+                                        </a>
+                                        </center>
+                                        <br><br><br><br>
+                                        </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <?php } ?>
                         </div>
                         </center>
                    </td> 

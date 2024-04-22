@@ -109,25 +109,26 @@ $today = date('Y-m-d');
 					<div class="col-lg-12 col-md-6 col-12" style="margin-top:30px;">
 						<div class="single-news">
 							<div class="row">
-								<img src="../../img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-3 col-md-12" style="border-radius:50%;">
+								<img src="../../img/Doctor/<?php echo $img; ?>" alt="#" class="squre col-lg-4 col-md-12" style="border-radius:50%;">
 								<!-- padding:20px 30px; margin:30px 0 0 10px;  -->
-                                <a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-6 col-md-12" style="padding:30px;">
-                                    <div>
-                                            <div class="detail" style="color:#199fd9;"><b>D</b><?php echo 'r . '.$name; ?></div>
-                                            <div class="detail" style="font-weight:bold;"><?php echo $spcil_name; ?></div>
-                                            <p   class="detail" style="font-weight:bold; color:#199fd9;"><?php echo $title; ?></p>
-                                            <p   class="detail" style=" word-wrap: break-word;"><?php echo $address; ?></p>
-                                            <p   class="detail" ><?php echo $date; ?></p>
-                                            <p   class="detail" ><?php echo $start.' To '.$end; ?> </p>
-                                            <p   class="detail" >₹<?php echo $charge;?> Consultation fee at clinic</p>
-											<input type="hidden" class="form-control" name="payAmount" id="payAmount" value="<?php echo $charge;?>"disabled>
-											<input type="hidden" class="form-control" name="id" id="id" value="<?php echo $scheid;?>"disabled>
+								<div class="row">
+                                	<a href="doctordetail.php?action=view&id=<?php echo $docid;?>" class="col-lg-6 col-md-12" style="padding:30px;">
+                                	    <div>
+                                	            <div class="detail" style="color:#199fd9;"><b>D</b><?php echo 'r . '.$name; ?></div>
+                                	            <div class="detail" style="font-weight:bold;"><?php echo $spcil_name; ?></div>
+                                	            <p   class="detail" style="font-weight:bold; color:#199fd9;"><?php echo $title; ?></p>
+                                	            <p   class="detail" style=" word-wrap: break-word;"><?php echo $address; ?></p>
+                                	            <p   class="detail" ><?php echo $date; ?></p>
+                                	            <p   class="detail" ><?php echo $start.' To '.$end; ?> </p>
+                                	            <p   class="detail" >₹<?php echo $charge;?> Consultation fee at clinic</p>
+												<input type="hidden" class="form-control" name="payAmount" id="payAmount" value="<?php echo $charge;?>"disabled>
+												<input type="hidden" class="form-control" name="id" id="id" value="<?php echo $scheid;?>"disabled>
 
-                                    </div>
-                                </a>
-                                
-								<button  id="PayNow" class="col-4 book" style="margin-bottom:30px;">Charge ₹<?php echo $charge;?></button>
-													
+                                	    </div>
+                                	</a>
+								
+									<button  id="PayNow" class="col-10 btn" style="margin-bottom:30px;">Charge ₹<?php echo $charge;?></button>
+								</div>			
 							</div>
 						</div>
 					</div>

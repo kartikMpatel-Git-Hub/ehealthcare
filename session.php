@@ -98,10 +98,20 @@ $today = date('Y-m-d');
 								$spcil_name=$spcil_array["spec_type"];
 
 
-								$query="select * from appointment where sche_id = '$scheid'";
+								$query = "select * from appointment where sche_id = '$scheid' and appo_status != 0";
 								$empty=$database->query($query);	
-								$totapo=$empty->num_rows;
-								$space = $booking - $totapo;
+								if($empty->num_rows)
+								{
+									$query=$database->query("select * from appointment where sche_id = '$scheid' and appo_status != 0");
+									$row= $query->fetch_assoc();
+									$apono=$row["appo_no"];
+
+								}
+								else
+								{
+									$apono = $empty->num_rows;
+								}
+								$space = $booking - $apono;
 
 					?>
 					<div class="col-lg-12 col-md-12 col-12" style="margin-top:30px;">
@@ -128,7 +138,8 @@ $today = date('Y-m-d');
 											{
 													echo 
 													'
-														<p class="col-2 book" style="margin-bottom:30px;"><a href="login.php" >Book</a></p>
+														<div class="col-4"></div>
+														<a href="login.php" class="col-4 btn" style="margin-bottom:30px; color:white;">Book</a>
 													';
 													//style="color:white; padding:20px 30px;"
 											}
@@ -136,7 +147,8 @@ $today = date('Y-m-d');
 											{
 													echo 
 													'
-													<p class="col-2 bookg" style="margin-bottom:30px;"><a href="login.php">Free</a></p>
+													<div class="col-4"></div>
+													<a href="login.php" class="col-4 btn" style="margin-bottom:30px; color:white; background-color:green;">Free</a>
 													';
 											}   
 										}
@@ -144,7 +156,8 @@ $today = date('Y-m-d');
 										{
 											echo 
 											'
-												<p class="col-2 bookr" style="margin-bottom:30px;"><a>Session Full</a></p>
+												<div class="col-4"></div>
+												<a class="col-4 btn" style="margin-bottom:30px; color:white;  background-color:#e13e3e;">Session Full</a>
 											';
 										}
                                 ?>
@@ -156,7 +169,9 @@ $today = date('Y-m-d');
 						}
 						else
 						{
-							echo '<div style="font-size:50px; margin-left:300px;">Session Session Not Available !</div>';
+							echo '
+							<div class="col-lg-4 col-1"></div>
+							<div style="font-size:50px; text-align:center; padding:auto;">Session Not Available !</div>';
 						} 
 					?>
 				</div>

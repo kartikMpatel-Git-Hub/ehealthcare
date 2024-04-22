@@ -25,6 +25,7 @@
         $row=$result->fetch_assoc();
         $password = $row['doc_password'];
         $oldpassword = $_POST['old'];
+        $oldpassword = md5($oldpassword);
         $newpassword = $_POST['new'];
         $renewpassword = $_POST['renew'];
         if($oldpassword == "" || $password == "" || $newpassword == "" || $renewpassword =="")

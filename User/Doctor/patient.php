@@ -151,8 +151,9 @@
                         <table width="100%" class="sub-table scrolldown"  style="border-spacing:0;">
                         <thead>
                         <tr>
+                                
                                 <th class="table-headin">
-                                    Id
+                                    
                                 </th>
                                 <th class="table-headin">
                                     Name
@@ -185,10 +186,10 @@
 
                                 if($result->num_rows==0){
                                     echo '<tr>
-                                    <td colspan="4">
+                                    <td colspan="8">
                                     <br><br><br><br>
                                     <center>
-                                    <img src="../../img/icons/notfound.svg" width="25%">
+                                    <img src="../../img/icons/notfound.svg" width="30%">
                                     
                                     <br>
                                     <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
@@ -204,6 +205,7 @@
                                 for ( $x=0; $x<$result->num_rows;$x++){
                                     $row=$result->fetch_assoc();
                                     $pid=$row["patient_id"];
+                                    $pimg=$row["patient_img"];
                                     $name=$row["patient_name"];
                                     $email=$row["patient_email"];
                                     $address=$row["patient_address"];
@@ -213,7 +215,7 @@
                                     
                                     echo '
                                     <tr>
-                                        <td style="padding-left:20px;">'.$pid.'</td>
+                                        <td style="padding-left:20px;"><img src="../../img/Patient/'.$pimg.'" width="50px" style="border-radius:50%;"></td>
                                         <td style="padding-left:40px;">'.$name.'</td>
                                         <td style="padding-left:40px;">'.$email.'</td>
                                         <td style="padding-left:40px;">'.$gender.'</td>
@@ -254,6 +256,7 @@
             $result= $database->query($sqlmain);
             $row=$result->fetch_assoc();
             $name=$row["patient_name"];
+            $pimg=$row["patient_img"];
             $email=$row["patient_email"];
             $gender=$row["patient_gender"];
             $address=$row["patient_address"];
@@ -276,72 +279,49 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="name" class="form-label">Patient ID: </label>
+                                <td>
+                                    <center><img src="../../img/Patient/'.$pimg.'" width="50%" style="border-radius:10%;"></center>
                                 </td>
                             </tr>
                             <tr>
-                                <td class="label-td" colspan="2">'.$id.'<br><br></td>
+                                <td class="label-td" colspan="2">
+                                    <br><label for="name" class="form-label"><b>Patient ID:</b></label>'.$id.'<br><br>
+                                </td>
                             </tr>
                             
                             <tr>
                                 
                                 <td class="label-td" colspan="2">
-                                    <label for="name" class="form-label">Name: </label>
+                                    <label for="name" class="form-label"><b>Name:</b></label>'.$name.'<br><br>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">'.$name.'<br><br></td>
                                 
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    <label for="Email" class="form-label">Email: </label>
+                                    <label for="Email" class="form-label"><b>Email: </b></label>'.$email.'<br><br>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">'.$email.'<br><br></td>
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    <label for="nic" class="form-label">Gender: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">'.$gender.'<br><br></td>
+                                    <label for="nic" class="form-label"><b>Gender: </b></label>'.$gender.'<br><br></td>
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    <label for="Tele" class="form-label">Address: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">'.$address.'<br><br></td>
+                                    <label for="Tele" class="form-label"><b>Address:</b> </label>'.$address.'<br><br></td>
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    <label for="spec" class="form-label">Date Of Birth : </label>
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">'.$dob.'<br><br></td>
+                                    <label for="spec" class="form-label"><b>Date Of Birth : </b></label>'.$dob.'<br><br></td>
                             </tr>
                             <tr>
                                 
                                 <td class="label-td" colspan="2">
-                                    <label for="name" class="form-label">Phone No: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">'.$phoneno.'<br><br></td>
+                                    <label for="name" class="form-label"><b>Phone No:</b> </label>'.$phoneno.'<br><br></td>
                                 
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                    <a href="patient.php"><input type="button" value="OK" class="login-btn btn-primary-soft btn" ></a>
-                                
-                                    
+                                    <center><a href="patient.php"><input type="button" value="OK" class="login-btn btn-primary-soft btn" ></a></center>
                                 </td>
                 
                             </tr>
