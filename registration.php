@@ -11,7 +11,20 @@ $_SESSION['ERROR'] = "";
     <?php 
         require "Import/Head.php";
     ?>
-    
+    <script>        
+           function phoneno(){          
+            $('#phone').keypress(function(e) {
+                var a = [];
+                var k = e.which;
+
+                for (i = 48; i < 58; i++)
+                    a.push(i);
+
+                if (!(a.indexOf(k)>=0))
+                    e.preventDefault();
+            });
+        }
+       </script>
 </head>
 <body>
 
@@ -81,11 +94,11 @@ $_SESSION['ERROR'] = "";
                                                     </div>
                                                     <div class="form-group col-lg-5">
                                                         <p style="color:black; padding:10px; font-size:15px;">Phone No</p>
-                                                        <input type="number" name="phoneno" placeholder="Phone No" required>
+                                                        <input type="text" name="phoneno" id="phone" placeholder="Phone No" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="10" required>
                                                     </div>
                                                     <div class="form-group col-lg-5">
                                                         <p style="color:black; padding:10px; font-size:15px;">Charge</p>
-                                                        <input type="number" name="charge" placeholder="charge" required>
+                                                        <input type="text" name="charge" placeholder="charge" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="5"  required>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -125,7 +138,7 @@ $_SESSION['ERROR'] = "";
                                                     </div>
                                                     <div class="form-group col-lg-5">
                                                         <p style="color:black; padding:10px; font-size:15px;">Experience </p>
-                                                        <input type="number" name="exp" placeholder="Experience" required>
+                                                        <input type="text" name="exp" placeholder="Experience" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="2" required>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -212,7 +225,7 @@ $_SESSION['ERROR'] = "";
                                                     </div>
                                                     <div class="form-group col-lg-5">
                                                         <p style="color:black; padding:10px; font-size:15px;">Phone NO</p>
-                                                        <input type="number" name="phoneno" placeholder="Phone No" required>
+                                                        <input type="text" name="phoneno" placeholder="Phone No" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="10" required>
                                                     </div>
                                                 </div>
                                                 <div class="row">

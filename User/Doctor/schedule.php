@@ -248,7 +248,7 @@
                                     
                                 } 
                             }    
-                            else if($result1->num_rows)
+                            if($result1->num_rows)
                             {
                             ?>
                         <table width="93%" class="sub-table scrolldown" border="0" style="margin-top:50px;">
@@ -322,7 +322,7 @@
                                         
                                     }    
                                 } 
-                                else
+                                if($result->num_rows == 0 && $result1->num_rows == 0)
                                 {
                                     echo '
                                     <tr>

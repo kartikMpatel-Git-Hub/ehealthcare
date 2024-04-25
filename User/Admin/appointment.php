@@ -125,7 +125,7 @@
                         $time = date("H:i:s");
                         echo $today;
 
-                        $list110 = $database->query("select  * from  appointment;");
+                        $list110 = $database->query("select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id  where schedule.sche_date > '$today' and appointment.appo_status = 1");
 
                         ?>
                         </p>
@@ -153,95 +153,9 @@
                     </td>
                     
                 </tr>
-                <tr>
-                    <td colspan="4" style="padding-top:0px;width: 100%;" >
-                        <center>
-                        <table class="filter-container" border="0" >
-                        <tr>
-                           <td width="10%">
-
-                           </td> 
-                        <td width="5%" style="text-align: center;">
-                        Date:
-                        </td>
-                        <td width="30%">
-                        <form action="" method="post">
-                            
-                            <input type="date" name="sheduledate" id="date" class="input-text filter-container-items" style="margin: 0;width: 95%;">
-
-                        </td>
-                        <td width="5%" style="text-align: center;">
-                        Doctor:
-                        </td>
-                        <td width="30%">
-                        <select name="docid" id="" class="box filter-container-items" style="width:90% ;height: 37px;margin: 0;" >
-                            <option value="" disabled selected hidden>Choose Doctor Name from the list</option><br/>
-                                
-                            <?php 
-                             
-                                $list11 = $database->query("select  * from  doctor order by doc_name asc;");
-
-                                for ($y=0;$y<$list11->num_rows;$y++){
-                                    $row00=$list11->fetch_assoc();
-                                    $sn=$row00["doc_name"];
-                                    $id00=$row00["doc_id"];
-                                    echo "<option value=".$id00.">$sn</option><br/>";
-                                };
-
-
-                                ?>
-
-                        </select>
-                    </td>
-                    <td width="12%">
-                        <input type="submit"  name="filter" value=" Filter" class=" btn-primary-soft btn button-icon btn-filter"  style="padding: 15px; margin :0;width:100%">
-                        </form>
-                    </td>
-
-                    </tr>
-                            </table>
-
-                        </center>
-                    </td>
-                    
-                </tr>
-                
                 <?php
-                    if($_POST){
-                        //print_r($_POST);
-                        $sqlpt1="";
-                        if(!empty($_POST["sheduledate"])){
-                            $sheduledate=$_POST["sheduledate"];
-                            $sqlpt1=" schedule.scheduledate='$sheduledate' ";
-                        }
-
-
-                        $sqlpt2="";
-                        if(!empty($_POST["docid"])){
-                            $docid=$_POST["docid"];
-                            $sqlpt2=" doctor.doc_id=$docid ";
-                        }
-                        //echo $sqlpt2;
-                        //echo $sqlpt1;
-                        $sqlmain= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id";
-                        $sqllist=array($sqlpt1,$sqlpt2);
-                        $sqlkeywords=array(" where "," and ");
-                        $key2=0;
-                        foreach($sqllist as $key){
-
-                            if(!empty($key)){
-                                $sqlmain.=$sqlkeywords[$key2].$key;
-                                $key2++;
-                            };
-                        };
-                    }else{
-                        $sqlmain= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id  where schedule.sche_date > '$today' and appointment.appo_status = 1";
-                        $sqlmain1= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id  where schedule.sche_date <= '$today' and schedule.sche_end < '$time'";
-
-                    }
-
-
-
+                    $sqlmain= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id  where schedule.sche_date > '$today' and appointment.appo_status = 1";
+                    $sqlmain1= "select * from schedule inner join appointment on schedule.sche_id=appointment.sche_id inner join patient on patient.patient_id=appointment.patient_id inner join doctor on schedule.doc_id=doctor.doc_id  where schedule.sche_date <= '$today' and schedule.sche_end < '$time'";
                 ?>
                   
                 <tr>
@@ -320,7 +234,7 @@
                         </table>
                         <?php
                             }
-                            elseif($result1->num_rows)
+                            if($result1->num_rows)
                             {
                         ?>
                         <div style="font-size :30px; font-weight:bold; margin:20px 0 20px 0 ;">Complite Appointment</div>
@@ -370,7 +284,7 @@
                                             echo '
                                             <tr>
                                                 <td style="font-weight:600;"> &nbsp;<img src="../../img/Patient/'.$pimg.'" width="50px" style="border-radius:50%;"></td >
-                                                <td style="font-weight:600;"> &nbsp;'.substr($pname,0,25).'</td >
+                                                <td style="font-weight:600;text-align:center;"> &nbsp;'.substr($pname,0,25).'</td >
                                                 <td style="text-align:center;font-size:23px;font-weight:500; color: var(--btnnicetext);">'.$apponum.'</td>
                                                 <td>'.substr($docname,0,25).'</td>
                                                 <td>'.substr($title,0,15).'</td>
@@ -389,7 +303,7 @@
                         </table>
                         <?php
                             }
-                            else
+                            if($result->num_rows == 0 && $result1->num_rows == 0)
                             {
                         ?>
                         <table width="93%" class="sub-table scrolldown" border="0" height="auto">

@@ -221,7 +221,7 @@
                         </table>
                         <?php
                             }
-                            else if($result1->num_rows > 0)
+                            if($result1->num_rows > 0)
                             {
                         ?>
                         <div style="font-size :30px; font-weight:bold; margin:20px 0 20px 0 ;">Complite Appointment</div>
@@ -280,7 +280,7 @@
                                             </tr>';
                                         }
                                     }
-                                    else
+                                    if($result->num_rows == 0 && $result1->num_rows == 0)
                                     { ?>
 
                         <table width="93%" class="sub-table scrolldown" border="0" height="auto">

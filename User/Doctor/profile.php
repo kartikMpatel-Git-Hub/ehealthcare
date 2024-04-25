@@ -21,6 +21,9 @@ $address=$row['doc_address'];
 $gender=$row['doc_gender'];
 $spec=$row['spec_id'];
 $charge=$row['doc_charge'];
+$dob=$row['doc_dob'];
+$exp=$row['doc_experience'];
+$about=$row['doc_about'];
 $img=$row['doc_img'];
 
 
@@ -210,7 +213,25 @@ $img=$row['doc_img'];
                     <tr>
                         <td>Charge </td>
                         <td>
-                            <input type="text" name="charge" class="input-text" value="<?php  echo $charge ;?>" placeholder="Your Charge" style="margin-top:10px;">&nbsp;&nbsp;
+                            <input type="text" name="charge" class="input-text" value="<?php  echo $charge ;?>" placeholder="Your Charge" style="margin-top:10px;" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="5" >&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>DOB </td>
+                        <td>
+                            <input type="date" name="dob" class="input-text" value="<?php  echo $dob ;?>" placeholder="Your Charge" style="margin-top:10px;">&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Experience </td>
+                        <td>
+                            <input type="text" name="exp" class="input-text" value="<?php  echo $exp ;?>" placeholder="Your Charge" style="margin-top:10px;" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="2" >&nbsp;&nbsp;
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>About  </td>
+                        <td>
+                            <input type="text" name="about" class="input-text" value="<?php  echo $about;?>" placeholder="Your Charge" style="margin-top:10px;">&nbsp;&nbsp;
                         </td>
                     </tr>
                     <tr>

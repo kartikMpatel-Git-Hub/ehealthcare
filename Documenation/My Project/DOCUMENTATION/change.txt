@@ -1,3 +1,0 @@
-Admin -> Schedule Remove Search 
-admin -> Feedback On Admin 
-admin -> comment On Article

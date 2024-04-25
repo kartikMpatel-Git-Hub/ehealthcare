@@ -458,7 +458,7 @@
         elseif($action=='comment')
         {
 
-            $sqlmain12= "select * from article where article_id = $id";
+            $sqlmain12= "select * from comment where article_id = $id";
             $result12= $database->query($sqlmain12);
             echo '
             <div id="popup1" class="overlay">
@@ -515,10 +515,9 @@
                                  <tbody>';
                                          
 
-                                        $query = "select * from comment where article_id = $id";
-                                        $result= $database->query($query);
-                
-                                         if($result->num_rows==0){
+                                        $querya = "select * from comment where article_id = $id";
+                                        $resulta= $database->query($querya);
+                                         if($resulta->num_rows==0){
                                              echo '<tr>
                                              <td colspan="7">
                                              <br><br><br><br>
@@ -537,8 +536,9 @@
                                          }
                                          else
                                          {
-                                         for ( $x=0; $x<$result->num_rows;$x++){
-                                             $row=$result->fetch_assoc();
+                                         for ( $x=0; $x<$resulta->num_rows;$x++)
+                                         {
+                                             $row=$resulta->fetch_assoc();
                                              $cmt=$row["cmt_detail"];
                                              $pid=$row["patient_id"];
                                              $cdate=$row["cmt_date"];

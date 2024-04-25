@@ -107,11 +107,6 @@ $name=$row['admin_name'];
                         <a href="doctors.php" ><button  class="login-btn btn-primary-soft btn btn-icon-back"  style="padding-top:11px;padding-bottom:11px;margin-left:20px;width:125px"><font class="tn-in-text">Back</font></button></a>
                     </td>
                     <td>
-                        
-                        <form action="" method="post" class="header-search">
-
-                            <input type="search" name="search" class="input-text header-searchbar" placeholder="Search Doctor name or Email" list="doctors">&nbsp;&nbsp;
-                            
                             <?php
                                 echo '<datalist id="doctors">';
                                 $list11 = $database->query("select  doc_name,doc_email from  doctor;");
@@ -125,13 +120,7 @@ $name=$row['admin_name'];
                                 };
 
                             echo ' </datalist>';
-?>
-                            
-                       
-                            <input type="Submit" value="Search" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
-                        
-                        </form>
-                        
+                            ?>
                     </td>
                     <td width="15%">
                         <p style="font-size: 14px;color: rgb(119, 119, 119);padding: 0;margin: 0;text-align: right;">
@@ -158,7 +147,7 @@ $name=$row['admin_name'];
                         <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">Add New Doctor</p>
                     </td>
                     <td colspan="2">
-                        <a href="?action=add&id=none&error=0" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="display: flex;justify-content: center;align-items: center;margin-left:75px;background-image: url('../img/icons/add.svg');">Add New</font></button>
+                        <a href="?action=add&id=none&error=0" class="non-style-link"><button  class="login-btn btn-primary btn button-icon"  style="display: flex;justify-content: center;align-items: center;margin-left:75px;background-image: url('../../img/icons/add.svg');">Add New</font></button>
                             </a></td>
                 </tr>
 
@@ -315,6 +304,9 @@ $name=$row['admin_name'];
             $pno=$row['doc_phoneno'];
             $charge=$row['doc_charge'];
             $img=$row['doc_img'];
+            $dob=$row['doc_dob'];
+            $exp=$row['doc_experience'];
+            $about=$row['doc_about'];
             
             $spcil_res= $database->query("select spec_type from specialist where spec_id='$spe'");
             $spcil_array= $spcil_res->fetch_assoc();
@@ -373,7 +365,22 @@ $name=$row['admin_name'];
                                     <td class="label-td" colspan="2">
                                         <label for="spec" class="form-label"><b> Charge : </b></label>'.$charge.'<br><br>
                                     </td>
-                                </tr>    
+                                </tr>   
+                                <tr>
+                            <td class="label-td" colspan="2">
+                                <label for="spec" class="form-label"><b>Date Of Birth : </b></label>'.$dob.'<br><br>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td class="label-td" colspan="2">
+                                <label for="spec" class="form-label"><b>Experience  : </b></label>'.$exp.'<br><br>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td class="label-td" colspan="2">
+                                <label for="spec" class="form-label"><b>About Me : </b></label>'.$about.'<br><br>
+                            </td>
+                        </tr>  
                                 <tr>
                                     <td colspan="2">
                                         <center><a href="doctors.php"><input type="button" value="OK" class="login-btn btn-primary-soft btn" ></a></center>
@@ -484,7 +491,7 @@ $name=$row['admin_name'];
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
-                                    <input type="tel" name="Tele" class="input-text" placeholder="Phone Number" required><br>
+                                    <input type="text" name="phoneno" class="input-text" placeholder="Phone No" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="10" required>
                                 </td>
                             </tr>
                             <tr>
@@ -515,6 +522,36 @@ $name=$row['admin_name'];
                             </tr>
                             <tr>
                                 <td class="label-td" colspan="2">
+                                    <label for="Tele" class="form-label">DOB: </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                    <input type="date" name="dob" class="input-text" placeholder="" required><br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                    <label for="Tele" class="form-label">Experience: </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                     <input type="text" name="exp" class="input-text" placeholder="Phone No" onkeypress="return event.charCode>=48 && event.charCode<=57" maxlength="2" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                    <label for="Tele" class="form-label">About: </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
+                                     <input type="text" name="phoneno" class="input-text" placeholder="Doctor Experience" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label-td" colspan="2">
                                     <label for="password" class="form-label">Password: </label>
                                 </td>
                             </tr>
@@ -534,16 +571,6 @@ $name=$row['admin_name'];
                                 </td>
                             </tr>
 
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <label for="cpassword" class="form-label">Select Image </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                    <input type="file" name="img" class="input-text" placeholder="Conform Password" required><br>
-                                </td>
-                            </tr>
                 
                             <tr>
                                 <td colspan="2">

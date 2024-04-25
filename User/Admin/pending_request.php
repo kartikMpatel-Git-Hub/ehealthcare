@@ -131,12 +131,19 @@ $name=$row['admin_name'];
                     </td>
                 </tr> 
             </table>  
-
             <table border="0" width="100%" style="border-spacing: 0;margin:0;padding:0;" class="profile-container">
                 <tr>
                     <td colspan="4">
                         <center>
                         <div class="abc scroll">
+
+                            <?php
+                                $result= $database->query($sqlmain);
+                                $sqlmain1= "select * from pending where status != 1 ";
+                                $result1= $database->query($sqlmain1);
+                                if($result->num_rows)
+                                {
+                            ?>
                             <table width="93%" class="sub-table scrolldown" border="0">
                                 <thead>
                                     <tr>
@@ -152,57 +159,45 @@ $name=$row['admin_name'];
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $result= $database->query($sqlmain);
-                                        if($result->num_rows==0){
-                                            echo '<tr>
-                                            <td colspan="4">
-                                            <br><br><br><br>
-                                            <center>
-                                            <img src="../../img/icons/notfound.svg" width="25%">
                                         
-                                            <br>
-                                            <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                            <a class="non-style-link" href="doctors.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Doctors &nbsp;</font></button>
-                                            </a>
-                                            </center>
-                                            <br><br><br><br>
-                                            </td>
-                                            </tr>';
-                                        }
-                                        else
+                                        for ( $x=0; $x<$result->num_rows;$x++)
                                         {
-                                            for ( $x=0; $x<$result->num_rows;$x++){
-                                                $row=$result->fetch_assoc();
-                                                $docid=$row["pen_doc_id"];
-                                                $docimg=$row["doc_img"];
-                                                $name=$row["doc_name"];
-                                                $email=$row["doc_email"];
-                                                $spe=$row["spec_id"];
-                                                $spcil_res= $database->query("select spec_type from specialist  where spec_id='$spe'");
-                                                $spcil_array= $spcil_res->fetch_assoc();
-                                                $spcil_name=$spcil_array["spec_type"];
-                                                echo '
-                                                    <tr>
-                                                        <td> &nbsp;&nbsp;&nbsp;&nbsp;<img src="../../img/Doctor/'.$docimg.'" height="50px" style="border-radius:50%;"></td>
-                                                        <td> &nbsp;'.substr($name,0,30).'</td>
-                                                        <td>'.substr($email,0,20).'</td>
-                                                        <td>'.substr($spcil_name,0,20).'</td>
-                                                        <td>
-                                                            <div style="display:flex;justify-content: center;">
-                                                                <a href="?action=view&id='.$docid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
-                                                                &nbsp;&nbsp;&nbsp;
-                                                                <a href="?action=accept&id='.$docid.'&name='.$name.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-check"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Accept</font></button></a>
-                                                                &nbsp;&nbsp;&nbsp;
-                                                                <a href="?action=reject&id='.$docid.'&name='.$name.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-delete"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Reject</font></button></a>
-                                                            </div>
-                                                        </td>
-                                                    </tr>';
-                                            }
+                                            $row=$result->fetch_assoc();
+                                            $docid=$row["pen_doc_id"];
+                                            $docimg=$row["doc_img"];
+                                            $name=$row["doc_name"];
+                                            $email=$row["doc_email"];
+                                            $spe=$row["spec_id"];
+                                            $spcil_res= $database->query("select spec_type from specialist  where spec_id='$spe'");
+                                            $spcil_array= $spcil_res->fetch_assoc();
+                                            $spcil_name=$spcil_array["spec_type"];
+                                            echo '
+                                                <tr>
+                                                    <td> &nbsp;&nbsp;&nbsp;&nbsp;<img src="../../img/Doctor/'.$docimg.'" height="50px" style="border-radius:50%;"></td>
+                                                    <td> &nbsp;'.substr($name,0,30).'</td>
+                                                    <td>'.substr($email,0,20).'</td>
+                                                    <td>'.substr($spcil_name,0,20).'</td>
+                                                    <td>
+                                                        <div style="display:flex;justify-content: center;">
+                                                            <a href="?action=view&id='.$docid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
+                                                            &nbsp;&nbsp;&nbsp;
+                                                            <a href="?action=accept&id='.$docid.'&name='.$name.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-check"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Accept</font></button></a>
+                                                            &nbsp;&nbsp;&nbsp;
+                                                            <a href="?action=reject&id='.$docid.'&name='.$name.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-delete"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">Reject</font></button></a>
+                                                        </div>
+                                                    </td>
+                                                </tr>';
                                         }
+                                        
                                     ?>
                                 </tbody>
                             </table>
-
+                            <?php
+                                }
+                                if($result1->num_rows)
+                                {
+                            
+                            ?>
                             <table width="93%" class="sub-table scrolldown" border="0" style="margin-top:50px;" height="50%">
                                 <thead>
                                     <tr>
@@ -220,28 +215,9 @@ $name=$row['admin_name'];
                                 </thead>
                                 <tbody>
                                     <?php
-                                        $sqlmain= "select * from pending where status != 1 ";
-                                        $result= $database->query($sqlmain);
-                                        if($result->num_rows==0){
-                                            echo '<tr>
-                                            <td colspan="4">
-                                            <br><br><br><br>
-                                            <center>
-                                            <img src="../../img/icons/notfound.svg" width="25%">
-                                        
-                                            <br>
-                                            <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                            <a class="non-style-link" href="doctors.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Doctors &nbsp;</font></button>
-                                            </a>
-                                            </center>
-                                            <br><br><br><br>
-                                            </td>
-                                            </tr>';
-                                        }
-                                        else
-                                        {
-                                            for ( $x=0; $x<$result->num_rows;$x++){
-                                                $row=$result->fetch_assoc();
+                                            for ( $x=0; $x<$result1->num_rows;$x++)
+                                            {
+                                                $row=$result1->fetch_assoc();
                                                 $docid=$row["pen_doc_id"];
                                                 $name=$row["doc_name"];
                                                 $docimg=$row["doc_img"];
@@ -280,11 +256,36 @@ $name=$row['admin_name'];
                                                         </td>
                                                     </tr>';
                                             }
-                                        }
+                                        
                                     ?>
                                 </tbody>
                             </table>
-                            
+                            <?php
+                                }
+                                if($result->num_rows == 0 && $result1->num_rows == 0)
+                                {
+                                ?>  
+                                <table width="93%" class="sub-table scrolldown" border="0" style="margin-top:50px;" height="50%">
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4">
+                                            <br><br><br><br>
+                                            <center>
+                                            <img src="../../img/icons/notfound.svg" width="25%">
+                                        
+                                            <br>
+                                            <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
+                                            <a class="non-style-link" href="doctors.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Doctors &nbsp;</font></button>
+                                            </a>
+                                            </center>
+                                            <br><br><br><br>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <?php 
+                                }
+                            ?>
                         </div>
                         </center>
                     </td> 
@@ -350,6 +351,10 @@ $name=$row['admin_name'];
         $pno=$row['doc_phoneno'];
         $charge=$row['doc_charge'];
         $img=$row['doc_img'];
+        $address=$row['doc_address'];
+        $dob=$row['doc_dob'];
+        $exp=$row['doc_experience'];
+        $about=$row['doc_about'];
         
         $spcil_res= $database->query("select spec_type from specialist where spec_id='$spe'");
         $spcil_array= $spcil_res->fetch_assoc();
@@ -370,55 +375,52 @@ $name=$row['admin_name'];
                         
                         <tr>
                             <td class="label-td" colspan="2">
-                                <label for="name" class="form-label">Name: </label>
+                                <label for="name" class="form-label"><b>Name:</b> </label>'.$name.'<br><br>
                             </td>
-                        </tr> 
-                        <tr>
-                            <td class="label-td" colspan="2">'.$name.'<br><br></td>
                         </tr> 
                         <tr>
                             <td class="label-td" colspan="2">
-                                <label for="Email" class="form-label">Email: </label>
+                                <label for="Email" class="form-label"><b>Email: </b></label>'.$email.'<br><br>
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="label-td" colspan="2">'.$email.'<br><br></td>
                         </tr> 
 
                         <tr>
                             <td class="label-td" colspan="2">
-                                <label for="spec" class="form-label">Specialties: </label>
+                                <label for="spec" class="form-label"><b>Specialties:</b> </label>'.$spcil_name.'<br><br>
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="label-td" colspan="2">'.$spcil_name.'<br><br></td>
                         </tr>
                         
                         <tr>
                             <td class="label-td" colspan="2">
-                                <label for="spec" class="form-label">Gender: </label>
+                                <label for="spec" class="form-label"><b>Gender:</b> </label>'.$gen.'<br><br>
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="label-td" colspan="2">'.$gen.'<br><br></td>
                         </tr>
                 
                         <tr>
                             <td class="label-td" colspan="2">
-                                <label for="spec" class="form-label">Phone No: </label>
+                                <label for="spec" class="form-label"><b>Phone No:</b> </label>'.$pno.'<br><br>
                             </td>
-                        </tr>
-                        <tr>
-                            <td class="label-td" colspan="2">'.$pno.'<br><br></td>
                         </tr>
                         
                         <tr>
                             <td class="label-td" colspan="2">
-                                <label for="spec" class="form-label">Charge : </label>
+                                <label for="spec" class="form-label"><b>Charge : </b></label>'.$charge.'<br><br>
                             </td>
-                        </tr>
+                        </tr>  
                         <tr>
-                            <td class="label-td" colspan="2">'.$charge.'<br><br></td>
+                            <td class="label-td" colspan="2">
+                                <label for="spec" class="form-label"><b>Date Of Birth : </b></label>'.$dob.'<br><br>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td class="label-td" colspan="2">
+                                <label for="spec" class="form-label"><b>Experience  : </b></label>'.$exp.'<br><br>
+                            </td>
+                        </tr>  
+                        <tr>
+                            <td class="label-td" colspan="2">
+                                <label for="spec" class="form-label"><b>About Me : </b></label>'.$about.'<br><br>
+                            </td>
                         </tr>    
                         <tr>
                             <td colspan="2">

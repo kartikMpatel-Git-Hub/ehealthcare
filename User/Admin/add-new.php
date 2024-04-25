@@ -48,7 +48,9 @@
         $gen=$_POST['gender'];
         $tele=$_POST['Tele'];
         $address=$_POST['address'];
-        $img = $_POST['img'];
+        $dob=$_POST['dob'];
+        $exp=$_POST['exp'];
+        $about=$_POST['about'];
         $password=$_POST['password'];
         $cpassword=$_POST['cpassword'];
         
@@ -61,7 +63,8 @@
                 if($result->num_rows==1){
                     $error='3';
                 }else{
-                    $sql1="insert into doctor(doc_email,doc_name,doc_password,doc_address,doc_gender,doc_phoneno,spec_id,doc_charge,doc_img) values('$email','$name','$password','$address','$gen','$tele',$spec,$chr,'$img');";
+                    $password = md5($password);
+                    $sql1="insert into pending(doc_email,doc_name,doc_password,doc_address,doc_gender,doc_phoneno,spec_id,doc_charge,doc_img,doc_dob,doc_experience,doc_about,Status) values('$email','$name','$password','$address','$gen','$tele',$spec,$chr,'user.jpg','$dob',$exp,'$about',1);";
                     $sql2="insert into user (user_email,user_name,user_type) values('$email','$name','D')";
                     $database->query($sql1);
                     $database->query($sql2);
